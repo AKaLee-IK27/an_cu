@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "640994626485",
+    "project_id": "an-cu-connect",
+    "storage_bucket": "an-cu-connect.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:640994626485:android:fdc4abab59749fe082e7fc",
+        "android_client_info": {
+          "package_name": "com.example.ancuconnect"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8qrR4LqiFJOfhnTV0MEUyWxEfh0FqBb0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
