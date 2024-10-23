@@ -17,7 +17,17 @@ class MainApp extends StatelessWidget {
               children: [
                 const Icon(Icons.list),
                 const SizedBox(width: 10),
-                SvgPicture.asset('assets/images/logo.svg'),
+                SvgPicture.asset(
+                  'assets/logo/main.svg',
+                  fit: BoxFit.contain,
+                  height: 30,
+                  width: 30,
+                ),
+                const SizedBox(width: 10),
+                const Text(
+                  "An Cư Connect",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
               ],
             ),
             const Text('Đăng nhập')
