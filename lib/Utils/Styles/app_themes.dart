@@ -6,12 +6,13 @@ class AppThemes {
   static ThemeData lightTheme = ThemeData(
     fontFamily: "Roboto",
     primaryColor: AppColors.primary,
+    indicatorColor: AppColors.primary,
     brightness: Brightness.light,
     dividerColor: Colors.white54,
     textTheme: TextTheme(
-      displayLarge: AppTextStyles.bodyText,
+      displayLarge: AppTextStyles.body,
       titleLarge: AppTextStyles.title,
-      bodyMedium: AppTextStyles.bodyText,
+      bodyMedium: AppTextStyles.body,
     ),
   );
 }

@@ -17,15 +17,15 @@ class AppTextStyles {
     color: AppColors.black80,
   );
 
-  static TextStyle bodyTextBold = TextStyle(
+  static TextStyle bodyBold = TextStyle(
     fontSize: 16,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.w800,
     color: AppColors.black80,
   );
 
-  static TextStyle bodyText = TextStyle(
+  static TextStyle body = TextStyle(
     fontSize: 16,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.w600,
     color: AppColors.black80,
   );
 
