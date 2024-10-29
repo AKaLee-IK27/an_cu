@@ -13,7 +13,7 @@ class AppTextStyles {
 
   static TextStyle title = TextStyle(
     fontSize: 24,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.w800,
     color: AppColors.black80,
   );
 
@@ -25,7 +25,7 @@ class AppTextStyles {
 
   static TextStyle body = TextStyle(
     fontSize: 16,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w500,
     color: AppColors.black80,
   );
 
