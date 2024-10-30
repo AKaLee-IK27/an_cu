@@ -1,6 +1,6 @@
 name: an_cu
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
@@ -13,6 +13,9 @@ dependencies:
   firebase_auth: ^5.3.1
   firebase_database: ^11.1.4
   firebase_storage: ^12.3.3
+  flutter_riverpod: ^2.6.1
+  flutter_svg: ^2.0.10+1
+  riverpod: ^2.6.1
 
 dev_dependencies:
   flutter_test:
@@ -21,3 +24,14 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/
+    - assets/logo/
+    - assets/fonts/
+    - assets/images/
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf
+        - asset: assets/fonts/Roboto-Bold.ttf
+        - asset: assets/fonts/Roboto-Thin.ttf
