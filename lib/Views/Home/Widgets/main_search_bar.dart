@@ -1,8 +1,7 @@
-import 'package:an_cu/Models/location/location.dart';
-import 'package:an_cu/Services/location_service.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
 import 'package:an_cu/Utils/Styles/app_sizes.dart';
 import 'package:an_cu/Utils/Styles/app_text_styles.dart';
+import 'package:an_cu/Views/Home/Widgets/search_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
 class MainSearchBar extends StatefulWidget {
@@ -14,15 +13,6 @@ class MainSearchBar extends StatefulWidget {
 
 class _MainSearchBarState extends State<MainSearchBar> {
   final List<bool> _selectedMode = [true, false];
-  final TextEditingController _searchController = TextEditingController();
-
-  late Future<List<Province>> _provincesFuture;
-
-  @override
-  void initState() {
-    super.initState();
-    _provincesFuture = LocationService.getProvinces();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -114,59 +104,7 @@ class _MainSearchBarState extends State<MainSearchBar> {
                   ),
                   context: context,
                   builder: (BuildContext context) {
-                    return Container(
-                      constraints: BoxConstraints(
-                        maxHeight: MediaQuery.of(context).size.height * 0.6,
-                      ),
-                      child: FutureBuilder<List<Province>>(
-                        future: _provincesFuture,
-                        builder: (BuildContext context,
-                            AsyncSnapshot<List<Province>> snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return const Center(
-                                child: CircularProgressIndicator());
-                          } else if (snapshot.hasError) {
-                            return Center(
-                                child: Text('Error: ${snapshot.error}'));
-                          } else if (!snapshot.hasData ||
-                              snapshot.data!.isEmpty) {
-                            return const Center(
-                                child: Text('No data available'));
-                          } else {
-                            final provinces = snapshot.data!;
-                            return Column(
-                              children: [
-                                Text(
-                                  'Tỉnh/Thành phố',
-                                  style: AppTextStyles.title,
-                                ),
-                                Expanded(
-                                  child: SingleChildScrollView(
-                                    child: Container(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: Column(
-                                        children: provinces.map((province) {
-                                          return ListTile(
-                                            title: Text(
-                                              province.name,
-                                              style: AppTextStyles.body,
-                                            ),
-                                            onTap: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                          );
-                                        }).toList(),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          }
-                        },
-                      ),
-                    );
+                    return const SearchBottomSheet();
                   },
                 );
               },
