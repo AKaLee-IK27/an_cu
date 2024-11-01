@@ -12,7 +12,6 @@ class MainSearchBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final provinces = ref.watch(locationProvider).value ?? [];
-    print(provinces);
     return Container(
       height: 200,
       margin: const EdgeInsets.symmetric(
@@ -91,22 +90,15 @@ class MainSearchBar extends ConsumerWidget {
                   ),
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(16),
-                    bottomLeft: Radius.circular(16),
-                    bottomRight: Radius.circular(16),
                   ),
                 ),
               ),
               itemHeight: 50,
               maxSuggestionsInViewPort: 6,
-              suggestionItemDecoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(16),
-                ),
-              ),
-              onTap: () {},
               suggestions: provinces
                   .map((province) => SearchFieldListItem(province.name))
                   .toList(),
+              onTap: () {},
             ),
           ],
         ),
