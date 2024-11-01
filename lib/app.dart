@@ -1,10 +1,11 @@
 import 'package:an_cu/Utils/Styles/app_themes.dart';
+import 'package:an_cu/Views/Home/Screens/Onboarding_Screen/Onboarding_screen.dart';
 import 'package:an_cu/Views/Home/Screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
+  final bool onboarding;
+  const MainApp({super.key, this.onboarding = false});
  
 
   @override
@@ -12,7 +13,8 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppThemes.lightTheme,
-      home: const HomeScreen(),
+      themeMode: ThemeMode.light,
+      home: onboarding ? const HomeScreen() : const OnboardingScreen(),
     );
   }
 }
