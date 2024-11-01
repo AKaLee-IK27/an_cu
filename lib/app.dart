@@ -12,9 +12,6 @@ class MainApp extends ConsumerWidget {
 
     return MaterialApp.router(
       routerConfig: router,
-      routeInformationParser: router.routeInformationParser,
-      routerDelegate: router.routerDelegate,
-      routeInformationProvider: router.routeInformationProvider,
       debugShowCheckedModeBanner: false,
       theme: AppThemes.lightTheme,
       themeMode: ThemeMode.light,

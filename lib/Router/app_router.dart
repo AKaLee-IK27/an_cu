@@ -20,7 +20,7 @@ enum AppRoute {
 GoRouter goRouter(GoRouterRef ref) {
   return GoRouter(
     navigatorKey: _key,
-    initialLocation: '/',
+    initialLocation: '/${AppRoute.onboarding.name}',
     routes: [
       GoRoute(
         path: '/${AppRoute.home.name}',
