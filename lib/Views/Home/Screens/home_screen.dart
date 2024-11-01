@@ -71,16 +71,12 @@ class HomeScreen extends ConsumerWidget {
                       SizedBox(
                         width: ScreenSize.width(context),
                         child: const SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               PropertyCard(),
-                              gapW12,
                               PropertyCard(),
-                              gapW12,
                               PropertyCard(),
-                              gapW12,
                               PropertyCard(),
                             ],
                           ),

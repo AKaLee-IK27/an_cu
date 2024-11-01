@@ -10,13 +10,13 @@ class PropertyCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8),
       constraints: const BoxConstraints(
-        maxWidth: 480,
         maxHeight: 270,
       ),
       padding: const EdgeInsets.symmetric(
         vertical: 16,
-        horizontal: 8,
+        horizontal: 20,
       ),
       decoration: BoxDecoration(
         color: AppColors.gray10,
@@ -72,7 +72,7 @@ class PropertyCard extends ConsumerWidget {
               ),
             ),
           ),
-          gapW12,
+          gapW20,
           Expanded(
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
