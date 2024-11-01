@@ -1,5 +1,5 @@
 import 'package:an_cu/Utils/Styles/app_themes.dart';
-import 'package:an_cu/Views/Home/Screens/Onboarding_Screen/Onboarding_screen.dart';
+import 'package:an_cu/Views/Onboarding/onboarding_screen.dart';
 import 'package:an_cu/Views/Home/Screens/home_screen.dart';
 import 'package:flutter/material.dart';
 

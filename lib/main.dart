@@ -1,8 +1,10 @@
 import 'package:an_cu/app.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'firebase_options.dart';
+
+import 'Services/Firebase/firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,7 +13,10 @@ Future<void> main() async {
   );
 
   final prefs = await SharedPreferences.getInstance();
-  final onboarding = prefs.getBool("onboarding")??false;
+  final onboarding = prefs.getBool("onboarding") ?? false;
 
-  runApp(const ProviderScope(child: MainApp()));
+  runApp(ProviderScope(
+      child: MainApp(
+    onboarding: onboarding,
+  )));
 }
