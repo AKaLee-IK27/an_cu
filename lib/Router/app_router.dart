@@ -1,10 +1,10 @@
-import 'package:an_cu/Router/not_found_screen.dart';
-import 'package:an_cu/Views/Home/Screens/home_screen.dart';
-import 'package:an_cu/Views/Onboarding/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import '../Views/Home/Screens/home_screen.dart';
+import '../Views/Onboarding/onboarding_screen.dart';
 
 part 'app_router.g.dart';
 
@@ -17,7 +17,7 @@ enum AppRoute {
 }
 
 @Riverpod(keepAlive: true)
-GoRouter goRouter(GoRouterRef ref) {
+GoRouter goRouter(Ref ref) {
   return GoRouter(
     navigatorKey: _key,
     initialLocation: '/${AppRoute.onboarding.name}',
@@ -36,7 +36,7 @@ GoRouter goRouter(GoRouterRef ref) {
           child: OnboardingScreen(),
         ),
       ),
+      // Add more routes here
     ],
-    errorBuilder: (context, state) => const NotFoundScreen(),
   );
 }

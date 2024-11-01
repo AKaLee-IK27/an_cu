@@ -1,5 +1,6 @@
 import 'package:an_cu/Router/app_router.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
+import 'package:an_cu/Utils/Styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -68,7 +69,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   TextButton(
                     onPressed: () =>
                         pageController.jumpToPage(controller.items.length - 1),
-                    child: const Text("Skip"),
+                    child: Text(
+                      "Bỏ qua",
+                      style: AppTextStyles.body.copyWith(
+                        color: AppColors.primary,
+                      ),
+                    ),
                   ),
                   SmoothPageIndicator(
                     controller: pageController,
@@ -85,7 +91,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     onPressed: () => pageController.nextPage(
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.easeInOut),
-                    child: const Text("Next"),
+                    child: Text(
+                      "Tiếp Tục",
+                      style: AppTextStyles.body.copyWith(
+                        color: AppColors.primary,
+                      ),
+                    ),
                   )
                 ],
               ),
