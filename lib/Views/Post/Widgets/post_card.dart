@@ -1,16 +1,21 @@
+import 'package:an_cu/Router/app_router.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
 import 'package:an_cu/Utils/Styles/app_sizes.dart';
 import 'package:an_cu/Utils/Styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PropertyCard extends ConsumerWidget {
-  const PropertyCard({super.key});
+class PostCard extends ConsumerWidget {
+  const PostCard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(goRouterProvider);
+
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        router.go('/${AppRoute.postDetail.name}/1');
+      },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 8),
         constraints: const BoxConstraints(

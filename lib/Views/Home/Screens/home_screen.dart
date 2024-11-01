@@ -4,7 +4,7 @@ import 'package:an_cu/Utils/Styles/app_sizes.dart';
 import 'package:an_cu/Utils/Styles/app_text_styles.dart';
 import 'package:an_cu/Views/Home/Widgets/appbar_content.dart';
 import 'package:an_cu/Views/Home/Widgets/main_search_bar.dart';
-import 'package:an_cu/Views/Home/Widgets/property_card.dart';
+import 'package:an_cu/Views/Post/Widgets/post_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -74,10 +74,10 @@ class HomeScreen extends ConsumerWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              PropertyCard(),
-                              PropertyCard(),
-                              PropertyCard(),
-                              PropertyCard(),
+                              PostCard(),
+                              PostCard(),
+                              PostCard(),
+                              PostCard(),
                             ],
                           ),
                         ),
