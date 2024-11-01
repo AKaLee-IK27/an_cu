@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class AppThemes {
   static ThemeData lightTheme = ThemeData(
     fontFamily: "Roboto",
+    splashColor: Colors.white,
     primaryColor: AppColors.primary,
     indicatorColor: AppColors.primary,
     brightness: Brightness.light,

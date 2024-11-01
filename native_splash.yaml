@@ -9,8 +9,7 @@ flutter_native_splash:
   android_12:
     image: assets/logo/without_bg_2.png
     color: "#ffffff"
-    icon_background_color: "#f7f7f7"
+    
     image_dark: assets/logo/without_bg_2.png
     color_dark: "#ffffff"
-    icon_background_color_dark: "#f7f7f7"
   #dart run flutter_native_splash:create --path=native_splash.yaml
