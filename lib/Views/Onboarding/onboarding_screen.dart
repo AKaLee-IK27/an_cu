@@ -1,18 +1,18 @@
+import 'package:an_cu/Router/app_router.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
-import 'package:an_cu/Views/Home/Screens/home_screen.dart';
-import 'package:an_cu/Views/Onboarding/onboarding_items.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class OnboardingScreen extends StatefulWidget {
+class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
 
   @override
-  State<OnboardingScreen> createState() => _OnboardingScreenState();
+  _OnboardingScreenState createState() => _OnboardingScreenState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen> {
+class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   final controller = OnboardingItems();
   final pageController = PageController();
 
@@ -35,17 +35,24 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 children: [
                   Image.asset(controller.items[index].image),
                   const SizedBox(height: 15),
-                  Text(controller.items[index].title,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 25,
-                        color: AppColors.primary,
-                        fontWeight: FontWeight.bold,
-                      )),
+                  Text(
+                    controller.items[index].title,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 25,
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   const SizedBox(height: 15),
-                  Text(controller.items[index].description,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(fontSize: 16, color: Colors.grey))
+                  Text(
+                    controller.items[index].description,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey,
+                    ),
+                  )
                 ],
               );
             }),
@@ -59,9 +66,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextButton(
-                      onPressed: () => pageController
-                          .jumpToPage(controller.items.length - 1),
-                      child: const Text("Skip")),
+                    onPressed: () =>
+                        pageController.jumpToPage(controller.items.length - 1),
+                    child: const Text("Skip"),
+                  ),
                   SmoothPageIndicator(
                     controller: pageController,
                     count: controller.items.length,
@@ -74,10 +82,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         activeDotColor: AppColors.primary),
                   ),
                   TextButton(
-                      onPressed: () => pageController.nextPage(
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeInOut),
-                      child: const Text("Next"))
+                    onPressed: () => pageController.nextPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut),
+                    child: const Text("Next"),
+                  )
                 ],
               ),
       ),
@@ -91,19 +100,50 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       width: MediaQuery.of(context).size.width * .9,
       height: 55,
       child: TextButton(
-          onPressed: () async {
-            final pres = await SharedPreferences.getInstance();
-            pres.setBool("onboarding", true);
+        onPressed: () async {
+          final pres = await SharedPreferences.getInstance();
+          pres.setBool("onboarding", true);
 
-            if (!mounted) return;
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const HomeScreen()));
-          },
-          child: const Text("Bắt Đầu Khám Phá",
-              style: TextStyle(
-                fontSize: 25,
-                color: Colors.white,
-              ))),
+          if (!mounted) return;
+          ref.read(goRouterProvider).go('/${AppRoute.home.name}');
+        },
+        child: const Text(
+          "Bắt Đầu Khám Phá",
+          style: TextStyle(
+            fontSize: 25,
+            color: Colors.white,
+          ),
+        ),
+      ),
     );
   }
+}
+
+class OnboardingInfo {
+  final String title;
+  final String description;
+  final String image;
+
+  OnboardingInfo(
+      {required this.title, required this.description, required this.image});
+}
+
+class OnboardingItems {
+  List<OnboardingInfo> items = [
+    OnboardingInfo(
+        title: "Chào Mừng Tới An Cư Connect",
+        description:
+            "Khám phá ngôi nhà mơ ước của bạn hoặc bán tài sản của bạn một cách dễ dàng. Hãy bắt đầu cuộc hành trình bất động sản của bạn.",
+        image: "assets/images/onboarding_1.png"),
+    OnboardingInfo(
+        title: "Khám Phá Bất Động Sản",
+        description:
+            "Khám phá hàng ngàn bất động sản. Lọc theo vị trí, giá cả,... để tìm kết quả phù hợp nhất.",
+        image: "assets/images/onboarding_2.png"),
+    OnboardingInfo(
+        title: "Hãy Bắt Đầu Khám Phá!",
+        description:
+            "Đăng ký ngay bây giờ và thực hiện bước đầu tiên để tìm ngôi nhà mới hoặc bán tài sản của bạn.",
+        image: "assets/images/onboarding_3.png")
+  ];
 }
