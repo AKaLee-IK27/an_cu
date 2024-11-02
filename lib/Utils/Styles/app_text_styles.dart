@@ -5,33 +5,33 @@ import "app_colors.dart";
 class AppTextStyles {
   const AppTextStyles._();
 
-  static TextStyle headline = const TextStyle(
+  static TextStyle headline = TextStyle(
     fontSize: 96,
     fontWeight: FontWeight.w300,
-    color: AppColors.secondary,
+    color: AppColors.black80,
   );
 
-  static TextStyle title = const TextStyle(
+  static TextStyle title = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.w800,
-    color: AppColors.secondary,
+    color: AppColors.black80,
   );
 
-  static TextStyle bodyBold = const TextStyle(
+  static TextStyle bodyBold = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w800,
-    color: AppColors.secondary,
+    color: AppColors.black80,
   );
 
-  static TextStyle body = const TextStyle(
+  static TextStyle body = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w500,
-    color: AppColors.secondary,
+    color: AppColors.black80,
   );
 
-  static TextStyle caption = const TextStyle(
+  static TextStyle caption = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w500,
-    color: AppColors.secondary,
+    color: AppColors.black80,
   );
 }

@@ -1,7 +1,7 @@
 name: an_cu
 description: "A new Flutter project."
 publish_to: "none"
-version: 1.0.0+1
+version: 0.1.0
 
 environment:
   sdk: ^3.5.0
@@ -20,12 +20,9 @@ dependencies:
   multiple_search_selection: ^2.7.0
   flutter_native_splash: ^2.4.2
   riverpod: ^2.6.1
-  searchfield: ^1.1.7
   smooth_page_indicator: ^1.2.0+3
   shared_preferences: ^2.3.2
-  go_router: ^14.3.0
-  riverpod_annotation: ^2.6.1
-  cupertino_icons: ^1.0.8
+  searchfield: ^1.1.7
 
 dev_dependencies:
   flutter_test:
@@ -34,7 +31,6 @@ dev_dependencies:
   json_serializable: ^6.8.0
   build_runner: ^2.4.13
   freezed: ^2.5.7
-  riverpod_generator: ^2.6.2
 
 flutter:
   uses-material-design: true

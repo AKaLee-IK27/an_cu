@@ -22,16 +22,24 @@ class AppBarContent extends StatelessWidget {
               width: 35,
             ),
             gapW8,
-            Text('An Cư Connect', style: AppTextStyles.title),
+            Text(
+              'An Cư Connection',
+              style: AppTextStyles.title.copyWith(
+                color: AppColors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
           ],
         ),
         Container(
           margin: const EdgeInsets.only(right: 16.0),
           child: InkWell(
             onTap: () {},
-            child: const CircleAvatar(
-              backgroundColor: AppColors.secondary,
-              foregroundImage: AssetImage('assets/images/demo_avatar.png'),
+            child: CircleAvatar(
+              backgroundColor: AppColors.black20,
+              foregroundImage:
+                  const AssetImage('assets/images/demo_avatar.png'),
             ),
           ),
         ),
