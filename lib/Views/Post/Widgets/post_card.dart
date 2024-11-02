@@ -14,7 +14,7 @@ class PostCard extends ConsumerWidget {
 
     return InkWell(
       onTap: () {
-        router.go('/${AppRoute.postDetail.name}/1');
+        router.goPostDetail(id: "1");
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 8),
@@ -22,11 +22,11 @@ class PostCard extends ConsumerWidget {
           maxHeight: 270,
         ),
         padding: const EdgeInsets.symmetric(
-          vertical: 16,
-          horizontal: 20,
+          vertical: 8,
+          horizontal: 10,
         ),
         decoration: BoxDecoration(
-          color: AppColors.gray10,
+          color: AppColors.grayBG,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Row(
@@ -42,8 +42,8 @@ class PostCard extends ConsumerWidget {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
+                    horizontal: 8,
+                    vertical: 4,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,7 +95,6 @@ class PostCard extends ConsumerWidget {
                       "Sky Dandelions Apartment",
                       style: AppTextStyles.title.copyWith(
                         color: AppColors.secondary,
-                        fontSize: 26,
                       ),
                     ),
                     gapH8,
@@ -106,9 +105,11 @@ class PostCard extends ConsumerWidget {
                           color: AppColors.primary,
                         ),
                         gapW4,
-                        Text(
-                          "Quận 2, TP.Hồ Chí Minh",
-                          style: AppTextStyles.body,
+                        Expanded(
+                          child: Text(
+                            "Quận 2, TP.Hồ Chí Minh",
+                            style: AppTextStyles.body,
+                          ),
                         ),
                       ],
                     ),

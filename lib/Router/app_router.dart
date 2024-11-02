@@ -56,3 +56,21 @@ GoRouter goRouter(Ref ref) {
     ],
   );
 }
+
+extension GoRouterX on GoRouter {
+  void goHome() {
+    go('/${AppRoute.home.name}');
+  }
+
+  void goOnboarding() {
+    go('/${AppRoute.onboarding.name}');
+  }
+
+  void goPostDetail({required String id}) {
+    go('/${AppRoute.postDetail.name}/$id');
+  }
+
+  void goSplash() {
+    go('/${AppRoute.splash.name}');
+  }
+}

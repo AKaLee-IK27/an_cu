@@ -105,6 +105,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   }
 
   Widget getStarted() {
+    final router = ref.watch(goRouterProvider);
+
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10), color: AppColors.primary),
@@ -116,7 +118,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           pres.setBool("onboarding", true);
 
           if (!mounted) return;
-          ref.read(goRouterProvider).go('/${AppRoute.home.name}');
+          router.goHome();
         },
         child: const Text(
           "Bắt Đầu Khám Phá",

@@ -46,8 +46,8 @@ class HomeScreen extends ConsumerWidget {
                 const MainSearchBar(),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
+                    horizontal: 8,
+                    vertical: 4,
                   ),
                   child: Column(
                     children: [
@@ -67,7 +67,6 @@ class HomeScreen extends ConsumerWidget {
                           ),
                         ],
                       ),
-                      gapH12,
                       SizedBox(
                         width: ScreenSize.width(context),
                         child: const SingleChildScrollView(
