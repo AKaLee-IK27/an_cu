@@ -1,10 +1,6 @@
 import 'package:an_cu/Utils/Styles/app_colors.dart';
 import 'package:an_cu/Views/Home/Screens/Onboarding_Screen/Onboarding_items.dart';
 import 'package:an_cu/Views/Home/Screens/home_screen.dart';
-<<<<<<< HEAD
-import 'package:an_cu/Views/Onboarding/onboarding_screen.dart';
-=======
->>>>>>> parent of 9a99ac4 (Merge branch 'khoi' into Phat)
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
