@@ -1,6 +1,5 @@
 import 'package:an_cu/Utils/Helpers/screen_size.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
-import 'package:an_cu/Utils/Styles/app_sizes.dart';
 import 'package:an_cu/Utils/Styles/app_text_styles.dart';
 import 'package:an_cu/Views/Home/Widgets/appbar_content.dart';
 import 'package:an_cu/Views/Home/Widgets/main_search_bar.dart';
