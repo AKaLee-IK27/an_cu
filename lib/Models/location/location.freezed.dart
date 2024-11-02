@@ -21,7 +21,7 @@ Province _$ProvinceFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Province {
   String get name => throw _privateConstructorUsedError;
-  List<District> get districts => throw _privateConstructorUsedError;
+  int get code => throw _privateConstructorUsedError;
 
   /// Serializes this Province to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -38,7 +38,7 @@ abstract class $ProvinceCopyWith<$Res> {
   factory $ProvinceCopyWith(Province value, $Res Function(Province) then) =
       _$ProvinceCopyWithImpl<$Res, Province>;
   @useResult
-  $Res call({String name, List<District> districts});
+  $Res call({String name, int code});
 }
 
 /// @nodoc
@@ -57,17 +57,17 @@ class _$ProvinceCopyWithImpl<$Res, $Val extends Province>
   @override
   $Res call({
     Object? name = null,
-    Object? districts = null,
+    Object? code = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      districts: null == districts
-          ? _value.districts
-          : districts // ignore: cast_nullable_to_non_nullable
-              as List<District>,
+      code: null == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -80,7 +80,7 @@ abstract class _$$ProvinceImplCopyWith<$Res>
       __$$ProvinceImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, List<District> districts});
+  $Res call({String name, int code});
 }
 
 /// @nodoc
@@ -97,17 +97,17 @@ class __$$ProvinceImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
-    Object? districts = null,
+    Object? code = null,
   }) {
     return _then(_$ProvinceImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      districts: null == districts
-          ? _value._districts
-          : districts // ignore: cast_nullable_to_non_nullable
-              as List<District>,
+      code: null == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -115,26 +115,19 @@ class __$$ProvinceImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ProvinceImpl implements _Province {
-  const _$ProvinceImpl(
-      {required this.name, required final List<District> districts})
-      : _districts = districts;
+  const _$ProvinceImpl({required this.name, required this.code});
 
   factory _$ProvinceImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProvinceImplFromJson(json);
 
   @override
   final String name;
-  final List<District> _districts;
   @override
-  List<District> get districts {
-    if (_districts is EqualUnmodifiableListView) return _districts;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_districts);
-  }
+  final int code;
 
   @override
   String toString() {
-    return 'Province(name: $name, districts: $districts)';
+    return 'Province(name: $name, code: $code)';
   }
 
   @override
@@ -143,14 +136,12 @@ class _$ProvinceImpl implements _Province {
         (other.runtimeType == runtimeType &&
             other is _$ProvinceImpl &&
             (identical(other.name, name) || other.name == name) &&
-            const DeepCollectionEquality()
-                .equals(other._districts, _districts));
+            (identical(other.code, code) || other.code == code));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, name, const DeepCollectionEquality().hash(_districts));
+  int get hashCode => Object.hash(runtimeType, name, code);
 
   /// Create a copy of Province
   /// with the given fields replaced by the non-null parameter values.
@@ -170,8 +161,7 @@ class _$ProvinceImpl implements _Province {
 
 abstract class _Province implements Province {
   const factory _Province(
-      {required final String name,
-      required final List<District> districts}) = _$ProvinceImpl;
+      {required final String name, required final int code}) = _$ProvinceImpl;
 
   factory _Province.fromJson(Map<String, dynamic> json) =
       _$ProvinceImpl.fromJson;
@@ -179,7 +169,7 @@ abstract class _Province implements Province {
   @override
   String get name;
   @override
-  List<District> get districts;
+  int get code;
 
   /// Create a copy of Province
   /// with the given fields replaced by the non-null parameter values.
@@ -196,6 +186,7 @@ District _$DistrictFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$District {
   String get name => throw _privateConstructorUsedError;
+  int get code => throw _privateConstructorUsedError;
 
   /// Serializes this District to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -212,7 +203,7 @@ abstract class $DistrictCopyWith<$Res> {
   factory $DistrictCopyWith(District value, $Res Function(District) then) =
       _$DistrictCopyWithImpl<$Res, District>;
   @useResult
-  $Res call({String name});
+  $Res call({String name, int code});
 }
 
 /// @nodoc
@@ -231,12 +222,17 @@ class _$DistrictCopyWithImpl<$Res, $Val extends District>
   @override
   $Res call({
     Object? name = null,
+    Object? code = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      code: null == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -249,7 +245,7 @@ abstract class _$$DistrictImplCopyWith<$Res>
       __$$DistrictImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name});
+  $Res call({String name, int code});
 }
 
 /// @nodoc
@@ -266,12 +262,17 @@ class __$$DistrictImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
+    Object? code = null,
   }) {
     return _then(_$DistrictImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      code: null == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -279,17 +280,19 @@ class __$$DistrictImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$DistrictImpl implements _District {
-  const _$DistrictImpl({required this.name});
+  const _$DistrictImpl({required this.name, required this.code});
 
   factory _$DistrictImpl.fromJson(Map<String, dynamic> json) =>
       _$$DistrictImplFromJson(json);
 
   @override
   final String name;
+  @override
+  final int code;
 
   @override
   String toString() {
-    return 'District(name: $name)';
+    return 'District(name: $name, code: $code)';
   }
 
   @override
@@ -297,12 +300,13 @@ class _$DistrictImpl implements _District {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DistrictImpl &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.code, code) || other.code == code));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, name);
+  int get hashCode => Object.hash(runtimeType, name, code);
 
   /// Create a copy of District
   /// with the given fields replaced by the non-null parameter values.
@@ -321,13 +325,16 @@ class _$DistrictImpl implements _District {
 }
 
 abstract class _District implements District {
-  const factory _District({required final String name}) = _$DistrictImpl;
+  const factory _District(
+      {required final String name, required final int code}) = _$DistrictImpl;
 
   factory _District.fromJson(Map<String, dynamic> json) =
       _$DistrictImpl.fromJson;
 
   @override
   String get name;
+  @override
+  int get code;
 
   /// Create a copy of District
   /// with the given fields replaced by the non-null parameter values.

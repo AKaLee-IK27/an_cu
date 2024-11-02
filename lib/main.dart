@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,5 +13,6 @@ Future<void> main() async {
   final prefs = await SharedPreferences.getInstance();
   final onboarding = prefs.getBool("onboarding")??false;
 
-  runApp(ProviderScope(child: MainApp(onboarding: onboarding)));
+  runApp(MainApp(onboarding: onboarding));
 }
+

@@ -1,18 +1,21 @@
-import 'package:an_cu/Providers/location_provider.dart';
-import 'package:an_cu/Providers/searchbar_mode_provider.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
+import 'package:an_cu/Utils/Styles/app_sizes.dart';
 import 'package:an_cu/Utils/Styles/app_text_styles.dart';
+import 'package:an_cu/Views/Home/Widgets/search_bottom_sheet.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:searchfield/searchfield.dart';
 
-class MainSearchBar extends ConsumerWidget {
+class MainSearchBar extends StatefulWidget {
   const MainSearchBar({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final provinces = ref.watch(locationProvider).value ?? [];
-    print(provinces);
+  _MainSearchBarState createState() => _MainSearchBarState();
+}
+
+class _MainSearchBarState extends State<MainSearchBar> {
+  final List<bool> _selectedMode = [true, false];
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       height: 200,
       margin: const EdgeInsets.symmetric(
@@ -52,62 +55,60 @@ class MainSearchBar extends ConsumerWidget {
                 minHeight: 40.0,
                 minWidth: 100.0,
               ),
-              isSelected: ref.watch(searchBarModeProvider),
+              isSelected: _selectedMode,
               onPressed: (int index) {
-                if (index == 0) {
-                  ref.read(searchBarModeProvider.notifier).state = [
-                    true,
-                    false
-                  ];
-                } else {
-                  ref.read(searchBarModeProvider.notifier).state = [
-                    false,
-                    true
-                  ];
-                }
+                setState(() {
+                  for (int i = 0; i < _selectedMode.length; i++) {
+                    _selectedMode[i] = i == index;
+                  }
+                });
               },
               children: const [
                 Text('Đang bán'),
                 Text('Đã bán'),
               ],
             ),
-            SearchField(
-              hint: 'Địa điểm tìm kiếm',
-              searchInputDecoration: SearchInputDecoration(
-                cursorColor: AppColors.primary,
-                fillColor: AppColors.white,
-                filled: true,
-                border: const OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(16),
-                    bottomLeft: Radius.circular(16),
-                    bottomRight: Radius.circular(16),
-                  ),
-                ),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: AppColors.primary,
-                  ),
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(16),
-                    bottomLeft: Radius.circular(16),
-                    bottomRight: Radius.circular(16),
-                  ),
+            MaterialButton(
+              padding: const EdgeInsets.symmetric(
+                vertical: 24,
+                horizontal: 16,
+              ),
+              color: AppColors.white,
+              minWidth: double.infinity,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(16),
+                  bottomLeft: Radius.circular(16),
+                  bottomRight: Radius.circular(16),
                 ),
               ),
-              itemHeight: 50,
-              maxSuggestionsInViewPort: 6,
-              suggestionItemDecoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(16),
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Icon(Icons.location_on, color: AppColors.primary),
+                  gapW4,
+                  Text(
+                    'Khu vực tìm kiếm',
+                    style: AppTextStyles.body,
+                  ),
+                ],
               ),
-              onTap: () {},
-              suggestions: provinces
-                  .map((province) => SearchFieldListItem(province.name))
-                  .toList(),
-            ),
+              onPressed: () {
+                showModalBottomSheet(
+                  isScrollControlled: true,
+                  showDragHandle: true,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(16)),
+                  ),
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const SearchBottomSheet();
+                  },
+                );
+              },
+            )
           ],
         ),
       ),
