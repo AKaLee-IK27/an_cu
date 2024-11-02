@@ -2,19 +2,20 @@ import 'dart:io';
 
 import 'package:an_cu/Models/location/location.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-const _url = 'https://provinces.open-api.vn/api/';
+final locationService = Provider((ref) => LocationService());
 
 class LocationService {
-  static Future<List<Province>> getProvinces() async {
+  final _url = 'https://provinces.open-api.vn/api/';
+
+  Future<List<Province>> getProvinces() async {
     try {
-      final response = await Dio().get(_url);
+      final response = await Dio().get("$_url?depth=2");
       if (response.statusCode == 200) {
         final data = response.data as List;
-
         List<Province> provinces =
             data.map((json) => Province.fromJson(json)).toList();
-
         return provinces;
       } else {
         throw Exception('Failed to load data');

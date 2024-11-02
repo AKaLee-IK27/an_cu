@@ -7,7 +7,7 @@ part 'location.g.dart';
 class Province with _$Province {
   const factory Province({
     required String name,
-    required int code,
+    required List<District> districts,
   }) = _Province;
 
   factory Province.fromJson(Map<String, dynamic> json) =>
@@ -18,7 +18,6 @@ class Province with _$Province {
 class District with _$District {
   const factory District({
     required String name,
-    required int code,
   }) = _District;
 
   factory District.fromJson(Map<String, dynamic> json) =>
