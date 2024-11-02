@@ -1,4 +1,4 @@
-import 'package:an_cu/Models/location/location.dart';
+import 'package:an_cu/Model/model.dart';
 import 'package:an_cu/Services/location_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

@@ -1,5 +1,5 @@
-import 'package:an_cu/Providers/location_provider.dart';
-import 'package:an_cu/Providers/searchbar_mode_provider.dart';
+import 'package:an_cu/Controllers/location_provider.dart';
+import 'package:an_cu/Controllers/searchbar_mode_provider.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
 import 'package:an_cu/Utils/Styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
@@ -12,20 +12,15 @@ class MainSearchBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final provinces = ref.watch(locationProvider).value ?? [];
-    print(provinces);
     return Container(
       height: 200,
-      margin: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 8,
-      ),
       padding: const EdgeInsets.symmetric(
-        horizontal: 24,
-        vertical: 32,
+        horizontal: 12,
+        vertical: 16,
       ),
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(
-          Radius.circular(16),
+          Radius.circular(8),
         ),
         image: DecorationImage(
           image: AssetImage('assets/images/search_bg.png'),
@@ -40,7 +35,7 @@ class MainSearchBar extends ConsumerWidget {
             ToggleButtons(
               textStyle: AppTextStyles.body,
               borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(16),
+                top: Radius.circular(8),
               ),
               borderWidth: 2,
               fillColor: AppColors.primary,
@@ -80,9 +75,9 @@ class MainSearchBar extends ConsumerWidget {
                 border: const OutlineInputBorder(
                   borderSide: BorderSide.none,
                   borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(16),
-                    bottomLeft: Radius.circular(16),
-                    bottomRight: Radius.circular(16),
+                    topRight: Radius.circular(8),
+                    bottomLeft: Radius.circular(8),
+                    bottomRight: Radius.circular(8),
                   ),
                 ),
                 focusedBorder: const OutlineInputBorder(
@@ -90,23 +85,16 @@ class MainSearchBar extends ConsumerWidget {
                     color: AppColors.primary,
                   ),
                   borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(16),
-                    bottomLeft: Radius.circular(16),
-                    bottomRight: Radius.circular(16),
+                    topRight: Radius.circular(8),
                   ),
                 ),
               ),
               itemHeight: 50,
               maxSuggestionsInViewPort: 6,
-              suggestionItemDecoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(16),
-                ),
-              ),
-              onTap: () {},
               suggestions: provinces
                   .map((province) => SearchFieldListItem(province.name))
                   .toList(),
+              onTap: () {},
             ),
           ],
         ),
