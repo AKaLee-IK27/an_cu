@@ -41,49 +41,48 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDQL5nYgXkfyHePSHMhMFK6L0yVgk8wEnE',
-    appId: '1:640994626485:web:56afd8248f7ea63582e7fc',
-    messagingSenderId: '640994626485',
-    projectId: 'an-cu-connect',
-    authDomain: 'an-cu-connect.firebaseapp.com',
-    storageBucket: 'an-cu-connect.appspot.com',
-    measurementId: 'G-KV544FVKTW',
+    apiKey: 'AIzaSyBiwoRskcqNlkJ9TToz8WWan7JdHsbkFRo',
+    appId: '1:857197209708:web:96648c45bba6441351d049',
+    messagingSenderId: '857197209708',
+    projectId: 'an-cu-connect-d336d',
+    authDomain: 'an-cu-connect-d336d.firebaseapp.com',
+    storageBucket: 'an-cu-connect-d336d.appspot.com',
+    measurementId: 'G-6L8ER0FY6P',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA8qrR4LqiFJOfhnTV0MEUyWxEfh0FqBb0',
-    appId: '1:640994626485:android:fdc4abab59749fe082e7fc',
-    messagingSenderId: '640994626485',
-    projectId: 'an-cu-connect',
-    storageBucket: 'an-cu-connect.appspot.com',
+    apiKey: 'AIzaSyCruuxx7yUruY5rcl8JzTLnH7BceIEDuRs',
+    appId: '1:857197209708:android:607b4b1d3dabbd3f51d049',
+    messagingSenderId: '857197209708',
+    projectId: 'an-cu-connect-d336d',
+    storageBucket: 'an-cu-connect-d336d.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyApeOHUMpzIUv7HomoGMgLjIdAimLVChoI',
-    appId: '1:640994626485:ios:d46d251f9a4f1b4c82e7fc',
-    messagingSenderId: '640994626485',
-    projectId: 'an-cu-connect',
-    storageBucket: 'an-cu-connect.appspot.com',
+    apiKey: 'AIzaSyBgwCtaEsreeJxo0fxB2HCgjpPMeHsdUkQ',
+    appId: '1:857197209708:ios:b417207997be5f1351d049',
+    messagingSenderId: '857197209708',
+    projectId: 'an-cu-connect-d336d',
+    storageBucket: 'an-cu-connect-d336d.appspot.com',
     iosBundleId: 'com.example.anCu',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyApeOHUMpzIUv7HomoGMgLjIdAimLVChoI',
-    appId: '1:640994626485:ios:d46d251f9a4f1b4c82e7fc',
-    messagingSenderId: '640994626485',
-    projectId: 'an-cu-connect',
-    storageBucket: 'an-cu-connect.appspot.com',
+    apiKey: 'AIzaSyBgwCtaEsreeJxo0fxB2HCgjpPMeHsdUkQ',
+    appId: '1:857197209708:ios:b417207997be5f1351d049',
+    messagingSenderId: '857197209708',
+    projectId: 'an-cu-connect-d336d',
+    storageBucket: 'an-cu-connect-d336d.appspot.com',
     iosBundleId: 'com.example.anCu',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyDQL5nYgXkfyHePSHMhMFK6L0yVgk8wEnE',
-    appId: '1:640994626485:web:91581592253d07d882e7fc',
-    messagingSenderId: '640994626485',
-    projectId: 'an-cu-connect',
-    authDomain: 'an-cu-connect.firebaseapp.com',
-    storageBucket: 'an-cu-connect.appspot.com',
-    measurementId: 'G-4EXMTXS31H',
+    apiKey: 'AIzaSyBiwoRskcqNlkJ9TToz8WWan7JdHsbkFRo',
+    appId: '1:857197209708:web:91d8683e5b0ca8c051d049',
+    messagingSenderId: '857197209708',
+    projectId: 'an-cu-connect-d336d',
+    authDomain: 'an-cu-connect-d336d.firebaseapp.com',
+    storageBucket: 'an-cu-connect-d336d.appspot.com',
+    measurementId: 'G-S8ML617F1H',
   );
-
 }
