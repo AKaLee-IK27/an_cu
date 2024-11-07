@@ -1,3 +1,4 @@
+import 'package:an_cu/Services/SharedReferences/local_store.provider.dart';
 import 'package:an_cu/Views/Post/Screens/post_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,14 +21,19 @@ enum AppRoute {
 
 @Riverpod(keepAlive: true)
 GoRouter goRouter(Ref ref) {
+  final localStore = ref.read(localStoreProvider);
   return GoRouter(
     navigatorKey: _key,
     initialLocation: '/',
     routes: [
       GoRoute(
         path: '/',
-        redirect: (context, state) {
-          return '/${AppRoute.onboarding.name}';
+        redirect: (context, state) async {
+          if (await localStore.getBool('isStarted') == null) {
+            return '/${AppRoute.onboarding.name}';
+          } else {
+            return '/${AppRoute.home.name}';
+          }
         },
       ),
       GoRoute(
