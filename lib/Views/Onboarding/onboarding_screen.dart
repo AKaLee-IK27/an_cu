@@ -1,9 +1,9 @@
 import 'package:an_cu/Router/app_router.dart';
+import 'package:an_cu/Services/SharedReferences/local_store.provider.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
 import 'package:an_cu/Utils/Styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
@@ -106,6 +106,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
   Widget getStarted() {
     final router = ref.watch(goRouterProvider);
+    final localStore = ref.read(localStoreProvider);
 
     return Container(
       decoration: BoxDecoration(
@@ -114,10 +115,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       height: 55,
       child: TextButton(
         onPressed: () async {
-          final pres = await SharedPreferences.getInstance();
-          pres.setBool("onboarding", true);
-
           if (!mounted) return;
+
+          await localStore.setBool('isStarted', true);
           router.goHome();
         },
         child: const Text(

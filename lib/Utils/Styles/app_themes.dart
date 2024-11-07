@@ -6,6 +6,7 @@ class AppThemes {
   static ThemeData lightTheme = ThemeData(
     fontFamily: "Roboto",
     splashColor: Colors.white,
+    primarySwatch: AppColors.primarySwatch,
     primaryColor: AppColors.primary,
     indicatorColor: AppColors.primary,
     brightness: Brightness.light,
