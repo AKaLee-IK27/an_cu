@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MainApp extends ConsumerWidget {
-  final bool onboarding;
-  const MainApp({super.key, this.onboarding = false});
+  const MainApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

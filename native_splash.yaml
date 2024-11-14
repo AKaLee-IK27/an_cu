@@ -9,7 +9,7 @@ flutter_native_splash:
   android_12:
     image: assets/logo/main_2.png
     color: "#ffffff"
-    image_dark: assets/logo/main_2.png
+    image_dark: assets/logo/main.png
     color_dark: "#EDEDED"
     branding: assets/logo/brand_name.png
   #dart run flutter_native_splash:create --path=native_splash.yaml
