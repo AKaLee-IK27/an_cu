@@ -1,4 +1,4 @@
-import 'package:an_cu/Services/fire_store_service.dart';
+import 'package:an_cu/Controllers/post_controller.dart';
 import 'package:an_cu/Utils/Helpers/screen_size.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
 import 'package:an_cu/Utils/Styles/app_text_styles.dart';
@@ -24,8 +24,8 @@ class HomeScreen extends ConsumerWidget {
           floatingActionButton: Builder(builder: (context) {
             return FloatingActionButton(
               backgroundColor: AppColors.primary,
-              onPressed: () {
-                ref.watch(fireStoreServiceProvider);
+              onPressed: () async {
+                await ref.watch(postController.notifier).getPosts();
               },
               child: const Icon(
                 Icons.chat,

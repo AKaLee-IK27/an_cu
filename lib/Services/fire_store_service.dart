@@ -10,6 +10,21 @@ class FireStoreService {
   final Ref _ref;
 
   FireStoreService(this._firestore, this._ref);
+
+  Future<List<Map<String, dynamic>>> getPosts() async {
+    CollectionReference posts = _firestore.collection('Post');
+
+    return await posts.get().then((querySnapshot) {
+      List<Map<String, dynamic>> posts = querySnapshot.docs
+          .map((doc) => {
+                'id': doc.id,
+                ...doc.data() as Map<String, dynamic>,
+              })
+          .toList();
+
+      return posts;
+    });
+  }
 }
 
 final fireStoreServiceProvider = Provider<FireStoreService>((ref) {

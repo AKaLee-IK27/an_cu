@@ -1,4 +1,4 @@
-import 'package:an_cu/Controllers/auth_provider.dart';
+import 'package:an_cu/Controllers/auth_controller.dart';
 import 'package:an_cu/Router/app_router.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
 import 'package:an_cu/Utils/Styles/app_text_styles.dart';

@@ -6,6 +6,7 @@ class AuthNotifier extends StateNotifier<AuthenticationState> {
   AuthNotifier(this._authService) : super(const AuthenticationState.initial());
 
   final FireAuthService _authService;
+  final bool isSignedIn = false;
 
   Future<void> login({required String email, required String password}) async {
     state = const AuthenticationState.loading();

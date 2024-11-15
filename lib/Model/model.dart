@@ -53,12 +53,12 @@ class Post with _$Post {
     required String title,
     required int avgStar,
     String? content,
+    
     @TimestampConverter() required DateTime createdAt,
     required Property property,
-    required AppUser createdBy,
     @TimestampConverter() required DateTime expiredAt,
     required bool verified,
-    required List<Comment> comments,
+    @Default([]) required List<Comment> comments,
     required PostStatus status,
   }) = _Post;
 
@@ -113,8 +113,7 @@ class Comment with _$Comment {
   const factory Comment({
     required String id,
     required String content,
-    required DateTime createdAt,
-    required AppUser createdBy,
+    @TimestampConverter() required DateTime createdAt,
   }) = _Comment;
 
   factory Comment.fromJson(Map<String, dynamic> json) =>

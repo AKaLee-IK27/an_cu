@@ -38,8 +38,8 @@ _$PostImpl _$$PostImplFromJson(Map<String, dynamic> json) => _$PostImpl(
       createdAt:
           const TimestampConverter().fromJson(json['createdAt'] as Timestamp),
       property: Property.fromJson(json['property'] as Map<String, dynamic>),
-      createdBy: AppUser.fromJson(json['createdBy'] as Map<String, dynamic>),
-      expiredAt: DateTime.parse(json['expiredAt'] as String),
+      expiredAt:
+          const TimestampConverter().fromJson(json['expiredAt'] as Timestamp),
       verified: json['verified'] as bool,
       comments: (json['comments'] as List<dynamic>)
           .map((e) => Comment.fromJson(e as Map<String, dynamic>))
@@ -55,8 +55,7 @@ Map<String, dynamic> _$$PostImplToJson(_$PostImpl instance) =>
       'content': instance.content,
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
       'property': instance.property,
-      'createdBy': instance.createdBy,
-      'expiredAt': instance.expiredAt.toIso8601String(),
+      'expiredAt': const TimestampConverter().toJson(instance.expiredAt),
       'verified': instance.verified,
       'comments': instance.comments,
       'status': _$PostStatusEnumMap[instance.status]!,
@@ -154,14 +153,13 @@ _$CommentImpl _$$CommentImplFromJson(Map<String, dynamic> json) =>
     _$CommentImpl(
       id: json['id'] as String,
       content: json['content'] as String,
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      createdBy: AppUser.fromJson(json['createdBy'] as Map<String, dynamic>),
+      createdAt:
+          const TimestampConverter().fromJson(json['createdAt'] as Timestamp),
     );
 
 Map<String, dynamic> _$$CommentImplToJson(_$CommentImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'content': instance.content,
-      'createdAt': instance.createdAt.toIso8601String(),
-      'createdBy': instance.createdBy,
+      'createdAt': const TimestampConverter().toJson(instance.createdAt),
     };
