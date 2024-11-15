@@ -1,5 +1,6 @@
 import 'package:an_cu/Utils/SharedReferences/local_store.provider.dart';
 import 'package:an_cu/Views/Post/Screens/post_detail_screen.dart';
+import 'package:an_cu/Views/SignIn/Screens/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -17,6 +18,7 @@ enum AppRoute {
   onboarding,
   splash,
   postDetail,
+  signIn,
 }
 
 @Riverpod(keepAlive: true)
@@ -29,11 +31,12 @@ GoRouter goRouter(Ref ref) {
       GoRoute(
         path: '/',
         redirect: (context, state) async {
-          if (await localStore.getBool('isStarted') == null) {
-            return '/${AppRoute.onboarding.name}';
-          } else {
-            return '/${AppRoute.home.name}';
-          }
+          // if (await localStore.getBool('isStarted') == null) {
+          //   return '/${AppRoute.onboarding.name}';
+          // } else {
+          //   return '/${AppRoute.home.name}';
+          // }
+          return '/${AppRoute.signIn.name}';
         },
       ),
       GoRoute(
@@ -57,7 +60,14 @@ GoRouter goRouter(Ref ref) {
               return const MaterialPage(child: HomeScreen());
             }
             return const MaterialPage(child: PostDetailScreen());
-          }),
+          }
+        ),
+        GoRoute(
+        path: '/${AppRoute.signIn.name}',
+        name: AppRoute.signIn.name,
+        pageBuilder: (context, state) =>
+            MaterialPage(child: SignInScreen()),
+        ),
       // Add more routes here
     ],
   );
@@ -78,5 +88,9 @@ extension GoRouterX on GoRouter {
 
   void goSplash() {
     go('/${AppRoute.splash.name}');
+  }
+
+  void goSignIn() {
+    go('/${AppRoute.signIn.name}');
   }
 }
