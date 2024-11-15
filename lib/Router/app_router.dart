@@ -1,4 +1,4 @@
-import 'package:an_cu/Services/SharedReferences/local_store.provider.dart';
+import 'package:an_cu/Utils/SharedReferences/local_store.provider.dart';
 import 'package:an_cu/Views/Post/Screens/post_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

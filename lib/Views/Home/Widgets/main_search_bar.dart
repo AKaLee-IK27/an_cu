@@ -1,5 +1,5 @@
 import 'package:an_cu/Controllers/location_provider.dart';
-import 'package:an_cu/Controllers/searchbar_mode_provider.dart';
+import 'package:an_cu/Controllers/searchbar_provider.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
 import 'package:an_cu/Utils/Styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
