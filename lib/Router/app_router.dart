@@ -31,12 +31,11 @@ GoRouter goRouter(Ref ref) {
       GoRoute(
         path: '/',
         redirect: (context, state) async {
-          // if (await localStore.getBool('isStarted') == null) {
-          //   return '/${AppRoute.onboarding.name}';
-          // } else {
-          //   return '/${AppRoute.home.name}';
-          // }
-          return '/${AppRoute.signIn.name}';
+          if (await localStore.getBool('isStarted') == null) {
+            return '/${AppRoute.onboarding.name}';
+          } else {
+            return '/${AppRoute.signIn.name}';
+          }
         },
       ),
       GoRoute(
@@ -60,37 +59,37 @@ GoRouter goRouter(Ref ref) {
               return const MaterialPage(child: HomeScreen());
             }
             return const MaterialPage(child: PostDetailScreen());
-          }
-        ),
-        GoRoute(
+          }),
+      GoRoute(
         path: '/${AppRoute.signIn.name}',
         name: AppRoute.signIn.name,
-        pageBuilder: (context, state) =>
-            MaterialPage(child: SignInScreen()),
+        pageBuilder: (context, state) => MaterialPage(
+          child: SignInScreen(),
         ),
+      ),
       // Add more routes here
     ],
   );
 }
 
 extension GoRouterX on GoRouter {
-  void goHome() {
+  Future<void> goHome() async {
     go('/${AppRoute.home.name}');
   }
 
-  void goOnboarding() {
+  Future<void> goOnboarding() async {
     go('/${AppRoute.onboarding.name}');
   }
 
-  void goPostDetail({required String id}) {
+  Future<void> goPostDetail({required String id}) async {
     go('/${AppRoute.postDetail.name}/$id');
   }
 
-  void goSplash() {
+  Future<void> goSplash() async {
     go('/${AppRoute.splash.name}');
   }
 
-  void goSignIn() {
+  Future<void> goSignIn() async {
     go('/${AppRoute.signIn.name}');
   }
 }

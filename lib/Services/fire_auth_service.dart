@@ -4,14 +4,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-final firebaseAuthProvider =
+final firebaseauthController =
     Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
 
-class AuthService {
+class FireAuthService {
   final FirebaseAuth _firebaseAuth;
   final Ref _ref; // use for reading other providers
 
-  AuthService(this._firebaseAuth, this._ref);
+  FireAuthService(this._firebaseAuth, this._ref);
 
   Future<Either<String, User>> signup(
       {required String email, required String password}) async {
@@ -58,8 +58,17 @@ class AuthService {
       return left(e.message ?? 'Unknow Error');
     }
   }
+
+  Future<Either<String, void>> logout() async {
+    try {
+      await _firebaseAuth.signOut();
+      return right(null);
+    } on FirebaseAuthException catch (e) {
+      return left(e.message ?? 'Failed to Logout');
+    }
+  }
 }
 
-final authServiceProvider = Provider<AuthService>(
-  (ref) => AuthService(ref.read(firebaseAuthProvider), ref),
+final fireAuthServiceProvider = Provider<FireAuthService>(
+  (ref) => FireAuthService(ref.read(firebaseauthController), ref),
 );

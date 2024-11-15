@@ -1,3 +1,4 @@
+import 'package:an_cu/Controllers/auth_provider.dart';
 import 'package:an_cu/Router/app_router.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
 import 'package:an_cu/Utils/Styles/app_text_styles.dart';
@@ -70,6 +71,21 @@ class MainDrawer extends ConsumerWidget {
             ),
             onTap: () {
               //
+            },
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.logout,
+              size: 32,
+              color: AppColors.secondary,
+            ),
+            title: Text(
+              'Log out',
+              style: AppTextStyles.title,
+            ),
+            onTap: () async {
+              await ref.read(authController.notifier).logout();
+              await ref.read(goRouterProvider).goSignIn();
             },
           ),
         ],
