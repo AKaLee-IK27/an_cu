@@ -1,22 +1,42 @@
-import 'package:flutter/material.dart';
+import 'package:an_cu/Services/firebase_auth_service.dart';
+import 'package:an_cu/State/auth_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final authProvider = ChangeNotifierProvider<AuthNotifier>((ref) {
-  return AuthNotifier();
-});
+class AuthNotifier extends StateNotifier<AuthenticationState> {
+  AuthNotifier(this._authService) : super(const AuthenticationState.initial());
 
-class AuthNotifier with ChangeNotifier {
-  bool _isAuth = false;
+  final AuthService _authService;
 
-  bool get isAuth => _isAuth;
-
-  void signIn() {
-    _isAuth = true;
-    notifyListeners();
+  Future<void> login({required String email, required String password}) async {
+    state = const AuthenticationState.loading();
+    final response = await _authService.login(email: email, password: password);
+    state = response.fold(
+      (error) => AuthenticationState.unauthenticated(message: error),
+      (response) => AuthenticationState.authenticated(user: response!),
+    );
   }
 
-  void signOut() {
-    _isAuth = false;
-    notifyListeners();
+  Future<void> signup({required String email, required String password}) async {
+    state = const AuthenticationState.loading();
+    final response =
+        await _authService.signup(email: email, password: password);
+    state = response.fold(
+      (error) => AuthenticationState.unauthenticated(message: error),
+      (response) => AuthenticationState.authenticated(user: response),
+    );
+  }
+
+  Future<void> continueWithGoogle() async {
+    state = const AuthenticationState.loading();
+    final response = await _authService.continueWithGoogle();
+    state = response.fold(
+      (error) => AuthenticationState.unauthenticated(message: error),
+      (response) => AuthenticationState.authenticated(user: response),
+    );
   }
 }
+
+final authNotifierProvider =
+    StateNotifierProvider<AuthNotifier, AuthenticationState>(
+  (ref) => AuthNotifier(ref.read(authServiceProvider)),
+);
