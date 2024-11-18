@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MyTextfield extends StatelessWidget {
-  final controller;
+  final TextEditingController controller;
   final String labelText;
   final TextStyle? textStyle;
   final bool obscureText;
@@ -13,7 +13,7 @@ class MyTextfield extends StatelessWidget {
     required this.labelText,
     this.textStyle,
     this.obscureText = false,
-    this.prefixIcon = null,
+    this.prefixIcon,
   });
 
   @override
@@ -36,6 +36,9 @@ class MyTextfield extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
                 ),
+                onTapOutside: (event) {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                },
               ),
             );
   }
