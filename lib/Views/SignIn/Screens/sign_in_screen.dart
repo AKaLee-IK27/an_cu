@@ -1,5 +1,6 @@
 import 'package:an_cu/Controllers/auth_provider.dart';
 import 'package:an_cu/Router/app_router.dart';
+import 'package:an_cu/Services/SharedReferences/local_store.provider.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
 import 'package:an_cu/Views/SignIn/Widgets/my_button.dart';
 import 'package:an_cu/Views/SignIn/Widgets/my_textfield.dart';
@@ -30,13 +31,14 @@ class SignInScreen extends ConsumerWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     screenWidth = (screenWidth < (screenHeight / 2)) ? screenWidth : screenHeight / 2;
+    final localStore = ref.read(localStoreProvider);
 
     ref.listen(authNotifierProvider, (previous, next) {
       next.maybeWhen(
         orElse: () => null,
         authenticated: (user) {
+          localStore.setBool('isLoggedIn', true);
           router.goHome();
-          
           // Navigate to any screen
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -150,9 +152,13 @@ class SignInScreen extends ConsumerWidget {
                       width: 5,
                     ),
                     TextButton(
-                      child: Text("Tạo tài khoản", style: TextStyle(color: Colors.blueAccent, fontSize: screenWidth * 0.04),),
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.zero,
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      ),
                       onPressed: () => {
                       },
+                      child: Text("Tạo tài khoản", style: TextStyle(color: Colors.blueAccent, fontSize: screenWidth * 0.04),),
                     ),
                   ],
                 ),

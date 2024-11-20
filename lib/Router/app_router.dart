@@ -31,12 +31,16 @@ GoRouter goRouter(Ref ref) {
       GoRoute(
         path: '/',
         redirect: (context, state) async {
-          // if (await localStore.getBool('isStarted') == null) {
-          //   return '/${AppRoute.onboarding.name}';
-          // } else {
-          //   return '/${AppRoute.home.name}';
-          // }
-          return '/${AppRoute.signIn.name}';
+          if (await localStore.getBool('isStarted') == null) {
+            return '/${AppRoute.onboarding.name}';
+          } else {
+            // return '/${AppRoute.home.name}';
+            if (await localStore.getBool('isLoggedIn') == true) {
+              return '/${AppRoute.home.name}';
+            } else {
+              return '/${AppRoute.signIn.name}';
+            }
+          }
         },
       ),
       GoRoute(
@@ -74,6 +78,10 @@ GoRouter goRouter(Ref ref) {
 }
 
 extension GoRouterX on GoRouter {
+  void goInit() {
+    go('/');
+  }
+
   void goHome() {
     go('/${AppRoute.home.name}');
   }

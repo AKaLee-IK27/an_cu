@@ -118,7 +118,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           if (!mounted) return;
 
           await localStore.setBool('isStarted', true);
-          router.goHome();
+          router.goInit();
         },
         child: const Text(
           "Bắt Đầu Khám Phá",
