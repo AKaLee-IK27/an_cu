@@ -6,27 +6,28 @@ part of 'model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
-      id: (json['id'] as num).toInt(),
+_$AppUserImpl _$$AppUserImplFromJson(Map<String, dynamic> json) =>
+    _$AppUserImpl(
+      guid: json['guid'] as String?,
       email: json['email'] as String,
-      emailVerified: json['emailVerified'] as bool,
       phone: json['phone'] as String,
       phoneVerified: json['phoneVerified'] as bool,
       password: json['password'] as String,
-      fullName: json['fullName'] as String,
+      name: json['name'] as String,
       avatar: json['avatar'] as String,
+      dateOfBirth: DateTime.parse(json['dateOfBirth'] as String),
     );
 
-Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
+Map<String, dynamic> _$$AppUserImplToJson(_$AppUserImpl instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'guid': instance.guid,
       'email': instance.email,
-      'emailVerified': instance.emailVerified,
       'phone': instance.phone,
       'phoneVerified': instance.phoneVerified,
       'password': instance.password,
-      'fullName': instance.fullName,
+      'name': instance.name,
       'avatar': instance.avatar,
+      'dateOfBirth': instance.dateOfBirth.toIso8601String(),
     };
 
 _$PostImpl _$$PostImplFromJson(Map<String, dynamic> json) => _$PostImpl(
@@ -34,10 +35,11 @@ _$PostImpl _$$PostImplFromJson(Map<String, dynamic> json) => _$PostImpl(
       title: json['title'] as String,
       avgStar: (json['avgStar'] as num).toInt(),
       content: json['content'] as String?,
-      createdAt: DateTime.parse(json['createdAt'] as String),
+      createdAt:
+          const TimestampConverter().fromJson(json['createdAt'] as Timestamp),
       property: Property.fromJson(json['property'] as Map<String, dynamic>),
-      createdBy: User.fromJson(json['createdBy'] as Map<String, dynamic>),
-      expiredAt: DateTime.parse(json['expiredAt'] as String),
+      expiredAt:
+          const TimestampConverter().fromJson(json['expiredAt'] as Timestamp),
       verified: json['verified'] as bool,
       comments: (json['comments'] as List<dynamic>)
           .map((e) => Comment.fromJson(e as Map<String, dynamic>))
@@ -51,10 +53,9 @@ Map<String, dynamic> _$$PostImplToJson(_$PostImpl instance) =>
       'title': instance.title,
       'avgStar': instance.avgStar,
       'content': instance.content,
-      'createdAt': instance.createdAt.toIso8601String(),
+      'createdAt': const TimestampConverter().toJson(instance.createdAt),
       'property': instance.property,
-      'createdBy': instance.createdBy,
-      'expiredAt': instance.expiredAt.toIso8601String(),
+      'expiredAt': const TimestampConverter().toJson(instance.expiredAt),
       'verified': instance.verified,
       'comments': instance.comments,
       'status': _$PostStatusEnumMap[instance.status]!,
@@ -152,14 +153,13 @@ _$CommentImpl _$$CommentImplFromJson(Map<String, dynamic> json) =>
     _$CommentImpl(
       id: json['id'] as String,
       content: json['content'] as String,
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      createdBy: User.fromJson(json['createdBy'] as Map<String, dynamic>),
+      createdAt:
+          const TimestampConverter().fromJson(json['createdAt'] as Timestamp),
     );
 
 Map<String, dynamic> _$$CommentImplToJson(_$CommentImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'content': instance.content,
-      'createdAt': instance.createdAt.toIso8601String(),
-      'createdBy': instance.createdBy,
+      'createdAt': const TimestampConverter().toJson(instance.createdAt),
     };

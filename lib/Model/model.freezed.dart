@@ -14,83 +14,79 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-User _$UserFromJson(Map<String, dynamic> json) {
-  return _User.fromJson(json);
+AppUser _$AppUserFromJson(Map<String, dynamic> json) {
+  return _AppUser.fromJson(json);
 }
 
 /// @nodoc
-mixin _$User {
-  int get id => throw _privateConstructorUsedError;
+mixin _$AppUser {
+  String? get guid => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
-  bool get emailVerified => throw _privateConstructorUsedError;
   String get phone => throw _privateConstructorUsedError;
   bool get phoneVerified => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
-  String get fullName => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
   String get avatar => throw _privateConstructorUsedError;
+  DateTime get dateOfBirth => throw _privateConstructorUsedError;
 
-  /// Serializes this User to a JSON map.
+  /// Serializes this AppUser to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of User
+  /// Create a copy of AppUser
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
+  $AppUserCopyWith<AppUser> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UserCopyWith<$Res> {
-  factory $UserCopyWith(User value, $Res Function(User) then) =
-      _$UserCopyWithImpl<$Res, User>;
+abstract class $AppUserCopyWith<$Res> {
+  factory $AppUserCopyWith(AppUser value, $Res Function(AppUser) then) =
+      _$AppUserCopyWithImpl<$Res, AppUser>;
   @useResult
   $Res call(
-      {int id,
+      {String? guid,
       String email,
-      bool emailVerified,
       String phone,
       bool phoneVerified,
       String password,
-      String fullName,
-      String avatar});
+      String name,
+      String avatar,
+      DateTime dateOfBirth});
 }
 
 /// @nodoc
-class _$UserCopyWithImpl<$Res, $Val extends User>
-    implements $UserCopyWith<$Res> {
-  _$UserCopyWithImpl(this._value, this._then);
+class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
+    implements $AppUserCopyWith<$Res> {
+  _$AppUserCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of User
+  /// Create a copy of AppUser
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? guid = freezed,
     Object? email = null,
-    Object? emailVerified = null,
     Object? phone = null,
     Object? phoneVerified = null,
     Object? password = null,
-    Object? fullName = null,
+    Object? name = null,
     Object? avatar = null,
+    Object? dateOfBirth = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
+      guid: freezed == guid
+          ? _value.guid
+          : guid // ignore: cast_nullable_to_non_nullable
+              as String?,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      emailVerified: null == emailVerified
-          ? _value.emailVerified
-          : emailVerified // ignore: cast_nullable_to_non_nullable
-              as bool,
       phone: null == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
@@ -103,70 +99,71 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
-      fullName: null == fullName
-          ? _value.fullName
-          : fullName // ignore: cast_nullable_to_non_nullable
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
       avatar: null == avatar
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
               as String,
+      dateOfBirth: null == dateOfBirth
+          ? _value.dateOfBirth
+          : dateOfBirth // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
-  factory _$$UserImplCopyWith(
-          _$UserImpl value, $Res Function(_$UserImpl) then) =
-      __$$UserImplCopyWithImpl<$Res>;
+abstract class _$$AppUserImplCopyWith<$Res> implements $AppUserCopyWith<$Res> {
+  factory _$$AppUserImplCopyWith(
+          _$AppUserImpl value, $Res Function(_$AppUserImpl) then) =
+      __$$AppUserImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {int id,
+      {String? guid,
       String email,
-      bool emailVerified,
       String phone,
       bool phoneVerified,
       String password,
-      String fullName,
-      String avatar});
+      String name,
+      String avatar,
+      DateTime dateOfBirth});
 }
 
 /// @nodoc
-class __$$UserImplCopyWithImpl<$Res>
-    extends _$UserCopyWithImpl<$Res, _$UserImpl>
-    implements _$$UserImplCopyWith<$Res> {
-  __$$UserImplCopyWithImpl(_$UserImpl _value, $Res Function(_$UserImpl) _then)
+class __$$AppUserImplCopyWithImpl<$Res>
+    extends _$AppUserCopyWithImpl<$Res, _$AppUserImpl>
+    implements _$$AppUserImplCopyWith<$Res> {
+  __$$AppUserImplCopyWithImpl(
+      _$AppUserImpl _value, $Res Function(_$AppUserImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of User
+  /// Create a copy of AppUser
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? guid = freezed,
     Object? email = null,
-    Object? emailVerified = null,
     Object? phone = null,
     Object? phoneVerified = null,
     Object? password = null,
-    Object? fullName = null,
+    Object? name = null,
     Object? avatar = null,
+    Object? dateOfBirth = null,
   }) {
-    return _then(_$UserImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
+    return _then(_$AppUserImpl(
+      guid: freezed == guid
+          ? _value.guid
+          : guid // ignore: cast_nullable_to_non_nullable
+              as String?,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      emailVerified: null == emailVerified
-          ? _value.emailVerified
-          : emailVerified // ignore: cast_nullable_to_non_nullable
-              as bool,
       phone: null == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
@@ -179,40 +176,42 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
-      fullName: null == fullName
-          ? _value.fullName
-          : fullName // ignore: cast_nullable_to_non_nullable
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
       avatar: null == avatar
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
               as String,
+      dateOfBirth: null == dateOfBirth
+          ? _value.dateOfBirth
+          : dateOfBirth // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$UserImpl implements _User {
-  const _$UserImpl(
-      {required this.id,
+class _$AppUserImpl implements _AppUser {
+  const _$AppUserImpl(
+      {this.guid,
       required this.email,
-      required this.emailVerified,
       required this.phone,
       required this.phoneVerified,
       required this.password,
-      required this.fullName,
-      required this.avatar});
+      required this.name,
+      required this.avatar,
+      required this.dateOfBirth});
 
-  factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
-      _$$UserImplFromJson(json);
+  factory _$AppUserImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AppUserImplFromJson(json);
 
   @override
-  final int id;
+  final String? guid;
   @override
   final String email;
-  @override
-  final bool emailVerified;
   @override
   final String phone;
   @override
@@ -220,74 +219,73 @@ class _$UserImpl implements _User {
   @override
   final String password;
   @override
-  final String fullName;
+  final String name;
   @override
   final String avatar;
+  @override
+  final DateTime dateOfBirth;
 
   @override
   String toString() {
-    return 'User(id: $id, email: $email, emailVerified: $emailVerified, phone: $phone, phoneVerified: $phoneVerified, password: $password, fullName: $fullName, avatar: $avatar)';
+    return 'AppUser(guid: $guid, email: $email, phone: $phone, phoneVerified: $phoneVerified, password: $password, name: $name, avatar: $avatar, dateOfBirth: $dateOfBirth)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UserImpl &&
-            (identical(other.id, id) || other.id == id) &&
+            other is _$AppUserImpl &&
+            (identical(other.guid, guid) || other.guid == guid) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.emailVerified, emailVerified) ||
-                other.emailVerified == emailVerified) &&
             (identical(other.phone, phone) || other.phone == phone) &&
             (identical(other.phoneVerified, phoneVerified) ||
                 other.phoneVerified == phoneVerified) &&
             (identical(other.password, password) ||
                 other.password == password) &&
-            (identical(other.fullName, fullName) ||
-                other.fullName == fullName) &&
-            (identical(other.avatar, avatar) || other.avatar == avatar));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.avatar, avatar) || other.avatar == avatar) &&
+            (identical(other.dateOfBirth, dateOfBirth) ||
+                other.dateOfBirth == dateOfBirth));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, email, emailVerified, phone,
-      phoneVerified, password, fullName, avatar);
+  int get hashCode => Object.hash(runtimeType, guid, email, phone,
+      phoneVerified, password, name, avatar, dateOfBirth);
 
-  /// Create a copy of User
+  /// Create a copy of AppUser
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$UserImplCopyWith<_$UserImpl> get copyWith =>
-      __$$UserImplCopyWithImpl<_$UserImpl>(this, _$identity);
+  _$$AppUserImplCopyWith<_$AppUserImpl> get copyWith =>
+      __$$AppUserImplCopyWithImpl<_$AppUserImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$UserImplToJson(
+    return _$$AppUserImplToJson(
       this,
     );
   }
 }
 
-abstract class _User implements User {
-  const factory _User(
-      {required final int id,
+abstract class _AppUser implements AppUser {
+  const factory _AppUser(
+      {final String? guid,
       required final String email,
-      required final bool emailVerified,
       required final String phone,
       required final bool phoneVerified,
       required final String password,
-      required final String fullName,
-      required final String avatar}) = _$UserImpl;
+      required final String name,
+      required final String avatar,
+      required final DateTime dateOfBirth}) = _$AppUserImpl;
 
-  factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
+  factory _AppUser.fromJson(Map<String, dynamic> json) = _$AppUserImpl.fromJson;
 
   @override
-  int get id;
+  String? get guid;
   @override
   String get email;
-  @override
-  bool get emailVerified;
   @override
   String get phone;
   @override
@@ -295,15 +293,17 @@ abstract class _User implements User {
   @override
   String get password;
   @override
-  String get fullName;
+  String get name;
   @override
   String get avatar;
+  @override
+  DateTime get dateOfBirth;
 
-  /// Create a copy of User
+  /// Create a copy of AppUser
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$UserImplCopyWith<_$UserImpl> get copyWith =>
+  _$$AppUserImplCopyWith<_$AppUserImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -317,9 +317,10 @@ mixin _$Post {
   String get title => throw _privateConstructorUsedError;
   int get avgStar => throw _privateConstructorUsedError;
   String? get content => throw _privateConstructorUsedError;
+  @TimestampConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
   Property get property => throw _privateConstructorUsedError;
-  User get createdBy => throw _privateConstructorUsedError;
+  @TimestampConverter()
   DateTime get expiredAt => throw _privateConstructorUsedError;
   bool get verified => throw _privateConstructorUsedError;
   List<Comment> get comments => throw _privateConstructorUsedError;
@@ -344,16 +345,14 @@ abstract class $PostCopyWith<$Res> {
       String title,
       int avgStar,
       String? content,
-      DateTime createdAt,
+      @TimestampConverter() DateTime createdAt,
       Property property,
-      User createdBy,
-      DateTime expiredAt,
+      @TimestampConverter() DateTime expiredAt,
       bool verified,
       List<Comment> comments,
       PostStatus status});
 
   $PropertyCopyWith<$Res> get property;
-  $UserCopyWith<$Res> get createdBy;
 }
 
 /// @nodoc
@@ -377,7 +376,6 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
     Object? content = freezed,
     Object? createdAt = null,
     Object? property = null,
-    Object? createdBy = null,
     Object? expiredAt = null,
     Object? verified = null,
     Object? comments = null,
@@ -408,10 +406,6 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
           ? _value.property
           : property // ignore: cast_nullable_to_non_nullable
               as Property,
-      createdBy: null == createdBy
-          ? _value.createdBy
-          : createdBy // ignore: cast_nullable_to_non_nullable
-              as User,
       expiredAt: null == expiredAt
           ? _value.expiredAt
           : expiredAt // ignore: cast_nullable_to_non_nullable
@@ -440,16 +434,6 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
       return _then(_value.copyWith(property: value) as $Val);
     });
   }
-
-  /// Create a copy of Post
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $UserCopyWith<$Res> get createdBy {
-    return $UserCopyWith<$Res>(_value.createdBy, (value) {
-      return _then(_value.copyWith(createdBy: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
@@ -464,18 +448,15 @@ abstract class _$$PostImplCopyWith<$Res> implements $PostCopyWith<$Res> {
       String title,
       int avgStar,
       String? content,
-      DateTime createdAt,
+      @TimestampConverter() DateTime createdAt,
       Property property,
-      User createdBy,
-      DateTime expiredAt,
+      @TimestampConverter() DateTime expiredAt,
       bool verified,
       List<Comment> comments,
       PostStatus status});
 
   @override
   $PropertyCopyWith<$Res> get property;
-  @override
-  $UserCopyWith<$Res> get createdBy;
 }
 
 /// @nodoc
@@ -496,7 +477,6 @@ class __$$PostImplCopyWithImpl<$Res>
     Object? content = freezed,
     Object? createdAt = null,
     Object? property = null,
-    Object? createdBy = null,
     Object? expiredAt = null,
     Object? verified = null,
     Object? comments = null,
@@ -527,10 +507,6 @@ class __$$PostImplCopyWithImpl<$Res>
           ? _value.property
           : property // ignore: cast_nullable_to_non_nullable
               as Property,
-      createdBy: null == createdBy
-          ? _value.createdBy
-          : createdBy // ignore: cast_nullable_to_non_nullable
-              as User,
       expiredAt: null == expiredAt
           ? _value.expiredAt
           : expiredAt // ignore: cast_nullable_to_non_nullable
@@ -559,10 +535,9 @@ class _$PostImpl implements _Post {
       required this.title,
       required this.avgStar,
       this.content,
-      required this.createdAt,
+      @TimestampConverter() required this.createdAt,
       required this.property,
-      required this.createdBy,
-      required this.expiredAt,
+      @TimestampConverter() required this.expiredAt,
       required this.verified,
       required final List<Comment> comments,
       required this.status})
@@ -580,12 +555,12 @@ class _$PostImpl implements _Post {
   @override
   final String? content;
   @override
+  @TimestampConverter()
   final DateTime createdAt;
   @override
   final Property property;
   @override
-  final User createdBy;
-  @override
+  @TimestampConverter()
   final DateTime expiredAt;
   @override
   final bool verified;
@@ -602,7 +577,7 @@ class _$PostImpl implements _Post {
 
   @override
   String toString() {
-    return 'Post(id: $id, title: $title, avgStar: $avgStar, content: $content, createdAt: $createdAt, property: $property, createdBy: $createdBy, expiredAt: $expiredAt, verified: $verified, comments: $comments, status: $status)';
+    return 'Post(id: $id, title: $title, avgStar: $avgStar, content: $content, createdAt: $createdAt, property: $property, expiredAt: $expiredAt, verified: $verified, comments: $comments, status: $status)';
   }
 
   @override
@@ -618,8 +593,6 @@ class _$PostImpl implements _Post {
                 other.createdAt == createdAt) &&
             (identical(other.property, property) ||
                 other.property == property) &&
-            (identical(other.createdBy, createdBy) ||
-                other.createdBy == createdBy) &&
             (identical(other.expiredAt, expiredAt) ||
                 other.expiredAt == expiredAt) &&
             (identical(other.verified, verified) ||
@@ -638,7 +611,6 @@ class _$PostImpl implements _Post {
       content,
       createdAt,
       property,
-      createdBy,
       expiredAt,
       verified,
       const DeepCollectionEquality().hash(_comments),
@@ -666,10 +638,9 @@ abstract class _Post implements Post {
       required final String title,
       required final int avgStar,
       final String? content,
-      required final DateTime createdAt,
+      @TimestampConverter() required final DateTime createdAt,
       required final Property property,
-      required final User createdBy,
-      required final DateTime expiredAt,
+      @TimestampConverter() required final DateTime expiredAt,
       required final bool verified,
       required final List<Comment> comments,
       required final PostStatus status}) = _$PostImpl;
@@ -685,12 +656,12 @@ abstract class _Post implements Post {
   @override
   String? get content;
   @override
+  @TimestampConverter()
   DateTime get createdAt;
   @override
   Property get property;
   @override
-  User get createdBy;
-  @override
+  @TimestampConverter()
   DateTime get expiredAt;
   @override
   bool get verified;
@@ -1494,8 +1465,8 @@ Comment _$CommentFromJson(Map<String, dynamic> json) {
 mixin _$Comment {
   String get id => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
+  @TimestampConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
-  User get createdBy => throw _privateConstructorUsedError;
 
   /// Serializes this Comment to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1511,9 +1482,8 @@ abstract class $CommentCopyWith<$Res> {
   factory $CommentCopyWith(Comment value, $Res Function(Comment) then) =
       _$CommentCopyWithImpl<$Res, Comment>;
   @useResult
-  $Res call({String id, String content, DateTime createdAt, User createdBy});
-
-  $UserCopyWith<$Res> get createdBy;
+  $Res call(
+      {String id, String content, @TimestampConverter() DateTime createdAt});
 }
 
 /// @nodoc
@@ -1534,7 +1504,6 @@ class _$CommentCopyWithImpl<$Res, $Val extends Comment>
     Object? id = null,
     Object? content = null,
     Object? createdAt = null,
-    Object? createdBy = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -1549,21 +1518,7 @@ class _$CommentCopyWithImpl<$Res, $Val extends Comment>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      createdBy: null == createdBy
-          ? _value.createdBy
-          : createdBy // ignore: cast_nullable_to_non_nullable
-              as User,
     ) as $Val);
-  }
-
-  /// Create a copy of Comment
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $UserCopyWith<$Res> get createdBy {
-    return $UserCopyWith<$Res>(_value.createdBy, (value) {
-      return _then(_value.copyWith(createdBy: value) as $Val);
-    });
   }
 }
 
@@ -1574,10 +1529,8 @@ abstract class _$$CommentImplCopyWith<$Res> implements $CommentCopyWith<$Res> {
       __$$CommentImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String content, DateTime createdAt, User createdBy});
-
-  @override
-  $UserCopyWith<$Res> get createdBy;
+  $Res call(
+      {String id, String content, @TimestampConverter() DateTime createdAt});
 }
 
 /// @nodoc
@@ -1596,7 +1549,6 @@ class __$$CommentImplCopyWithImpl<$Res>
     Object? id = null,
     Object? content = null,
     Object? createdAt = null,
-    Object? createdBy = null,
   }) {
     return _then(_$CommentImpl(
       id: null == id
@@ -1611,10 +1563,6 @@ class __$$CommentImplCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      createdBy: null == createdBy
-          ? _value.createdBy
-          : createdBy // ignore: cast_nullable_to_non_nullable
-              as User,
     ));
   }
 }
@@ -1625,8 +1573,7 @@ class _$CommentImpl implements _Comment {
   const _$CommentImpl(
       {required this.id,
       required this.content,
-      required this.createdAt,
-      required this.createdBy});
+      @TimestampConverter() required this.createdAt});
 
   factory _$CommentImpl.fromJson(Map<String, dynamic> json) =>
       _$$CommentImplFromJson(json);
@@ -1636,13 +1583,12 @@ class _$CommentImpl implements _Comment {
   @override
   final String content;
   @override
+  @TimestampConverter()
   final DateTime createdAt;
-  @override
-  final User createdBy;
 
   @override
   String toString() {
-    return 'Comment(id: $id, content: $content, createdAt: $createdAt, createdBy: $createdBy)';
+    return 'Comment(id: $id, content: $content, createdAt: $createdAt)';
   }
 
   @override
@@ -1653,15 +1599,12 @@ class _$CommentImpl implements _Comment {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.content, content) || other.content == content) &&
             (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.createdBy, createdBy) ||
-                other.createdBy == createdBy));
+                other.createdAt == createdAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, content, createdAt, createdBy);
+  int get hashCode => Object.hash(runtimeType, id, content, createdAt);
 
   /// Create a copy of Comment
   /// with the given fields replaced by the non-null parameter values.
@@ -1683,8 +1626,7 @@ abstract class _Comment implements Comment {
   const factory _Comment(
       {required final String id,
       required final String content,
-      required final DateTime createdAt,
-      required final User createdBy}) = _$CommentImpl;
+      @TimestampConverter() required final DateTime createdAt}) = _$CommentImpl;
 
   factory _Comment.fromJson(Map<String, dynamic> json) = _$CommentImpl.fromJson;
 
@@ -1693,9 +1635,8 @@ abstract class _Comment implements Comment {
   @override
   String get content;
   @override
+  @TimestampConverter()
   DateTime get createdAt;
-  @override
-  User get createdBy;
 
   /// Create a copy of Comment
   /// with the given fields replaced by the non-null parameter values.

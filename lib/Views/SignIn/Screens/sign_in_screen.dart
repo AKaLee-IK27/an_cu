@@ -1,6 +1,6 @@
-import 'package:an_cu/Controllers/auth_provider.dart';
+import 'package:an_cu/Controllers/auth_controller.dart';
 import 'package:an_cu/Router/app_router.dart';
-import 'package:an_cu/Services/SharedReferences/local_store.provider.dart';
+import 'package:an_cu/Utils/SharedReferences/local_store.provider.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
 import 'package:an_cu/Views/SignIn/Widgets/my_button.dart';
 import 'package:an_cu/Views/SignIn/Widgets/my_textfield.dart';
@@ -15,14 +15,14 @@ class SignInScreen extends ConsumerWidget {
   final passwordController = TextEditingController();
 
   void signUserIn(WidgetRef ref) {
-    ref.read(authNotifierProvider.notifier).login(
+    ref.read(authController.notifier).login(
       email: emailController.text,
       password: passwordController.text,  
     );
   }
 
   void signInWithGoogle(WidgetRef ref) {
-    ref.read(authNotifierProvider.notifier).continueWithGoogle();
+    ref.read(authController.notifier).continueWithGoogle();
   }
 
   @override
@@ -33,7 +33,7 @@ class SignInScreen extends ConsumerWidget {
     screenWidth = (screenWidth < (screenHeight / 2)) ? screenWidth : screenHeight / 2;
     final localStore = ref.read(localStoreProvider);
 
-    ref.listen(authNotifierProvider, (previous, next) {
+    ref.listen(authController, (previous, next) {
       next.maybeWhen(
         orElse: () => null,
         authenticated: (user) {
@@ -56,6 +56,31 @@ class SignInScreen extends ConsumerWidget {
         ),
       );
     });
+
+    ref.listen(
+      authController,
+      (previous, next) {
+        next.maybeWhen(
+          orElse: () => null,
+          authenticated: (user) {
+            ref.read(goRouterProvider).goHome();
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('User ${user.email} Logged In'),
+                behavior: SnackBarBehavior.floating,
+              ),
+            );
+          },
+          unauthenticated: (message) =>
+              ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(message!),
+              behavior: SnackBarBehavior.floating,
+            ),
+          ),
+        );
+      },
+    );
 
     return SafeArea(
       child: Scaffold(
@@ -130,7 +155,7 @@ class SignInScreen extends ConsumerWidget {
                   color: AppColors.primary,
                   padding: EdgeInsets.all(screenWidth * 0.035),
                   loading: ref
-                    .watch(authNotifierProvider)
+                    .watch(authController)
                     .maybeWhen(orElse: () => false, loading:() => true),
                   onPressed: () => {
                     signUserIn(ref)

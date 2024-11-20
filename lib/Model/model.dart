@@ -1,3 +1,5 @@
+import 'package:an_cu/Utils/Helpers/timestamp_converter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'model.freezed.dart';
@@ -29,18 +31,19 @@ enum PropertyType {
 }
 
 @freezed
-class User with _$User {
-  const factory User({
-    required int id,
+class AppUser with _$AppUser {
+  const factory AppUser({
+    String? guid,
     required String email,
-    required bool emailVerified,
     required String phone,
     required bool phoneVerified,
     required String password,
-    required String fullName,
+    required String name,
     required String avatar,
-  }) = _User;
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+    required DateTime dateOfBirth,
+  }) = _AppUser;
+  factory AppUser.fromJson(Map<String, dynamic> json) =>
+      _$AppUserFromJson(json);
 }
 
 @freezed
@@ -50,12 +53,12 @@ class Post with _$Post {
     required String title,
     required int avgStar,
     String? content,
-    required DateTime createdAt,
+    
+    @TimestampConverter() required DateTime createdAt,
     required Property property,
-    required User createdBy,
-    required DateTime expiredAt,
+    @TimestampConverter() required DateTime expiredAt,
     required bool verified,
-    required List<Comment> comments,
+    @Default([]) required List<Comment> comments,
     required PostStatus status,
   }) = _Post;
 
@@ -110,8 +113,7 @@ class Comment with _$Comment {
   const factory Comment({
     required String id,
     required String content,
-    required DateTime createdAt,
-    required User createdBy,
+    @TimestampConverter() required DateTime createdAt,
   }) = _Comment;
 
   factory Comment.fromJson(Map<String, dynamic> json) =>

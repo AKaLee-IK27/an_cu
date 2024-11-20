@@ -1,4 +1,4 @@
-import 'package:an_cu/Services/SharedReferences/local_store.provider.dart';
+import 'package:an_cu/Utils/SharedReferences/local_store.provider.dart';
 import 'package:an_cu/Views/Post/Screens/post_detail_screen.dart';
 import 'package:an_cu/Views/SignIn/Screens/sign_in_screen.dart';
 import 'package:flutter/material.dart';
@@ -64,14 +64,14 @@ GoRouter goRouter(Ref ref) {
               return const MaterialPage(child: HomeScreen());
             }
             return const MaterialPage(child: PostDetailScreen());
-          }
-        ),
-        GoRoute(
+          }),
+      GoRoute(
         path: '/${AppRoute.signIn.name}',
         name: AppRoute.signIn.name,
-        pageBuilder: (context, state) =>
-            MaterialPage(child: SignInScreen()),
+        pageBuilder: (context, state) => MaterialPage(
+          child: SignInScreen(),
         ),
+      ),
       // Add more routes here
     ],
   );

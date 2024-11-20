@@ -1,11 +1,12 @@
-import 'package:an_cu/Services/firebase_auth_service.dart';
+import 'package:an_cu/Services/fire_auth_service.dart';
 import 'package:an_cu/State/auth_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AuthNotifier extends StateNotifier<AuthenticationState> {
   AuthNotifier(this._authService) : super(const AuthenticationState.initial());
 
-  final AuthService _authService;
+  final FireAuthService _authService;
+  final bool isSignedIn = false;
 
   Future<void> login({required String email, required String password}) async {
     state = const AuthenticationState.loading();
@@ -34,9 +35,18 @@ class AuthNotifier extends StateNotifier<AuthenticationState> {
       (response) => AuthenticationState.authenticated(user: response),
     );
   }
+
+  Future<void> logout() async {
+    state = const AuthenticationState.loading();
+    final response = await _authService.logout();
+    state = response.fold(
+      (error) => AuthenticationState.unauthenticated(message: error),
+      (response) =>
+          const AuthenticationState.unauthenticated(message: 'Logged Out'),
+    );
+  }
 }
 
-final authNotifierProvider =
-    StateNotifierProvider<AuthNotifier, AuthenticationState>(
-  (ref) => AuthNotifier(ref.read(authServiceProvider)),
+final authController = StateNotifierProvider<AuthNotifier, AuthenticationState>(
+  (ref) => AuthNotifier(ref.read(fireAuthServiceProvider)),
 );
