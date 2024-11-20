@@ -78,27 +78,27 @@ GoRouter goRouter(Ref ref) {
 }
 
 extension GoRouterX on GoRouter {
-  void goInit() {
+  Future<void> goInit() async {
     go('/');
   }
 
-  void goHome() {
+  Future<void> goHome() async {
     go('/${AppRoute.home.name}');
   }
 
-  void goOnboarding() {
+  Future<void> goOnboarding() async {
     go('/${AppRoute.onboarding.name}');
   }
 
-  void goPostDetail({required String id}) {
+  Future<void> goPostDetail({required String id}) async {
     go('/${AppRoute.postDetail.name}/$id');
   }
 
-  void goSplash() {
+  Future<void> goSplash() async {
     go('/${AppRoute.splash.name}');
   }
 
-  void goSignIn() {
+  Future<void> goSignIn() async {
     go('/${AppRoute.signIn.name}');
   }
 }
