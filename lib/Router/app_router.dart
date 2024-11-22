@@ -1,6 +1,7 @@
 import 'package:an_cu/Utils/SharedReferences/local_store.provider.dart';
+import 'package:an_cu/Views/Authentication/Screens/verification_screen.dart';
 import 'package:an_cu/Views/Post/Screens/post_detail_screen.dart';
-import 'package:an_cu/Views/SignIn/Screens/sign_in_screen.dart';
+import 'package:an_cu/Views/Authentication/Screens/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -19,6 +20,7 @@ enum AppRoute {
   splash,
   postDetail,
   signIn,
+  verification,
 }
 
 @Riverpod(keepAlive: true)
@@ -31,16 +33,14 @@ GoRouter goRouter(Ref ref) {
       GoRoute(
         path: '/',
         redirect: (context, state) async {
-          if (await localStore.getBool('isStarted') == null) {
+          if (await localStore.getBool('isStarted') != true) {
             return '/${AppRoute.onboarding.name}';
+          } else if (await localStore.getBool('isLoggedIn') == true) {
+            return '/${AppRoute.home.name}';
           } else {
-            // return '/${AppRoute.home.name}';
-            if (await localStore.getBool('isLoggedIn') == true) {
-              return '/${AppRoute.home.name}';
-            } else {
-              return '/${AppRoute.signIn.name}';
-            }
+            return '/${AppRoute.signIn.name}';
           }
+          //return '/${AppRoute.verification.name}';
         },
       ),
       GoRoute(
@@ -48,12 +48,23 @@ GoRouter goRouter(Ref ref) {
         name: AppRoute.home.name,
         pageBuilder: (context, state) =>
             const MaterialPage(child: HomeScreen()),
+        redirect: (context, state) async {
+          if ((await localStore.getBool('isStarted') != true) || (await localStore.getBool('isLoggedIn') != true)) {
+            return '/';
+          }
+        }
+
       ),
       GoRoute(
         path: '/${AppRoute.onboarding.name}',
         name: AppRoute.onboarding.name,
         pageBuilder: (context, state) =>
             const MaterialPage(child: OnboardingScreen()),
+        redirect: (context, state) async {
+          if (await localStore.getBool('isStarted') == true) {
+            return '/';
+          }
+        }
       ),
       GoRoute(
           path: '/${AppRoute.postDetail.name}/:id',
@@ -71,7 +82,19 @@ GoRouter goRouter(Ref ref) {
         pageBuilder: (context, state) => MaterialPage(
           child: SignInScreen(),
         ),
+        redirect: (context, state) async {
+          if ((await localStore.getBool('isStarted') != true) || (await localStore.getBool('isLoggedIn') == true)) {
+            return '/';
+          }
+        }
       ),
+      GoRoute(
+        path: '/${AppRoute.verification.name}',
+        name: AppRoute.verification.name,
+        pageBuilder: (context, state) => MaterialPage(
+          child: VerificationScreen(),
+        ),
+      )
       // Add more routes here
     ],
   );
@@ -100,5 +123,9 @@ extension GoRouterX on GoRouter {
 
   Future<void> goSignIn() async {
     go('/${AppRoute.signIn.name}');
+  }
+
+  Future<void> goVerification() async {
+    go('/${AppRoute.verification.name}');
   }
 }

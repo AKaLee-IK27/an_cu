@@ -87,8 +87,8 @@ class MainDrawer extends ConsumerWidget {
             ),
             onTap: () async {
               await ref.read(authController.notifier).logout();
-              router.goSignIn();
               localStore.setBool('isLoggedIn', false);
+              router.goSignIn();
             },
           ),
         ],
