@@ -8,14 +8,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
-class SignInScreen extends ConsumerWidget {
-  SignInScreen({super.key});
+class SignUpScreen extends ConsumerWidget {
+  SignUpScreen({super.key});
 
+  final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  bool isPressButtonSignUp = false;
 
-  void signUserIn(WidgetRef ref) {
-    ref.read(authController.notifier).login(
+  void signUp(WidgetRef ref) {
+    isPressButtonSignUp = true;
+    ref.read(authController.notifier).signup(
       email: emailController.text,
       password: passwordController.text,  
     );
@@ -38,17 +41,19 @@ class SignInScreen extends ConsumerWidget {
       (previous, next) {
         next.maybeWhen(
           orElse: () => null,
-          authenticated: (user) {
-            localStore.setBool('isLoggedIn', true);
-            if (user.emailVerified) {
-              router.goHome();
+          authenticated: (user) async {
+            if (!isPressButtonSignUp) {
+              localStore.setBool('isLoggedIn', true);
             } else {
-              router.goVerification();
+              await user.updateDisplayName(nameController.text);
+              await user.reload();
+              
             }
+            router.goInit();
             // Alert
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('User ${user.displayName} Logged In'),
+              const SnackBar(
+                content: Text('Sign Up Success'),
                 behavior: SnackBarBehavior.floating,
               ),
             );
@@ -95,11 +100,24 @@ class SignInScreen extends ConsumerWidget {
                   const CustomSizedBox(),
               
                   Text(
-                    "Đăng Nhập",
+                    "Đăng Ký",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: screenWidth * 0.06,
                         color: Colors.black),
+                  ),
+
+                  const CustomSizedBox(),
+              
+                  MyTextfield(
+                    controller: nameController,
+                    labelText: "Họ tên",
+                    textStyle: TextStyle(
+                      color: Colors.black,
+                      fontSize: screenWidth * 0.04,
+                      fontWeight: FontWeight.normal,
+                    ),
+                    prefixIcon: const Icon(Icons.person),
                   ),
               
                   const CustomSizedBox(),
@@ -135,14 +153,14 @@ class SignInScreen extends ConsumerWidget {
                   const CustomSizedBox(),
               
                   MyButton(
-                    text: Text("Đăng Nhập", style: TextStyle(color: Colors.white, fontSize: screenWidth * 0.045, fontWeight: FontWeight.bold),),
+                    text: Text("Đăng Ký", style: TextStyle(color: Colors.white, fontSize: screenWidth * 0.045, fontWeight: FontWeight.bold),),
                     color: AppColors.primary,
                     padding: EdgeInsets.all(screenWidth * 0.035),
                     loading: ref
                       .watch(authController)
                       .maybeWhen(orElse: () => false, loading:() => true),
                     onPressed: () => {
-                      signUserIn(ref)
+                      signUp(ref)
                     },
                   ),
               
@@ -154,7 +172,7 @@ class SignInScreen extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Bạn chưa có tài khoản?",
+                        "Bạn đã có tài khoản?",
                         style: TextStyle(color: Colors.black, fontSize: screenWidth * 0.04),
                       ),
                       const SizedBox(
@@ -166,9 +184,9 @@ class SignInScreen extends ConsumerWidget {
                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         ),
                         onPressed: () => {
-                          router.goSignUp()
+                          router.goSignIn()
                         },
-                        child: Text("Tạo tài khoản", style: TextStyle(color: Colors.blueAccent, fontSize: screenWidth * 0.04),),
+                        child: Text("Đăng nhập", style: TextStyle(color: Colors.blueAccent, fontSize: screenWidth * 0.04),),
                       ),
                     ],
                   ),

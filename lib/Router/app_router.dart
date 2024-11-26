@@ -1,4 +1,5 @@
 import 'package:an_cu/Utils/SharedReferences/local_store.provider.dart';
+import 'package:an_cu/Views/Authentication/Screens/sign_up_screen.dart';
 import 'package:an_cu/Views/Authentication/Screens/verification_screen.dart';
 import 'package:an_cu/Views/Post/Screens/post_detail_screen.dart';
 import 'package:an_cu/Views/Authentication/Screens/sign_in_screen.dart';
@@ -20,6 +21,7 @@ enum AppRoute {
   splash,
   postDetail,
   signIn,
+  signUp,
   verification,
 }
 
@@ -52,6 +54,7 @@ GoRouter goRouter(Ref ref) {
           if ((await localStore.getBool('isStarted') != true) || (await localStore.getBool('isLoggedIn') != true)) {
             return '/';
           }
+          return '/${AppRoute.home.name}';
         }
 
       ),
@@ -64,6 +67,7 @@ GoRouter goRouter(Ref ref) {
           if (await localStore.getBool('isStarted') == true) {
             return '/';
           }
+          return '/${AppRoute.onboarding.name}';
         }
       ),
       GoRoute(
@@ -86,12 +90,26 @@ GoRouter goRouter(Ref ref) {
           if ((await localStore.getBool('isStarted') != true) || (await localStore.getBool('isLoggedIn') == true)) {
             return '/';
           }
+          return '/${AppRoute.signIn.name}';
+        }
+      ),
+      GoRoute(
+        path: '/${AppRoute.signUp.name}',
+        name: AppRoute.signUp.name,
+        pageBuilder: (context, state) => MaterialPage(
+          child: SignUpScreen(),
+        ),
+        redirect: (context, state) async {
+          if ((await localStore.getBool('isStarted') != true) || (await localStore.getBool('isLoggedIn') == true)) {
+            return '/';
+          }
+          return '/${AppRoute.signUp.name}';
         }
       ),
       GoRoute(
         path: '/${AppRoute.verification.name}',
         name: AppRoute.verification.name,
-        pageBuilder: (context, state) => MaterialPage(
+        pageBuilder: (context, state) => const MaterialPage(
           child: VerificationScreen(),
         ),
       )
@@ -123,6 +141,10 @@ extension GoRouterX on GoRouter {
 
   Future<void> goSignIn() async {
     go('/${AppRoute.signIn.name}');
+  }
+
+  Future<void> goSignUp() async {
+    go('/${AppRoute.signUp.name}');
   }
 
   Future<void> goVerification() async {

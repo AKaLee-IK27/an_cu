@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
 class VerificationScreen extends ConsumerWidget {
-  VerificationScreen({super.key});
+  const VerificationScreen({super.key});
 
   // final emailController = TextEditingController();
   // final passwordController = TextEditingController();
@@ -117,8 +117,9 @@ class VerificationScreen extends ConsumerWidget {
                       .watch(authController)
                       .maybeWhen(orElse: () => false, loading:() => true),
                     onPressed: () async {
-                      await user.reload();
-                      if (user.emailVerified) {
+                      User? userTemp = mAuth.currentUser;
+                      await userTemp?.reload();
+                      if (userTemp?.emailVerified ?? false) {
                         router.goHome();
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
