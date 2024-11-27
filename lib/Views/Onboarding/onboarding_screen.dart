@@ -23,12 +23,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    screenWidth = (screenWidth < (screenHeight / 2)) ? screenWidth : screenHeight / 2;
+    screenWidth =
+        (screenWidth < (screenHeight / 2)) ? screenWidth : screenHeight / 2;
 
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+        margin: const EdgeInsets.all(5),
         child: PageView.builder(
             onPageChanged: (index) => setState(
                 () => isLastPage = controller.items.length - 1 == index),

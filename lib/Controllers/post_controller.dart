@@ -2,6 +2,8 @@ import 'package:an_cu/Model/model.dart';
 import 'package:an_cu/Services/fire_store_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+
+
 class PostNotifier extends StateNotifier<List<Post>> {
   PostNotifier(this._fireStoreService) : super([]);
 
@@ -9,11 +11,12 @@ class PostNotifier extends StateNotifier<List<Post>> {
 
   Future<void> getPosts() async {
     final postsData = await _fireStoreService.getPosts();
-    for (var post in postsData) {
-      print(
-        Post.fromJson(post).toString(),
-      );
-    }
+    final posts = postsData.map((post) => Post.fromJson(post)).toList();
+    state = posts;
+  }
+
+  Future<void> addPost() async {
+    await _fireStoreService.addPost();
   }
 }
 

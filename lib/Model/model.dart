@@ -1,47 +1,17 @@
-import 'package:an_cu/Utils/Helpers/timestamp_converter.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'model.freezed.dart';
 part 'model.g.dart';
 
-enum Direction {
-  north,
-  south,
-  east,
-  west,
-  southEast,
-  southWest,
-  northEast,
-  northWest,
-}
-
-enum PostStatus {
-  pending,
-  contacting,
-  selled,
-}
-
-enum PropertyType {
-  apartment,
-  house,
-  land,
-  office,
-  villa,
-}
-
 @freezed
 class AppUser with _$AppUser {
   const factory AppUser({
-    String? guid,
-    required String email,
-    required String phone,
-    required bool phoneVerified,
-    required String password,
-    required String name,
-    required String avatar,
-    required DateTime dateOfBirth,
+    required String id,
+    String? email,
+    String? name,
+    String? phoneNumber,
   }) = _AppUser;
+
   factory AppUser.fromJson(Map<String, dynamic> json) =>
       _$AppUserFromJson(json);
 }
@@ -53,13 +23,12 @@ class Post with _$Post {
     required String title,
     required int avgStar,
     String? content,
-    
-    @TimestampConverter() required DateTime createdAt,
+    required int createdAt,
     required Property property,
-    @TimestampConverter() required DateTime expiredAt,
+    required AppUser createdBy,
     required bool verified,
-    @Default([]) required List<Comment> comments,
-    required PostStatus status,
+    required List<Comment> comments,
+    required String status,
   }) = _Post;
 
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
@@ -79,8 +48,8 @@ class Property with _$Property {
     required String description,
     required List<String> images,
     required bool hasFurniture,
-    required PropertyType propertyType,
-    required Direction direction,
+    required String propertyType,
+    required String direction,
   }) = _Property;
 
   factory Property.fromJson(Map<String, dynamic> json) =>
@@ -113,7 +82,8 @@ class Comment with _$Comment {
   const factory Comment({
     required String id,
     required String content,
-    @TimestampConverter() required DateTime createdAt,
+    required int createdAt,
+    required AppUser createdBy,
   }) = _Comment;
 
   factory Comment.fromJson(Map<String, dynamic> json) =>

@@ -1,8 +1,10 @@
 import 'package:an_cu/Utils/SharedReferences/local_store.provider.dart';
+import 'package:an_cu/Views/Authentication/Screens/sign_in_screen.dart';
 import 'package:an_cu/Views/Authentication/Screens/sign_up_screen.dart';
 import 'package:an_cu/Views/Authentication/Screens/verification_screen.dart';
+import 'package:an_cu/Views/ChatBot/chat_bot_screen.dart';
+import 'package:an_cu/Views/Post/Screens/add_post_screen.dart';
 import 'package:an_cu/Views/Post/Screens/post_detail_screen.dart';
-import 'package:an_cu/Views/Authentication/Screens/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -20,9 +22,11 @@ enum AppRoute {
   onboarding,
   splash,
   postDetail,
+  addPost,
   signIn,
   signUp,
   verification,
+  chatBot,
 }
 
 @Riverpod(keepAlive: true)
@@ -46,30 +50,28 @@ GoRouter goRouter(Ref ref) {
         },
       ),
       GoRoute(
-        path: '/${AppRoute.home.name}',
-        name: AppRoute.home.name,
-        pageBuilder: (context, state) =>
-            const MaterialPage(child: HomeScreen()),
-        redirect: (context, state) async {
-          if ((await localStore.getBool('isStarted') != true) || (await localStore.getBool('isLoggedIn') != true)) {
-            return '/';
-          }
-          return '/${AppRoute.home.name}';
-        }
-
-      ),
+          path: '/${AppRoute.home.name}',
+          name: AppRoute.home.name,
+          pageBuilder: (context, state) =>
+              const MaterialPage(child: HomeScreen()),
+          redirect: (context, state) async {
+            if ((await localStore.getBool('isStarted') != true) ||
+                (await localStore.getBool('isLoggedIn') != true)) {
+              return '/';
+            }
+            return '/${AppRoute.home.name}';
+          }),
       GoRoute(
-        path: '/${AppRoute.onboarding.name}',
-        name: AppRoute.onboarding.name,
-        pageBuilder: (context, state) =>
-            const MaterialPage(child: OnboardingScreen()),
-        redirect: (context, state) async {
-          if (await localStore.getBool('isStarted') == true) {
-            return '/';
-          }
-          return '/${AppRoute.onboarding.name}';
-        }
-      ),
+          path: '/${AppRoute.onboarding.name}',
+          name: AppRoute.onboarding.name,
+          pageBuilder: (context, state) =>
+              const MaterialPage(child: OnboardingScreen()),
+          redirect: (context, state) async {
+            if (await localStore.getBool('isStarted') == true) {
+              return '/';
+            }
+            return '/${AppRoute.onboarding.name}';
+          }),
       GoRoute(
           path: '/${AppRoute.postDetail.name}/:id',
           name: AppRoute.postDetail.name,
@@ -81,38 +83,48 @@ GoRouter goRouter(Ref ref) {
             return MaterialPage(child: PostDetailScreen());
           }),
       GoRoute(
-        path: '/${AppRoute.signIn.name}',
-        name: AppRoute.signIn.name,
-        pageBuilder: (context, state) => MaterialPage(
-          child: SignInScreen(),
-        ),
-        redirect: (context, state) async {
-          if ((await localStore.getBool('isStarted') != true) || (await localStore.getBool('isLoggedIn') == true)) {
-            return '/';
-          }
-          return '/${AppRoute.signIn.name}';
-        }
-      ),
+          path: '/${AppRoute.signIn.name}',
+          name: AppRoute.signIn.name,
+          pageBuilder: (context, state) => MaterialPage(
+                child: SignInScreen(),
+              ),
+          redirect: (context, state) async {
+            if ((await localStore.getBool('isStarted') != true) ||
+                (await localStore.getBool('isLoggedIn') == true)) {
+              return '/';
+            }
+            return '/${AppRoute.signIn.name}';
+          }),
       GoRoute(
-        path: '/${AppRoute.signUp.name}',
-        name: AppRoute.signUp.name,
-        pageBuilder: (context, state) => MaterialPage(
-          child: SignUpScreen(),
-        ),
-        redirect: (context, state) async {
-          if ((await localStore.getBool('isStarted') != true) || (await localStore.getBool('isLoggedIn') == true)) {
-            return '/';
-          }
-          return '/${AppRoute.signUp.name}';
-        }
-      ),
+          path: '/${AppRoute.signUp.name}',
+          name: AppRoute.signUp.name,
+          pageBuilder: (context, state) => MaterialPage(
+                child: SignUpScreen(),
+              ),
+          redirect: (context, state) async {
+            if ((await localStore.getBool('isStarted') != true) ||
+                (await localStore.getBool('isLoggedIn') == true)) {
+              return '/';
+            }
+            return '/${AppRoute.signUp.name}';
+          }),
       GoRoute(
         path: '/${AppRoute.verification.name}',
         name: AppRoute.verification.name,
-        pageBuilder: (context, state) => const MaterialPage(
-          child: VerificationScreen(),
-        ),
-      )
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: VerificationScreen()),
+      ),
+      GoRoute(
+        path: '/${AppRoute.addPost.name}',
+        name: AppRoute.addPost.name,
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: AddPostScreen()),
+      ),
+      GoRoute(
+        path: '/${AppRoute.chatBot.name}',
+        name: AppRoute.chatBot.name,
+        pageBuilder: (context, state) => MaterialPage(child: ChatBotScreen()),
+      ),
       // Add more routes here
     ],
   );
@@ -125,6 +137,12 @@ extension GoRouterX on GoRouter {
 
   Future<void> goHome() async {
     go('/${AppRoute.home.name}');
+  }
+
+  Future<void> goBack() async {
+    if (_key.currentState!.canPop()) {
+      _key.currentState!.pop();
+    }
   }
 
   Future<void> goOnboarding() async {
@@ -149,5 +167,13 @@ extension GoRouterX on GoRouter {
 
   Future<void> goVerification() async {
     go('/${AppRoute.verification.name}');
+  }
+
+  Future<void> goAddPost() async {
+    go('/${AppRoute.addPost.name}');
+  }
+
+  Future<void> goChatBot() async {
+    go('/${AppRoute.chatBot.name}');
   }
 }

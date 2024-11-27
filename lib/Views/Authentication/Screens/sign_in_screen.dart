@@ -94,7 +94,7 @@ class SignInScreen extends ConsumerWidget {
                   const CustomSizedBox(),
               
                   Text(
-                    "Đăng Nhập",
+                    "ĐĂNG NHẬP",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: screenWidth * 0.06,
