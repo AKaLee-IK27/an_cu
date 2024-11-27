@@ -6,6 +6,7 @@ import 'package:an_cu/Utils/Styles/app_colors.dart';
 import 'package:an_cu/Views/Authentication/Widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class PostDetailScreen extends ConsumerWidget {
   PostDetailScreen({super.key});
@@ -16,53 +17,83 @@ class PostDetailScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
-        child: Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            transformAlignment: Alignment.topCenter,
-            width: double.infinity,
-            height: ScreenSize.height(context) * 0.4,
-            child: Scaffold(
-              body: PageView.builder(
-                itemCount: controller.items.length,
-                controller: pageController,
-                itemBuilder: (context, index) {
-                  return SizedBox(
-                    height: ScreenSize.height(context) * 0.5,
-                    child: Image.asset(controller.items[index].image, fit: BoxFit.fitWidth,)
-                    );
-                },
+      child: Scaffold(
+        backgroundColor: Colors.grey[100],
+        body: Stack(
+          children: [
+            Container(
+              transformAlignment: Alignment.topCenter,
+              width: double.infinity,
+              height: ScreenSize.height(context) * 0.4,
+              child: Stack(
+                children: [
+                  Scaffold(
+                    backgroundColor: Colors.transparent,
+                    body: PageView.builder(
+                      itemCount: controller.items.length,
+                      controller: pageController,
+                      itemBuilder: (context, index) {
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: Image.asset(controller.items[index].image, fit: BoxFit.fill,)
+                          );
+                      },
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 15.0,
+                    left: 0,
+                    right: 0,
+                    child: Center(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.8),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        padding: const EdgeInsets.all(2),
+                        child: SmoothPageIndicator(
+                          controller: pageController,
+                          count: controller.items.length,
+                          onDotClicked: (index) => pageController.animateToPage(index,
+                              duration: const Duration(microseconds: 300),
+                              curve: Curves.easeInOut),
+                          effect: const WormEffect(
+                              dotHeight: 10,
+                              dotWidth: 10,
+                              activeDotColor: AppColors.primary),
+                        ),
+                      ),
+                    ),
+                  ),
+                ]
               ),
             ),
-          ),
-          const BackButton(),
-          const PostContent(),
-        ],
-      ),
-    ));
+            const BackButton(),
+            const PostContent(),
+          ],
+        ),
+      )
+    );
   }
 }
 
 class BackButton extends ConsumerWidget {
-  const BackButton({
-    super.key,
-  });
+  const BackButton({ super.key });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(goRouterProvider);
 
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(15.0),
       child: InkWell(
         onTap: () {
           router.goHome();
         },
         child: Container(
           clipBehavior: Clip.hardEdge,
-          height: 36,
-          width: 36,
+          height: 35,
+          width: 35,
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
           ),
@@ -218,6 +249,8 @@ class PicturePostItems {
   //Constructor
   PicturePostItems() {
     items = [
+      PicturePostInfo(
+          image: "assets/images/post_detail.jpg"),
       PicturePostInfo(
           image: "assets/images/post_detail.jpg"),
       PicturePostInfo(
