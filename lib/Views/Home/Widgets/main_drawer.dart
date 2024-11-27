@@ -46,45 +46,41 @@ class MainDrawer extends ConsumerWidget {
             accountEmail: const Text('khoile0908540@gmail.com'),
             decoration: const BoxDecoration(color: AppColors.primary),
           ),
-          ListTile(
-            leading: const Icon(
-              Icons.home,
-              size: 32,
-              color: AppColors.secondary,
-            ),
-            title: Text(
-              'Home',
-              style: AppTextStyles.title,
-            ),
+          // ListTile(
+          //   leading: const Icon(
+          //     Icons.home,
+          //     size: 32,
+          //     color: AppColors.secondary,
+          //   ),
+          //   title: Text(
+          //     'Home',
+          //     style: AppTextStyles.title,
+          //   ),
+          //   onTap: () {
+          //     Navigator.pop(context);
+          //     router.goHome();
+          //   },
+          // ),
+          MainDrawerItem(
+            title: 'Tạo bài viết',
+            icon: Icons.add,
             onTap: () {
-              Navigator.pop(context);
-              router.goHome();
+              router.goAddPost();
             },
           ),
-          ListTile(
-            leading: const Icon(
-              Icons.account_circle,
-              size: 32,
-              color: AppColors.secondary,
-            ),
-            title: Text(
-              'Account',
-              style: AppTextStyles.title,
-            ),
-            onTap: () {
-              //
-            },
+          MainDrawerItem(
+            title: 'Tài khoản',
+            icon: Icons.account_circle,
+            onTap: () {},
           ),
-          ListTile(
-            leading: const Icon(
-              Icons.logout,
-              size: 32,
-              color: AppColors.secondary,
-            ),
-            title: Text(
-              'Log out',
-              style: AppTextStyles.title,
-            ),
+          MainDrawerItem(
+            title: 'Cài đặt',
+            icon: Icons.settings,
+            onTap: () {},
+          ),
+          MainDrawerItem(
+            title: 'Đăng xuất',
+            icon: Icons.logout,
             onTap: () async {
               await ref.read(authController.notifier).logout();
               localStore.setBool('isLoggedIn', false);
@@ -93,6 +89,31 @@ class MainDrawer extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class MainDrawerItem extends ConsumerWidget {
+  final String title;
+  final IconData icon;
+  final GestureTapCallback? onTap;
+
+  const MainDrawerItem(
+      {super.key, required this.title, required this.icon, this.onTap});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ListTile(
+      leading: Icon(
+        icon,
+        size: 32,
+        color: AppColors.secondary,
+      ),
+      title: Text(
+        title,
+        style: AppTextStyles.title,
+      ),
+      onTap: onTap,
     );
   }
 }

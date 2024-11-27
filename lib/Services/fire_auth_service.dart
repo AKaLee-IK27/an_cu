@@ -7,6 +7,15 @@ import 'package:google_sign_in/google_sign_in.dart';
 final firebaseAuthProvider =
     Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
 
+final userProvider = Provider<User>((ref) {
+  final user = ref.watch(firebaseAuthProvider).currentUser;
+  if (user != null) {
+    return user;
+  } else {
+    throw Exception('User is not logged in');
+  }
+});
+
 class FireAuthService {
   final FirebaseAuth _firebaseAuth;
   final Ref _ref; // use for reading other providers
