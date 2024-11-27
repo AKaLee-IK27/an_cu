@@ -3,9 +3,9 @@ import 'dart:ui';
 import 'package:an_cu/Router/app_router.dart';
 import 'package:an_cu/Utils/Helpers/screen_size.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
+import 'package:an_cu/Views/Authentication/Widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class PostDetailScreen extends ConsumerWidget {
   PostDetailScreen({super.key});
@@ -139,38 +139,46 @@ class PostContent extends ConsumerWidget {
                         Text(
                           "Mức Giá",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.normal,
                               fontSize: 15,
-                              color: Colors.grey),
+                              color: AppColors.primary),
                         ),
                         Text(
                           "4,45 tỷ",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              color: Colors.grey),
+                              fontWeight: FontWeight.normal,
+                              fontSize: 20,
+                              color: Colors.black),
                         ),
                       ],
                     ),
+                    SizedBox(width: 20),
                     Column(
                       children: [
                         Text(
                           "Diện tích",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.normal,
                               fontSize: 15,
-                              color: Colors.grey),
+                              color: AppColors.primary),
                         ),
                         Text(
                           "83 m2",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              color: Colors.grey),
+                              fontWeight: FontWeight.normal,
+                              fontSize: 20,
+                              color: Colors.black),
                         ),
                       ],
                     )
                   ],
+                ),
+                MyButton(
+                  icon: const Icon(Icons.phone_in_talk_rounded, color: Colors.white,),
+                  text: const Text("Liên Hệ: 0123456789", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18)),
+                  color: AppColors.primary,
+                  onPressed: () {
+                  }
                 ),
                 //Title Description
                 const Text(
