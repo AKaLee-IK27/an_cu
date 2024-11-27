@@ -214,12 +214,23 @@ class PicturePostInfo {
 }
 
 class PicturePostItems {
-  List<PicturePostInfo> items = [
-    PicturePostInfo(
-        image: "assets/images/post_detail.jpg"),
-    PicturePostInfo(
-        image: "assets/images/post_detail.jpg"),
-    PicturePostInfo(
-        image: "assets/images/post_detail.jpg"),
-  ];
+  List<PicturePostInfo> items = [];
+  //Constructor
+  PicturePostItems() {
+    items = [
+      PicturePostInfo(
+          image: "assets/images/post_detail.jpg"),
+      PicturePostInfo(
+          image: "assets/images/post_detail.jpg"),
+      PicturePostInfo(
+          image: "assets/images/post_detail.jpg"),
+    ];
+  }
+  
+  PicturePostItems.fromString(List<String> listImage) {
+    items.clear();
+    for (String image in listImage) {
+      items.add(PicturePostInfo(image: image));
+    }
+  }
 }
