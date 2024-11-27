@@ -2,6 +2,7 @@ import 'package:an_cu/Utils/SharedReferences/local_store.provider.dart';
 import 'package:an_cu/Views/Authentication/Screens/sign_in_screen.dart';
 import 'package:an_cu/Views/Authentication/Screens/sign_up_screen.dart';
 import 'package:an_cu/Views/Authentication/Screens/verification_screen.dart';
+import 'package:an_cu/Views/ChatBot/chat_bot_screen.dart';
 import 'package:an_cu/Views/Post/Screens/add_post_screen.dart';
 import 'package:an_cu/Views/Post/Screens/post_detail_screen.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ enum AppRoute {
   signIn,
   signUp,
   verification,
+  chatBot,
 }
 
 @Riverpod(keepAlive: true)
@@ -118,6 +120,11 @@ GoRouter goRouter(Ref ref) {
         pageBuilder: (context, state) =>
             const MaterialPage(child: AddPostScreen()),
       ),
+      GoRoute(
+        path: '/${AppRoute.chatBot.name}',
+        name: AppRoute.chatBot.name,
+        pageBuilder: (context, state) => MaterialPage(child: ChatBotScreen()),
+      ),
       // Add more routes here
     ],
   );
@@ -164,5 +171,9 @@ extension GoRouterX on GoRouter {
 
   Future<void> goAddPost() async {
     go('/${AppRoute.addPost.name}');
+  }
+
+  Future<void> goChatBot() async {
+    go('/${AppRoute.chatBot.name}');
   }
 }
