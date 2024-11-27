@@ -78,7 +78,7 @@ GoRouter goRouter(Ref ref) {
             if (id == null) {
               return const MaterialPage(child: HomeScreen());
             }
-            return const MaterialPage(child: PostDetailScreen());
+            return MaterialPage(child: PostDetailScreen());
           }),
       GoRoute(
         path: '/${AppRoute.signIn.name}',

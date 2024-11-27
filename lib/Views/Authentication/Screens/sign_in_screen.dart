@@ -90,7 +90,6 @@ class SignInScreen extends ConsumerWidget {
                     'assets/logo/brand_name.png',
                     width: screenWidth * 0.4,
                   ),
-                  //email textfield
               
                   const CustomSizedBox(),
               
