@@ -1,3 +1,5 @@
+import 'package:an_cu/Utils/CommonWidget/app_back_button.dart';
+import 'package:an_cu/Utils/Styles/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ikchatbot/ikchatbot.dart';
@@ -41,9 +43,9 @@ class ChatBotScreen extends ConsumerWidget {
       smtpServer: 'stmp.gmail.com',
       smtpPort: 587,
       //Settings to your system Configurations
-      sendIcon: const Icon(Icons.send, color: Colors.black),
-      userIcon: const Icon(Icons.person, color: Colors.white),
-      botIcon: const Icon(Icons.android, color: Colors.white),
+      sendIcon: const Icon(Icons.send, color: AppColors.secondary),
+      userIcon: const Icon(Icons.person, color: AppColors.primary),
+      botIcon: const Icon(Icons.android, color: AppColors.primary),
       botChatColor: const Color.fromARGB(255, 81, 80, 80),
       delayBot: 100,
       closingTime: 1,
@@ -66,6 +68,14 @@ class ChatBotScreen extends ConsumerWidget {
       backgroundAssetimage: 'assets/images/search_bg.png',
     );
 
-    return ikchatbot(config: chatBotConfig);
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          leading: const MyBackButton(color: AppColors.secondary),
+          title: const Text('Chat Bot'),
+        ),
+        body: ikchatbot(config: chatBotConfig),
+      ),
+    );
   }
 }
