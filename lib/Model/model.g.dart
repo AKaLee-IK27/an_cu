@@ -8,26 +8,18 @@ part of 'model.dart';
 
 _$AppUserImpl _$$AppUserImplFromJson(Map<String, dynamic> json) =>
     _$AppUserImpl(
-      guid: json['guid'] as String?,
+      id: json['id'] as String,
       email: json['email'] as String,
-      phone: json['phone'] as String,
-      phoneVerified: json['phoneVerified'] as bool,
-      password: json['password'] as String,
       name: json['name'] as String,
-      avatar: json['avatar'] as String,
-      dateOfBirth: DateTime.parse(json['dateOfBirth'] as String),
+      phoneNumber: json['phoneNumber'] as String,
     );
 
 Map<String, dynamic> _$$AppUserImplToJson(_$AppUserImpl instance) =>
     <String, dynamic>{
-      'guid': instance.guid,
+      'id': instance.id,
       'email': instance.email,
-      'phone': instance.phone,
-      'phoneVerified': instance.phoneVerified,
-      'password': instance.password,
       'name': instance.name,
-      'avatar': instance.avatar,
-      'dateOfBirth': instance.dateOfBirth.toIso8601String(),
+      'phoneNumber': instance.phoneNumber,
     };
 
 _$PostImpl _$$PostImplFromJson(Map<String, dynamic> json) => _$PostImpl(
@@ -35,16 +27,14 @@ _$PostImpl _$$PostImplFromJson(Map<String, dynamic> json) => _$PostImpl(
       title: json['title'] as String,
       avgStar: (json['avgStar'] as num).toInt(),
       content: json['content'] as String?,
-      createdAt:
-          const TimestampConverter().fromJson(json['createdAt'] as Timestamp),
+      createdAt: (json['createdAt'] as num).toInt(),
       property: Property.fromJson(json['property'] as Map<String, dynamic>),
-      expiredAt:
-          const TimestampConverter().fromJson(json['expiredAt'] as Timestamp),
+      createdBy: AppUser.fromJson(json['createdBy'] as Map<String, dynamic>),
       verified: json['verified'] as bool,
       comments: (json['comments'] as List<dynamic>)
           .map((e) => Comment.fromJson(e as Map<String, dynamic>))
           .toList(),
-      status: $enumDecode(_$PostStatusEnumMap, json['status']),
+      status: json['status'] as String,
     );
 
 Map<String, dynamic> _$$PostImplToJson(_$PostImpl instance) =>
@@ -53,19 +43,13 @@ Map<String, dynamic> _$$PostImplToJson(_$PostImpl instance) =>
       'title': instance.title,
       'avgStar': instance.avgStar,
       'content': instance.content,
-      'createdAt': const TimestampConverter().toJson(instance.createdAt),
+      'createdAt': instance.createdAt,
       'property': instance.property,
-      'expiredAt': const TimestampConverter().toJson(instance.expiredAt),
+      'createdBy': instance.createdBy,
       'verified': instance.verified,
       'comments': instance.comments,
-      'status': _$PostStatusEnumMap[instance.status]!,
+      'status': instance.status,
     };
-
-const _$PostStatusEnumMap = {
-  PostStatus.pending: 'pending',
-  PostStatus.contacting: 'contacting',
-  PostStatus.selled: 'selled',
-};
 
 _$PropertyImpl _$$PropertyImplFromJson(Map<String, dynamic> json) =>
     _$PropertyImpl(
@@ -85,8 +69,8 @@ _$PropertyImpl _$$PropertyImplFromJson(Map<String, dynamic> json) =>
       images:
           (json['images'] as List<dynamic>).map((e) => e as String).toList(),
       hasFurniture: json['hasFurniture'] as bool,
-      propertyType: $enumDecode(_$PropertyTypeEnumMap, json['propertyType']),
-      direction: $enumDecode(_$DirectionEnumMap, json['direction']),
+      propertyType: json['propertyType'] as String,
+      direction: json['direction'] as String,
     );
 
 Map<String, dynamic> _$$PropertyImplToJson(_$PropertyImpl instance) =>
@@ -102,28 +86,9 @@ Map<String, dynamic> _$$PropertyImplToJson(_$PropertyImpl instance) =>
       'description': instance.description,
       'images': instance.images,
       'hasFurniture': instance.hasFurniture,
-      'propertyType': _$PropertyTypeEnumMap[instance.propertyType]!,
-      'direction': _$DirectionEnumMap[instance.direction]!,
+      'propertyType': instance.propertyType,
+      'direction': instance.direction,
     };
-
-const _$PropertyTypeEnumMap = {
-  PropertyType.apartment: 'apartment',
-  PropertyType.house: 'house',
-  PropertyType.land: 'land',
-  PropertyType.office: 'office',
-  PropertyType.villa: 'villa',
-};
-
-const _$DirectionEnumMap = {
-  Direction.north: 'north',
-  Direction.south: 'south',
-  Direction.east: 'east',
-  Direction.west: 'west',
-  Direction.southEast: 'southEast',
-  Direction.southWest: 'southWest',
-  Direction.northEast: 'northEast',
-  Direction.northWest: 'northWest',
-};
 
 _$ProvinceImpl _$$ProvinceImplFromJson(Map<String, dynamic> json) =>
     _$ProvinceImpl(
@@ -153,13 +118,14 @@ _$CommentImpl _$$CommentImplFromJson(Map<String, dynamic> json) =>
     _$CommentImpl(
       id: json['id'] as String,
       content: json['content'] as String,
-      createdAt:
-          const TimestampConverter().fromJson(json['createdAt'] as Timestamp),
+      createdAt: (json['createdAt'] as num).toInt(),
+      createdBy: AppUser.fromJson(json['createdBy'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$CommentImplToJson(_$CommentImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'content': instance.content,
-      'createdAt': const TimestampConverter().toJson(instance.createdAt),
+      'createdAt': instance.createdAt,
+      'createdBy': instance.createdBy,
     };

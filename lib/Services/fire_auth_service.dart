@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-final firebaseauthController =
+final firebaseAuthProvider =
     Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
 
 class FireAuthService {
@@ -70,5 +70,5 @@ class FireAuthService {
 }
 
 final fireAuthServiceProvider = Provider<FireAuthService>(
-  (ref) => FireAuthService(ref.read(firebaseauthController), ref),
+  (ref) => FireAuthService(ref.read(firebaseAuthProvider), ref),
 );

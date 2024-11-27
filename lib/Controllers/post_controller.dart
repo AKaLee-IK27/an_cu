@@ -9,11 +9,13 @@ class PostNotifier extends StateNotifier<List<Post>> {
 
   Future<void> getPosts() async {
     final postsData = await _fireStoreService.getPosts();
-    for (var post in postsData) {
-      print(
-        Post.fromJson(post).toString(),
-      );
-    }
+    final posts = postsData.map((post) => Post.fromJson(post)).toList();
+    state = posts;
+  }
+
+  Future<void> addPost() async {
+    
+    await _fireStoreService.addPost();
   }
 }
 

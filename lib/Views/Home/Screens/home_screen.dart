@@ -25,7 +25,7 @@ class HomeScreen extends ConsumerWidget {
             return FloatingActionButton(
               backgroundColor: AppColors.primary,
               onPressed: () async {
-                await ref.watch(postController.notifier).getPosts();
+                await ref.watch(postController.notifier).addPost();
               },
               child: const Icon(
                 Icons.chat,

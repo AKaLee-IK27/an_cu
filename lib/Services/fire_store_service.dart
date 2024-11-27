@@ -1,3 +1,5 @@
+import 'package:an_cu/Model/model.dart';
+import 'package:an_cu/Services/fire_auth_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -24,6 +26,21 @@ class FireStoreService {
 
       return posts;
     });
+  }
+
+  Future<void> addPost() async {
+    CollectionReference posts = _firestore.collection('Post');
+
+    final user = _ref.read(firebaseAuthProvider).currentUser;
+
+    if (user == null) {
+      return;
+    }
+
+    await posts.add(
+      Comment(content: "dfads", id: '1', createdAt: 323, createdBy: user)
+          .toJson(),
+    );
   }
 }
 
