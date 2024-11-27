@@ -6,6 +6,7 @@ class MyButton extends StatelessWidget {
   final Color borderColor;
   final EdgeInsetsGeometry? padding;
   final Widget? icon;
+  final bool loading;
   final Function() onPressed; 
 
   const MyButton({
@@ -15,28 +16,26 @@ class MyButton extends StatelessWidget {
     this.borderColor = const Color.fromARGB(0, 0, 0, 0),
     this.padding,
     this.icon,
+    this.loading = false,
     required this.onPressed
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25),
-      child: SizedBox(
-        width: double.infinity,
-        child: ElevatedButton.icon(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: color,
-            side: BorderSide(color: borderColor),
-            padding: padding,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            )
-          ),
-          icon: icon,
-          label: text,
-          onPressed: onPressed,
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton.icon(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: color,
+          side: BorderSide(color: borderColor),
+          padding: padding,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          )
         ),
+        icon: icon,
+        label: text,
+        onPressed: loading ? null : onPressed,
       ),
     );
   }

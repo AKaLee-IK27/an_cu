@@ -1,5 +1,6 @@
 import 'package:an_cu/Controllers/auth_controller.dart';
 import 'package:an_cu/Router/app_router.dart';
+import 'package:an_cu/Utils/SharedReferences/local_store.provider.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
 import 'package:an_cu/Utils/Styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ class MainDrawer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(goRouterProvider);
+    final localStore = ref.read(localStoreProvider);
 
     return Drawer(
       child: ListView(
@@ -85,7 +87,8 @@ class MainDrawer extends ConsumerWidget {
             ),
             onTap: () async {
               await ref.read(authController.notifier).logout();
-              await ref.read(goRouterProvider).goSignIn();
+              localStore.setBool('isLoggedIn', false);
+              router.goSignIn();
             },
           ),
         ],

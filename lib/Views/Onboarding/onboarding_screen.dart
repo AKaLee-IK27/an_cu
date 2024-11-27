@@ -21,6 +21,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = (screenWidth < (screenHeight / 2)) ? screenWidth : screenHeight / 2;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
@@ -39,8 +43,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   Text(
                     controller.items[index].title,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 25,
+                    style: TextStyle(
+                      fontSize: screenWidth * 0.06,
                       color: AppColors.primary,
                       fontWeight: FontWeight.bold,
                     ),
@@ -118,7 +122,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           if (!mounted) return;
 
           await localStore.setBool('isStarted', true);
-          router.goHome();
+          router.goInit();
         },
         child: const Text(
           "Bắt Đầu Khám Phá",
