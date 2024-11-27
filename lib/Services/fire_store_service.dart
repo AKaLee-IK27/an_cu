@@ -38,8 +38,17 @@ class FireStoreService {
     }
 
     await posts.add(
-      Comment(content: "dfads", id: '1', createdAt: 323, createdBy: user)
-          .toJson(),
+      Comment(
+        content: "dfads",
+        id: '1',
+        createdAt: 323,
+        createdBy: AppUser(
+          id: user.uid,
+          email: user.email,
+          name: user.displayName,
+          phoneNumber: user.phoneNumber,
+        ),
+      ).toJson(),
     );
   }
 }

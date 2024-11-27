@@ -1,6 +1,3 @@
-import 'package:an_cu/Utils/Helpers/timestamp_converter.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'model.freezed.dart';
@@ -10,9 +7,9 @@ part 'model.g.dart';
 class AppUser with _$AppUser {
   const factory AppUser({
     required String id,
-    required String email,
-    required String name,
-    required String phoneNumber,
+    String? email,
+    String? name,
+    String? phoneNumber,
   }) = _AppUser;
 
   factory AppUser.fromJson(Map<String, dynamic> json) =>

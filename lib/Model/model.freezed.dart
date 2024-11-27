@@ -21,9 +21,9 @@ AppUser _$AppUserFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$AppUser {
   String get id => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  String get phoneNumber => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  String? get phoneNumber => throw _privateConstructorUsedError;
 
   /// Serializes this AppUser to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -39,7 +39,7 @@ abstract class $AppUserCopyWith<$Res> {
   factory $AppUserCopyWith(AppUser value, $Res Function(AppUser) then) =
       _$AppUserCopyWithImpl<$Res, AppUser>;
   @useResult
-  $Res call({String id, String email, String name, String phoneNumber});
+  $Res call({String id, String? email, String? name, String? phoneNumber});
 }
 
 /// @nodoc
@@ -58,27 +58,27 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
   @override
   $Res call({
     Object? id = null,
-    Object? email = null,
-    Object? name = null,
-    Object? phoneNumber = null,
+    Object? email = freezed,
+    Object? name = freezed,
+    Object? phoneNumber = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      email: null == email
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
+              as String?,
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      phoneNumber: null == phoneNumber
+              as String?,
+      phoneNumber: freezed == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -90,7 +90,7 @@ abstract class _$$AppUserImplCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       __$$AppUserImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String email, String name, String phoneNumber});
+  $Res call({String id, String? email, String? name, String? phoneNumber});
 }
 
 /// @nodoc
@@ -107,27 +107,27 @@ class __$$AppUserImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? email = null,
-    Object? name = null,
-    Object? phoneNumber = null,
+    Object? email = freezed,
+    Object? name = freezed,
+    Object? phoneNumber = freezed,
   }) {
     return _then(_$AppUserImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      email: null == email
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
+              as String?,
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      phoneNumber: null == phoneNumber
+              as String?,
+      phoneNumber: freezed == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -136,10 +136,7 @@ class __$$AppUserImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AppUserImpl implements _AppUser {
   const _$AppUserImpl(
-      {required this.id,
-      required this.email,
-      required this.name,
-      required this.phoneNumber});
+      {required this.id, this.email, this.name, this.phoneNumber});
 
   factory _$AppUserImpl.fromJson(Map<String, dynamic> json) =>
       _$$AppUserImplFromJson(json);
@@ -147,11 +144,11 @@ class _$AppUserImpl implements _AppUser {
   @override
   final String id;
   @override
-  final String email;
+  final String? email;
   @override
-  final String name;
+  final String? name;
   @override
-  final String phoneNumber;
+  final String? phoneNumber;
 
   @override
   String toString() {
@@ -193,20 +190,20 @@ class _$AppUserImpl implements _AppUser {
 abstract class _AppUser implements AppUser {
   const factory _AppUser(
       {required final String id,
-      required final String email,
-      required final String name,
-      required final String phoneNumber}) = _$AppUserImpl;
+      final String? email,
+      final String? name,
+      final String? phoneNumber}) = _$AppUserImpl;
 
   factory _AppUser.fromJson(Map<String, dynamic> json) = _$AppUserImpl.fromJson;
 
   @override
   String get id;
   @override
-  String get email;
+  String? get email;
   @override
-  String get name;
+  String? get name;
   @override
-  String get phoneNumber;
+  String? get phoneNumber;
 
   /// Create a copy of AppUser
   /// with the given fields replaced by the non-null parameter values.
