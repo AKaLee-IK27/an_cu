@@ -55,8 +55,8 @@ class SignInScreen extends ConsumerWidget {
           },
           unauthenticated: (message) =>
               ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(message!),
+            const SnackBar(
+              content: Text('Email hoặc mật khẩu của bạn không đúng'),
               behavior: SnackBarBehavior.floating,
             ),
           ),
