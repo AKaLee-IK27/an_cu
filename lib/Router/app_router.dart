@@ -1,4 +1,5 @@
 import 'package:an_cu/Utils/SharedReferences/local_store.provider.dart';
+import 'package:an_cu/Views/Account/Screens/account_screen.dart';
 import 'package:an_cu/Views/Authentication/Screens/sign_in_screen.dart';
 import 'package:an_cu/Views/Authentication/Screens/sign_up_screen.dart';
 import 'package:an_cu/Views/Authentication/Screens/verification_screen.dart';
@@ -27,6 +28,7 @@ enum AppRoute {
   signUp,
   verification,
   chatBot,
+  account,
 }
 
 @Riverpod(keepAlive: true)
@@ -46,7 +48,7 @@ GoRouter goRouter(Ref ref) {
           } else {
             return '/${AppRoute.signIn.name}';
           }
-          //return '/${AppRoute.verification.name}';
+          //return '/${AppRoute.account.name}';
         },
       ),
       GoRoute(
@@ -125,6 +127,17 @@ GoRouter goRouter(Ref ref) {
         name: AppRoute.chatBot.name,
         pageBuilder: (context, state) => MaterialPage(child: ChatBotScreen()),
       ),
+      GoRoute(
+        path: '/${AppRoute.account.name}',
+        name: AppRoute.account.name,
+        pageBuilder: (context, state) => MaterialPage(child: AccountScreen()),
+        redirect: (context, state) async {
+          if (await localStore.getBool('isLoggedIn') != true) {
+            return '/${AppRoute.signIn.name}';
+          }
+          return '/${AppRoute.account.name}';
+        }
+      ),
       // Add more routes here
     ],
   );
@@ -175,5 +188,9 @@ extension GoRouterX on GoRouter {
 
   Future<void> goChatBot() async {
     go('/${AppRoute.chatBot.name}');
+  }
+
+  Future<void> goAccount() async {
+    go('/${AppRoute.account.name}');
   }
 }

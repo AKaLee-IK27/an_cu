@@ -73,7 +73,9 @@ class MainDrawer extends ConsumerWidget {
           MainDrawerItem(
             title: 'Tài khoản',
             icon: Icons.account_circle,
-            onTap: () {},
+            onTap: () {
+              router.goAccount();
+            },
           ),
           MainDrawerItem(
             title: 'Cài đặt',
