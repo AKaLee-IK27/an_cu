@@ -1,9 +1,13 @@
 import 'package:an_cu/Utils/CommonWidget/app_back_button.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
+import 'package:cloudinary_flutter/image/cld_image.dart';
+import 'package:cloudinary_url_gen/transformation/resize/resize.dart';
+import 'package:cloudinary_url_gen/transformation/transformation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:an_cu/Utils/CommonWidget/custom_sized_box.dart';
+import 'package:http/http.dart' as http;
 
 final isDisplayNameEnableProvider =
     StateNotifierProvider<IsDisplayNameEnableNotifier, bool>((ref) {
@@ -17,7 +21,16 @@ class IsDisplayNameEnableNotifier extends StateNotifier<bool> {
   }
 }
 
-User? currentUser = FirebaseAuth.instance.currentUser;
+Future<bool> doesImageExist(String publicId) async {
+  const cloudName = 'db7lwrzjz';
+  final imageUrl = 'https://res.cloudinary.com/$cloudName/image/upload/$publicId';
+  try {
+    final response = await http.head(Uri.parse(imageUrl));
+    return response.statusCode == 200;
+  } catch (e) {
+    return false;
+  }
+}
 
 class AccountScreen extends ConsumerWidget {
   AccountScreen({super.key});
@@ -25,7 +38,9 @@ class AccountScreen extends ConsumerWidget {
   final emailController = TextEditingController();
   final displayNameController = TextEditingController();
 
-  String displayName = currentUser?.displayName ?? '';
+  User? currentUser = FirebaseAuth.instance.currentUser;
+
+  late String displayName;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,6 +48,8 @@ class AccountScreen extends ConsumerWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     String isVerified = (!currentUser!.emailVerified) ? "Chưa được xác minh" : "Đã xác minh";
     bool isDisplayNameEnable = ref.watch(isDisplayNameEnableProvider);
+    
+    displayName = currentUser?.displayName ?? '';
 
     emailController.text = '${currentUser?.email}';
     displayNameController.text = displayName;
@@ -56,10 +73,11 @@ class AccountScreen extends ConsumerWidget {
                   width: screenHeight * 0.2,
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/demo_avatar.png'),
-                      fit: BoxFit.fill,
-                    ),
+                  ),
+                  child: ClipOval(
+                    child: SizedBox.expand(
+                      child: AssetCheckWidget(publicId: 'ancuconnect/${currentUser?.email}')
+                    )
                   ),
                 ),
           
@@ -206,6 +224,37 @@ class AccountScreen extends ConsumerWidget {
           ref.read(isDisplayNameEnableProvider.notifier).toggle();
         },
       ),
+    );
+  }
+}
+
+class AssetCheckWidget extends StatelessWidget{
+  final String publicId;
+
+  const AssetCheckWidget({super.key, required this.publicId});
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: doesImageExist(publicId), 
+      builder: (context, snapshot) {
+        if (snapshot.data == false) {
+          return const Image(
+              image: AssetImage('assets/images/default_avatar.png'),
+              fit: BoxFit.cover,
+            );
+        } else if (snapshot.hasData) {
+          return CldImageWidget(
+            publicId: publicId,
+            fit: BoxFit.cover,
+          );
+        } else {
+          return const Image(
+            image: AssetImage('assets/images/default_avatar.png'),
+            fit: BoxFit.cover,
+          );
+        }
+      }
     );
   }
 }

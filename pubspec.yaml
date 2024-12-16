@@ -31,6 +31,8 @@ dependencies:
   cloud_firestore: ^5.5.0
   chips_choice: ^3.0.1
   ikchatbot: ^1.0.5
+  cloudinary_flutter: ^1.0.0
+  cloudinary_url_gen: ^1.0.0
 
 dev_dependencies:
   flutter_test:
