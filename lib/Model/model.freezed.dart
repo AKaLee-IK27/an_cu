@@ -219,16 +219,16 @@ Post _$PostFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Post {
-  String get id => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
-  int get avgStar => throw _privateConstructorUsedError;
+  int? get avgStar => throw _privateConstructorUsedError;
   String? get content => throw _privateConstructorUsedError;
   int get createdAt => throw _privateConstructorUsedError;
-  Property get property => throw _privateConstructorUsedError;
-  AppUser get createdBy => throw _privateConstructorUsedError;
-  bool get verified => throw _privateConstructorUsedError;
-  List<Comment> get comments => throw _privateConstructorUsedError;
-  String get status => throw _privateConstructorUsedError;
+  Property? get property => throw _privateConstructorUsedError;
+  AppUser? get createdBy => throw _privateConstructorUsedError;
+  bool? get verified => throw _privateConstructorUsedError;
+  List<Comment>? get comments => throw _privateConstructorUsedError;
+  String? get status => throw _privateConstructorUsedError;
 
   /// Serializes this Post to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -245,19 +245,19 @@ abstract class $PostCopyWith<$Res> {
       _$PostCopyWithImpl<$Res, Post>;
   @useResult
   $Res call(
-      {String id,
+      {String? id,
       String title,
-      int avgStar,
+      int? avgStar,
       String? content,
       int createdAt,
-      Property property,
-      AppUser createdBy,
-      bool verified,
-      List<Comment> comments,
-      String status});
+      Property? property,
+      AppUser? createdBy,
+      bool? verified,
+      List<Comment>? comments,
+      String? status});
 
-  $PropertyCopyWith<$Res> get property;
-  $AppUserCopyWith<$Res> get createdBy;
+  $PropertyCopyWith<$Res>? get property;
+  $AppUserCopyWith<$Res>? get createdBy;
 }
 
 /// @nodoc
@@ -275,30 +275,30 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? title = null,
-    Object? avgStar = null,
+    Object? avgStar = freezed,
     Object? content = freezed,
     Object? createdAt = null,
-    Object? property = null,
-    Object? createdBy = null,
-    Object? verified = null,
-    Object? comments = null,
-    Object? status = null,
+    Object? property = freezed,
+    Object? createdBy = freezed,
+    Object? verified = freezed,
+    Object? comments = freezed,
+    Object? status = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      avgStar: null == avgStar
+      avgStar: freezed == avgStar
           ? _value.avgStar
           : avgStar // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       content: freezed == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
@@ -307,26 +307,26 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as int,
-      property: null == property
+      property: freezed == property
           ? _value.property
           : property // ignore: cast_nullable_to_non_nullable
-              as Property,
-      createdBy: null == createdBy
+              as Property?,
+      createdBy: freezed == createdBy
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
-              as AppUser,
-      verified: null == verified
+              as AppUser?,
+      verified: freezed == verified
           ? _value.verified
           : verified // ignore: cast_nullable_to_non_nullable
-              as bool,
-      comments: null == comments
+              as bool?,
+      comments: freezed == comments
           ? _value.comments
           : comments // ignore: cast_nullable_to_non_nullable
-              as List<Comment>,
-      status: null == status
+              as List<Comment>?,
+      status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 
@@ -334,8 +334,12 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $PropertyCopyWith<$Res> get property {
-    return $PropertyCopyWith<$Res>(_value.property, (value) {
+  $PropertyCopyWith<$Res>? get property {
+    if (_value.property == null) {
+      return null;
+    }
+
+    return $PropertyCopyWith<$Res>(_value.property!, (value) {
       return _then(_value.copyWith(property: value) as $Val);
     });
   }
@@ -344,8 +348,12 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $AppUserCopyWith<$Res> get createdBy {
-    return $AppUserCopyWith<$Res>(_value.createdBy, (value) {
+  $AppUserCopyWith<$Res>? get createdBy {
+    if (_value.createdBy == null) {
+      return null;
+    }
+
+    return $AppUserCopyWith<$Res>(_value.createdBy!, (value) {
       return _then(_value.copyWith(createdBy: value) as $Val);
     });
   }
@@ -359,21 +367,21 @@ abstract class _$$PostImplCopyWith<$Res> implements $PostCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String id,
+      {String? id,
       String title,
-      int avgStar,
+      int? avgStar,
       String? content,
       int createdAt,
-      Property property,
-      AppUser createdBy,
-      bool verified,
-      List<Comment> comments,
-      String status});
+      Property? property,
+      AppUser? createdBy,
+      bool? verified,
+      List<Comment>? comments,
+      String? status});
 
   @override
-  $PropertyCopyWith<$Res> get property;
+  $PropertyCopyWith<$Res>? get property;
   @override
-  $AppUserCopyWith<$Res> get createdBy;
+  $AppUserCopyWith<$Res>? get createdBy;
 }
 
 /// @nodoc
@@ -388,30 +396,30 @@ class __$$PostImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? title = null,
-    Object? avgStar = null,
+    Object? avgStar = freezed,
     Object? content = freezed,
     Object? createdAt = null,
-    Object? property = null,
-    Object? createdBy = null,
-    Object? verified = null,
-    Object? comments = null,
-    Object? status = null,
+    Object? property = freezed,
+    Object? createdBy = freezed,
+    Object? verified = freezed,
+    Object? comments = freezed,
+    Object? status = freezed,
   }) {
     return _then(_$PostImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      avgStar: null == avgStar
+      avgStar: freezed == avgStar
           ? _value.avgStar
           : avgStar // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       content: freezed == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
@@ -420,75 +428,78 @@ class __$$PostImplCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as int,
-      property: null == property
+      property: freezed == property
           ? _value.property
           : property // ignore: cast_nullable_to_non_nullable
-              as Property,
-      createdBy: null == createdBy
+              as Property?,
+      createdBy: freezed == createdBy
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
-              as AppUser,
-      verified: null == verified
+              as AppUser?,
+      verified: freezed == verified
           ? _value.verified
           : verified // ignore: cast_nullable_to_non_nullable
-              as bool,
-      comments: null == comments
+              as bool?,
+      comments: freezed == comments
           ? _value._comments
           : comments // ignore: cast_nullable_to_non_nullable
-              as List<Comment>,
-      status: null == status
+              as List<Comment>?,
+      status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$PostImpl implements _Post {
   const _$PostImpl(
-      {required this.id,
+      {this.id,
       required this.title,
-      required this.avgStar,
+      this.avgStar,
       this.content,
       required this.createdAt,
-      required this.property,
-      required this.createdBy,
-      required this.verified,
-      required final List<Comment> comments,
-      required this.status})
+      this.property,
+      this.createdBy,
+      this.verified,
+      final List<Comment>? comments,
+      this.status})
       : _comments = comments;
 
   factory _$PostImpl.fromJson(Map<String, dynamic> json) =>
       _$$PostImplFromJson(json);
 
   @override
-  final String id;
+  final String? id;
   @override
   final String title;
   @override
-  final int avgStar;
+  final int? avgStar;
   @override
   final String? content;
   @override
   final int createdAt;
   @override
-  final Property property;
+  final Property? property;
   @override
-  final AppUser createdBy;
+  final AppUser? createdBy;
   @override
-  final bool verified;
-  final List<Comment> _comments;
+  final bool? verified;
+  final List<Comment>? _comments;
   @override
-  List<Comment> get comments {
+  List<Comment>? get comments {
+    final value = _comments;
+    if (value == null) return null;
     if (_comments is EqualUnmodifiableListView) return _comments;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_comments);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
-  final String status;
+  final String? status;
 
   @override
   String toString() {
@@ -549,39 +560,39 @@ class _$PostImpl implements _Post {
 
 abstract class _Post implements Post {
   const factory _Post(
-      {required final String id,
+      {final String? id,
       required final String title,
-      required final int avgStar,
+      final int? avgStar,
       final String? content,
       required final int createdAt,
-      required final Property property,
-      required final AppUser createdBy,
-      required final bool verified,
-      required final List<Comment> comments,
-      required final String status}) = _$PostImpl;
+      final Property? property,
+      final AppUser? createdBy,
+      final bool? verified,
+      final List<Comment>? comments,
+      final String? status}) = _$PostImpl;
 
   factory _Post.fromJson(Map<String, dynamic> json) = _$PostImpl.fromJson;
 
   @override
-  String get id;
+  String? get id;
   @override
   String get title;
   @override
-  int get avgStar;
+  int? get avgStar;
   @override
   String? get content;
   @override
   int get createdAt;
   @override
-  Property get property;
+  Property? get property;
   @override
-  AppUser get createdBy;
+  AppUser? get createdBy;
   @override
-  bool get verified;
+  bool? get verified;
   @override
-  List<Comment> get comments;
+  List<Comment>? get comments;
   @override
-  String get status;
+  String? get status;
 
   /// Create a copy of Post
   /// with the given fields replaced by the non-null parameter values.
@@ -873,7 +884,8 @@ class __$$PropertyImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$PropertyImpl implements _Property {
   const _$PropertyImpl(
       {required this.address,
@@ -1146,7 +1158,8 @@ class __$$ProvinceImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$ProvinceImpl implements _Province {
   const _$ProvinceImpl(
       {required this.name, required final List<District> districts})
@@ -1504,7 +1517,8 @@ class __$$CommentImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$CommentImpl implements _Comment {
   const _$CommentImpl(
       {required this.id,

@@ -23,18 +23,22 @@ Map<String, dynamic> _$$AppUserImplToJson(_$AppUserImpl instance) =>
     };
 
 _$PostImpl _$$PostImplFromJson(Map<String, dynamic> json) => _$PostImpl(
-      id: json['id'] as String,
+      id: json['id'] as String?,
       title: json['title'] as String,
-      avgStar: (json['avgStar'] as num).toInt(),
+      avgStar: (json['avgStar'] as num?)?.toInt(),
       content: json['content'] as String?,
       createdAt: (json['createdAt'] as num).toInt(),
-      property: Property.fromJson(json['property'] as Map<String, dynamic>),
-      createdBy: AppUser.fromJson(json['createdBy'] as Map<String, dynamic>),
-      verified: json['verified'] as bool,
-      comments: (json['comments'] as List<dynamic>)
-          .map((e) => Comment.fromJson(e as Map<String, dynamic>))
+      property: json['property'] == null
+          ? null
+          : Property.fromJson(json['property'] as Map<String, dynamic>),
+      createdBy: json['createdBy'] == null
+          ? null
+          : AppUser.fromJson(json['createdBy'] as Map<String, dynamic>),
+      verified: json['verified'] as bool?,
+      comments: (json['comments'] as List<dynamic>?)
+          ?.map((e) => Comment.fromJson(e as Map<String, dynamic>))
           .toList(),
-      status: json['status'] as String,
+      status: json['status'] as String?,
     );
 
 Map<String, dynamic> _$$PostImplToJson(_$PostImpl instance) =>
@@ -44,10 +48,10 @@ Map<String, dynamic> _$$PostImplToJson(_$PostImpl instance) =>
       'avgStar': instance.avgStar,
       'content': instance.content,
       'createdAt': instance.createdAt,
-      'property': instance.property,
-      'createdBy': instance.createdBy,
+      'property': instance.property?.toJson(),
+      'createdBy': instance.createdBy?.toJson(),
       'verified': instance.verified,
-      'comments': instance.comments,
+      'comments': instance.comments?.map((e) => e.toJson()).toList(),
       'status': instance.status,
     };
 
@@ -76,8 +80,8 @@ _$PropertyImpl _$$PropertyImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$PropertyImplToJson(_$PropertyImpl instance) =>
     <String, dynamic>{
       'address': instance.address,
-      'province': instance.province,
-      'district': instance.district,
+      'province': instance.province?.toJson(),
+      'district': instance.district?.toJson(),
       'price': instance.price,
       'area': instance.area,
       'bedRoom': instance.bedRoom,
@@ -101,7 +105,7 @@ _$ProvinceImpl _$$ProvinceImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$ProvinceImplToJson(_$ProvinceImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'districts': instance.districts,
+      'districts': instance.districts.map((e) => e.toJson()).toList(),
     };
 
 _$DistrictImpl _$$DistrictImplFromJson(Map<String, dynamic> json) =>
@@ -127,5 +131,5 @@ Map<String, dynamic> _$$CommentImplToJson(_$CommentImpl instance) =>
       'id': instance.id,
       'content': instance.content,
       'createdAt': instance.createdAt,
-      'createdBy': instance.createdBy,
+      'createdBy': instance.createdBy.toJson(),
     };

@@ -67,7 +67,7 @@ class MainDrawer extends ConsumerWidget {
           MainDrawerItem(
             title: 'Tạo bài viết',
             icon: Icons.add,
-            onTap: () {
+            onTap: () async {
               router.goAddPost();
             },
           ),

@@ -45,7 +45,8 @@ class SignUpScreen extends ConsumerWidget {
       isPressButtonSignUp = true;
       ref.read(authController.notifier).signup(
         email: emailController.text,
-        password: passwordController.text,  
+        password: passwordController.text,
+        displayName: nameController.text,
       );
     }
   }
@@ -59,39 +60,37 @@ class SignUpScreen extends ConsumerWidget {
     final router = ref.watch(goRouterProvider);
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    screenWidth = (screenWidth < (screenHeight / 2)) ? screenWidth : screenHeight / 2;
+    screenWidth =
+        (screenWidth < (screenHeight / 2)) ? screenWidth : screenHeight / 2;
     final localStore = ref.read(localStoreProvider);
 
-    ref.listen(
-      authController, 
-      (previous, next) {
-        next.maybeWhen(
-          orElse: () => null,
-          authenticated: (user) async {
-            if (!isPressButtonSignUp) {
-              localStore.setBool('isLoggedIn', true);
-            } else {
-              await user.updateDisplayName(nameController.text);
-              await user.reload();
-              
-            }
-            router.goInit();
-            // Alert
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Sign Up Success'),
-                behavior: SnackBarBehavior.floating,
-              ),
-            );
-          },
-          unauthenticated: (message) =>
-              ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(message!),
+    ref.listen(authController, (previous, next) {
+      next.maybeWhen(
+        orElse: () => null,
+        authenticated: (user) async {
+          if (!isPressButtonSignUp) {
+            localStore.setBool('isLoggedIn', true);
+          } else {
+            await user.updateDisplayName(nameController.text);
+            await user.reload();
+          }
+          router.goInit();
+          // Alert
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Sign Up Success'),
               behavior: SnackBarBehavior.floating,
             ),
+          );
+        },
+        unauthenticated: (message) =>
+            ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(message!),
+            behavior: SnackBarBehavior.floating,
           ),
-        );
+        ),
+      );
     });
 
     return SafeArea(
@@ -114,27 +113,28 @@ class SignUpScreen extends ConsumerWidget {
                     'assets/logo/main.svg',
                     width: screenWidth * 0.2,
                   ),
-              
+
                   const CustomSizedBox(),
-              
+
                   Image.asset(
                     'assets/logo/brand_name.png',
                     width: screenWidth * 0.4,
                   ),
                   //email textfield
-              
+
                   const CustomSizedBox(),
-              
+
                   Text(
                     "Đăng Ký",
                     style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: screenWidth * 0.06,
-                        color: Colors.black),
+                      fontWeight: FontWeight.bold,
+                      fontSize: screenWidth * 0.06,
+                      color: Colors.black,
+                    ),
                   ),
 
                   const CustomSizedBox(),
-              
+
                   MyTextfield(
                     controller: nameController,
                     labelText: "Họ tên",
@@ -145,9 +145,9 @@ class SignUpScreen extends ConsumerWidget {
                     ),
                     prefixIcon: const Icon(Icons.person),
                   ),
-              
+
                   const CustomSizedBox(),
-              
+
                   MyTextfield(
                     controller: emailController,
                     labelText: "Địa chỉ Email",
@@ -158,24 +158,24 @@ class SignUpScreen extends ConsumerWidget {
                     ),
                     prefixIcon: const Icon(Icons.mail_outline_rounded),
                   ),
-              
+
                   //password textfield
-              
+
                   const CustomSizedBox(),
-              
+
                   MyTextfield(
                       controller: passwordController,
                       labelText: "Mật khẩu",
                       textStyle: TextStyle(
-                      color: Colors.black,
-                      fontSize: screenWidth * 0.04,
-                      fontWeight: FontWeight.normal,
+                        color: Colors.black,
+                        fontSize: screenWidth * 0.04,
+                        fontWeight: FontWeight.normal,
                       ),
                       prefixIcon: const Icon(Icons.key),
                       obscureText: true),
-              
+
                   //sign in button
-              
+
                   const CustomSizedBox(),
 
                   MyTextfield(
@@ -194,7 +194,13 @@ class SignUpScreen extends ConsumerWidget {
                   const CustomSizedBox(),
               
                   MyButton(
-                    text: Text("Đăng Ký", style: TextStyle(color: Colors.white, fontSize: screenWidth * 0.045, fontWeight: FontWeight.bold),),
+                    text: Text(
+                      "Đăng Ký",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: screenWidth * 0.045,
+                          fontWeight: FontWeight.bold),
+                    ),
                     color: AppColors.primary,
                     padding: EdgeInsets.all(screenWidth * 0.035),
                     loading: ref
@@ -204,17 +210,18 @@ class SignUpScreen extends ConsumerWidget {
                       signUp(ref, context)
                     },
                   ),
-              
+
                   // Not a member? Register now
-              
+
                   const CustomSizedBox(),
-              
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         "Bạn đã có tài khoản?",
-                        style: TextStyle(color: Colors.black, fontSize: screenWidth * 0.04),
+                        style: TextStyle(
+                            color: Colors.black, fontSize: screenWidth * 0.04),
                       ),
                       const SizedBox(
                         width: 5,
@@ -224,48 +231,57 @@ class SignUpScreen extends ConsumerWidget {
                           padding: EdgeInsets.zero,
                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         ),
-                        onPressed: () => {
-                          router.goSignIn()
-                        },
-                        child: Text("Đăng nhập", style: TextStyle(color: Colors.blueAccent, fontSize: screenWidth * 0.04),),
+                        onPressed: () => {router.goSignIn()},
+                        child: Text(
+                          "Đăng nhập",
+                          style: TextStyle(
+                              color: Colors.blueAccent,
+                              fontSize: screenWidth * 0.04),
+                        ),
                       ),
                     ],
                   ),
-              
+
                   // or
-                  
+
                   const CustomSizedBox(),
-              
+
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25),
                     child: Row(
                       children: [
                         const Expanded(
-                          child: Divider(
-                            thickness: 1,
-                            color: Colors.grey,
-                          )
-                        ),
+                            child: Divider(
+                          thickness: 1,
+                          color: Colors.grey,
+                        )),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15),
-                          child: Text("Hoặc", style: TextStyle(color: Colors.black, fontSize: screenWidth * 0.04, fontWeight: FontWeight.bold)),
+                          child: Text("Hoặc",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: screenWidth * 0.04,
+                                  fontWeight: FontWeight.bold)),
                         ),
                         const Expanded(
-                          child: Divider(
-                            thickness: 1,
-                            color: Colors.grey,
-                          )
-                        )
+                            child: Divider(
+                          thickness: 1,
+                          color: Colors.grey,
+                        ))
                       ],
                     ),
                   ),
-              
+
                   // google + facebook sign in buttons
-              
+
                   const CustomSizedBox(),
-              
+
                   MyButton(
-                    text: Text("Tiếp tục với Google", style: TextStyle(color: Colors.black, fontSize: screenWidth * 0.04),),
+                    text: Text(
+                      "Tiếp tục với Google",
+                      style: TextStyle(
+                          color: Colors.black, fontSize: screenWidth * 0.04),
+                    ),
                     borderColor: Colors.black,
                     color: Colors.white,
                     padding: EdgeInsets.all(screenWidth * 0.04),
@@ -274,15 +290,17 @@ class SignUpScreen extends ConsumerWidget {
                       height: screenWidth * 0.06,
                       width: screenWidth * 0.06,
                     ),
-                    onPressed: () => {
-                      signInWithGoogle(ref)
-                    },
+                    onPressed: () => {signInWithGoogle(ref)},
                   ),
-              
+
                   const CustomSizedBox(),
-              
+
                   MyButton(
-                    text: Text("Tiếp tục với Facebook", style: TextStyle(color: Colors.black, fontSize: screenWidth * 0.04),),
+                    text: Text(
+                      "Tiếp tục với Facebook",
+                      style: TextStyle(
+                          color: Colors.black, fontSize: screenWidth * 0.04),
+                    ),
                     borderColor: Colors.black,
                     color: Colors.white,
                     padding: EdgeInsets.all(screenWidth * 0.04),
@@ -290,10 +308,8 @@ class SignUpScreen extends ConsumerWidget {
                       'assets/logo/facebook_icon.svg',
                       height: screenWidth * 0.06,
                       width: screenWidth * 0.06,
-                    ), 
-                    onPressed: () {
-                      
-                    },
+                    ),
+                    onPressed: () {},
                   ),
                 ],
               ),
