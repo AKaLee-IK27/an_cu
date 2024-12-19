@@ -1,5 +1,6 @@
 import 'package:an_cu/Services/fire_auth_service.dart';
 import 'package:an_cu/State/auth_state.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AuthNotifier extends StateNotifier<AuthenticationState> {
@@ -11,16 +12,23 @@ class AuthNotifier extends StateNotifier<AuthenticationState> {
   Future<void> login({required String email, required String password}) async {
     state = const AuthenticationState.loading();
     final response = await _authService.login(email: email, password: password);
+  
     state = response.fold(
       (error) => AuthenticationState.unauthenticated(message: error),
       (response) => AuthenticationState.authenticated(user: response!),
     );
   }
 
-  Future<void> signup({required String email, required String password}) async {
+  Future<void> signup(
+      {required String email,
+      required String password,
+      required String displayName}) async {
     state = const AuthenticationState.loading();
-    final response =
-        await _authService.signup(email: email, password: password);
+    final response = await _authService.signup(
+      email: email,
+      password: password,
+      displayName: displayName,
+    );
     state = response.fold(
       (error) => AuthenticationState.unauthenticated(message: error),
       (response) => AuthenticationState.authenticated(user: response),

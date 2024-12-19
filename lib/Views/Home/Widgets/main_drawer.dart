@@ -1,6 +1,5 @@
 import 'package:an_cu/Controllers/auth_controller.dart';
 import 'package:an_cu/Router/app_router.dart';
-import 'package:an_cu/Services/fire_store_service.dart';
 import 'package:an_cu/Utils/SharedReferences/local_store.provider.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
 import 'package:an_cu/Utils/Styles/app_text_styles.dart';
@@ -66,8 +65,7 @@ class MainDrawer extends ConsumerWidget {
             title: 'Tạo bài viết',
             icon: Icons.add,
             onTap: () async {
-              await ref.read(fireStoreServiceProvider).addPost();
-              // router.goAddPost();
+              router.goAddPost();
             },
           ),
           MainDrawerItem(

@@ -20,16 +20,16 @@ class AppUser with _$AppUser {
 class Post with _$Post {
   @JsonSerializable(explicitToJson: true)
   const factory Post({
-    required String id,
+    String? id,
     required String title,
-    required int avgStar,
+    int? avgStar,
     String? content,
     required int createdAt,
-    required Property property,
-    required AppUser createdBy,
-    required bool verified,
-    required List<Comment> comments,
-    required String status,
+    Property? property,
+    AppUser? createdBy,
+    bool? verified,
+    List<Comment>? comments,
+    String? status,
   }) = _Post;
 
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
