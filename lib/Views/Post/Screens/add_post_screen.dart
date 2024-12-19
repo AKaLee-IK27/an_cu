@@ -1,4 +1,5 @@
 import 'package:an_cu/Utils/CommonWidget/app_back_button.dart';
+import 'package:an_cu/Utils/CommonWidget/my_button.dart';
 import 'package:an_cu/Utils/CommonWidget/my_textfield.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
 import 'package:an_cu/Utils/Styles/app_text_styles.dart';
@@ -95,15 +96,29 @@ class AddPostScreen extends ConsumerWidget {
                       children: [
                         const Padding(
                           padding: EdgeInsets.only(bottom: 5),
-                          child: Text('Nhà tắm')),
+                          child: Text('Số tầng', style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.normal,),)),
                         InputQty.int(
                           initVal: 0,
                           steps: 1,
                           minVal: 0,
                           maxVal: 20,
+                          decoration: const QtyDecorationProps(
+                            isBordered: false,
+                            borderShape: BorderShapeBtn.circle,
+                            btnColor: AppColors.primary,
+                            width: 10),
                           qtyFormProps: QtyFormProps(
-                            controller: numOfBathroomController
+                            textAlign: TextAlign.center,
+                            controller: floorsController
                           ),
+                          validator: (value) {
+                            if (value == null) {
+                              return "Required field";
+                            } else if (value > 20) {
+                              return "More than available quantity";
+                            }
+                            return null;
+                          },
                         ),
                       ],
                     ),
@@ -111,15 +126,59 @@ class AddPostScreen extends ConsumerWidget {
                       children: [
                         const Padding(
                           padding: EdgeInsets.only(bottom: 5),
-                          child: Text('Phòng ngủ')),
+                          child: Text('Nhà tắm', style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.normal,),)),
                         InputQty.int(
                           initVal: 0,
                           steps: 1,
                           minVal: 0,
                           maxVal: 20,
+                          decoration: const QtyDecorationProps(
+                            isBordered: false,
+                            borderShape: BorderShapeBtn.circle,
+                            btnColor: AppColors.primary,
+                            width: 10),
                           qtyFormProps: QtyFormProps(
+                            textAlign: TextAlign.center,
+                            controller: numOfBathroomController
+                          ),
+                          validator: (value) {
+                            if (value == null) {
+                              return "Required field";
+                            } else if (value > 20) {
+                              return "More than available quantity";
+                            }
+                            return null;
+                          },
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 5),
+                          child: Text('Phòng ngủ', style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.normal,),)),
+                        InputQty.int(
+                          initVal: 0,
+                          steps: 1,
+                          minVal: 0,
+                          maxVal: 20,
+                          decoration: const QtyDecorationProps(
+                            isBordered: false,
+                            borderShape: BorderShapeBtn.circle,
+                            btnColor: AppColors.primary,
+                            width: 10),
+                          qtyFormProps: QtyFormProps(
+                            textAlign: TextAlign.center,
                             controller: numOfBedroomController
                           ),
+                          validator: (value) {
+                            if (value == null) {
+                              return "Required field";
+                            } else if (value > 20) {
+                              return "More than available quantity";
+                            }
+                            return null;
+                          },
                         ),
                       ],
                     ),
@@ -133,6 +192,15 @@ class AddPostScreen extends ConsumerWidget {
                   hintText: 'Nhập thông tin bất động sản',
                 ),
                 const SizedBox(height: 10),
+                MyButton(
+                  text: const Text('Tạo bài viết', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),),
+                  width: 150,
+                  color: AppColors.primary,
+                  padding: const EdgeInsets.all(10),
+                  onPressed: () {
+
+                  }
+                )
                 // ChipsChoice.multiple(
                 //   value: const [],
                 //   onChanged: (value) {},
