@@ -40,7 +40,7 @@ class AccountScreen extends ConsumerWidget {
 
   User? currentUser = FirebaseAuth.instance.currentUser;
 
-  late String displayName;
+  late String displayName = currentUser?.displayName ?? '';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -49,8 +49,6 @@ class AccountScreen extends ConsumerWidget {
     String isVerified = (!currentUser!.emailVerified) ? "Chưa được xác minh" : "Đã xác minh";
     bool isDisplayNameEnable = ref.watch(isDisplayNameEnableProvider);
     
-    displayName = currentUser?.displayName ?? '';
-
     emailController.text = '${currentUser?.email}';
     displayNameController.text = displayName;
 
@@ -59,7 +57,7 @@ class AccountScreen extends ConsumerWidget {
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           leading: const MyBackButton(color: AppColors.secondary),
-          title: const Text('Account'),
+          title: const Text('Tài khoản'),
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -74,10 +72,32 @@ class AccountScreen extends ConsumerWidget {
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                   ),
-                  child: ClipOval(
-                    child: SizedBox.expand(
-                      child: AssetCheckWidget(publicId: 'ancuconnect/${currentUser?.email}')
-                    )
+                  child: Stack(
+                    children: [
+                      ClipOval(
+                        child: SizedBox.expand(
+                          child: AssetCheckWidget(publicId: 'ancuconnect/${currentUser?.email}')
+                        )
+                      ),
+                      Positioned( 
+                        bottom: 0, 
+                        right: -10, 
+                        child: ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.primary,
+                            padding: const EdgeInsets.all(5),
+                            shape: const CircleBorder(
+                              eccentricity: 0,
+                              side: BorderSide.none,
+                            )
+                          ),
+                          onPressed: () {
+                            print('click edit');
+                          }, 
+                          label: const Icon(Icons.edit, color: Colors.white,),
+                        ),
+                      ),
+                    ]
                   ),
                 ),
           

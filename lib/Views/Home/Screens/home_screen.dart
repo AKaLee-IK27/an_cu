@@ -41,9 +41,8 @@ class HomeScreen extends ConsumerWidget {
           appBar: AppBar(
             actions: [
               Builder(
-                builder: (context) => SizedBox(
-                  height: MediaQuery.sizeOf(context).height*0.075,
-                  width: MediaQuery.sizeOf(context).height*0.075,
+                builder: (context) => SizedBox.square(
+                  dimension: kToolbarHeight,
                   child: IconButton(
                     icon: ClipOval(
                       child: SizedBox.expand(child: AssetCheckWidget(publicId: 'ancuconnect/${user?.email}')),

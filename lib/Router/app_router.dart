@@ -120,7 +120,7 @@ GoRouter goRouter(Ref ref) {
         path: '/${AppRoute.addPost.name}',
         name: AppRoute.addPost.name,
         pageBuilder: (context, state) =>
-            const MaterialPage(child: AddPostScreen()),
+            MaterialPage(child: AddPostScreen()),
       ),
       GoRoute(
         path: '/${AppRoute.chatBot.name}',
