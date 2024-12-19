@@ -445,7 +445,8 @@ class __$$PostImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$PostImpl implements _Post {
   const _$PostImpl(
       {required this.id,
@@ -873,7 +874,8 @@ class __$$PropertyImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$PropertyImpl implements _Property {
   const _$PropertyImpl(
       {required this.address,
@@ -1146,7 +1148,8 @@ class __$$ProvinceImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$ProvinceImpl implements _Province {
   const _$ProvinceImpl(
       {required this.name, required final List<District> districts})
@@ -1504,7 +1507,8 @@ class __$$CommentImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$CommentImpl implements _Comment {
   const _$CommentImpl(
       {required this.id,

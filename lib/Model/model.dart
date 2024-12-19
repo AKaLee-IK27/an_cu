@@ -18,6 +18,7 @@ class AppUser with _$AppUser {
 
 @freezed
 class Post with _$Post {
+  @JsonSerializable(explicitToJson: true)
   const factory Post({
     required String id,
     required String title,
@@ -36,6 +37,7 @@ class Post with _$Post {
 
 @freezed
 class Property with _$Property {
+  @JsonSerializable(explicitToJson: true)
   const factory Property({
     required String address,
     Province? province,
@@ -58,6 +60,7 @@ class Property with _$Property {
 
 @freezed
 class Province with _$Province {
+  @JsonSerializable(explicitToJson: true)
   const factory Province({
     required String name,
     required List<District> districts,
@@ -79,6 +82,7 @@ class District with _$District {
 
 @freezed
 class Comment with _$Comment {
+  @JsonSerializable(explicitToJson: true)
   const factory Comment({
     required String id,
     required String content,

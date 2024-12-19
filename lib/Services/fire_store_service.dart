@@ -37,19 +37,56 @@ class FireStoreService {
       return;
     }
 
-    await posts.add(
-      Comment(
-        content: "dfads",
-        id: '1',
-        createdAt: 323,
-        createdBy: AppUser(
-          id: user.uid,
-          email: user.email,
-          name: user.displayName,
-          phoneNumber: user.phoneNumber,
+    Post newPost = Post(
+      id: '1',
+      title: 'New Post',
+      avgStar: 5,
+      content: 'This is a new post',
+      createdAt: DateTime.now().millisecondsSinceEpoch,
+      property: const Property(
+        address: 'New Address',
+        province: Province(
+          name: 'Province Name',
+          districts: [
+            District(name: 'District Name'),
+          ],
         ),
-      ).toJson(),
+        district: District(name: 'District Name'),
+        price: 100000,
+        area: 100,
+        bedRoom: 2,
+        bathRoom: 2,
+        floor: 2,
+        description: 'This is a new property',
+        images: ['image1', 'image2'],
+        hasFurniture: true,
+        propertyType: 'apartment',
+        direction: 'north',
+      ),
+      createdBy: AppUser(
+        id: user.uid,
+        email: user.email,
+        name: user.displayName,
+        phoneNumber: user.phoneNumber,
+      ),
+      verified: true,
+      comments: [
+        Comment(
+          id: '1',
+          content: 'This is a new comment',
+          createdAt: DateTime.now().millisecondsSinceEpoch,
+          createdBy: AppUser(
+            id: user.uid,
+            email: user.email,
+            name: user.displayName,
+            phoneNumber: user.phoneNumber,
+          ),
+        ),
+      ],
+      status: 'pending',
     );
+
+    await posts.add(newPost.toJson());
   }
 }
 
