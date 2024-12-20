@@ -27,8 +27,43 @@ class PostNotifier extends StateNotifier<List<Post>> {
 
   Future<void> getPosts() async {
     try {
-      final posts = await _fireStoreService.collection('Posts').get();
-      state = posts.docs.map((e) => Post.fromJson(e.data())).toList();
+      await _fireStoreService.collection('Posts').get().then((querySnapshot) {
+        print("Successfully fetched posts");
+        for (var doc in querySnapshot.docs) {
+          print(doc.data());
+          final post = Post.fromJson(doc.data());
+
+          state = [...state, post];
+        }
+      }, onError: (e) => print(e));
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> deletePost(String postId) async {
+    try {
+      await _fireStoreService
+          .collection('Posts')
+          .doc(user.uid)
+          .delete()
+          .onError((e, _) => print(e));
+
+      state = state.where((post) => post.id != postId).toList();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> updatePost(Post post) async {
+    try {
+      await _fireStoreService
+          .collection('Posts')
+          .doc(user.uid)
+          .update(post.toJson())
+          .onError((e, _) => print(e));
+
+      state = state.map((p) => p.id == post.id ? post : p).toList();
     } catch (e) {
       print(e);
     }

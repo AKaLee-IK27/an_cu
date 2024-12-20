@@ -6,22 +6,6 @@ part of 'model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AppUserImpl _$$AppUserImplFromJson(Map<String, dynamic> json) =>
-    _$AppUserImpl(
-      id: json['id'] as String,
-      email: json['email'] as String?,
-      name: json['name'] as String?,
-      phoneNumber: json['phoneNumber'] as String?,
-    );
-
-Map<String, dynamic> _$$AppUserImplToJson(_$AppUserImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'email': instance.email,
-      'name': instance.name,
-      'phoneNumber': instance.phoneNumber,
-    };
-
 _$PostImpl _$$PostImplFromJson(Map<String, dynamic> json) => _$PostImpl(
       id: json['id'] as String?,
       title: json['title'] as String,
@@ -31,9 +15,7 @@ _$PostImpl _$$PostImplFromJson(Map<String, dynamic> json) => _$PostImpl(
       property: json['property'] == null
           ? null
           : Property.fromJson(json['property'] as Map<String, dynamic>),
-      createdBy: json['createdBy'] == null
-          ? null
-          : AppUser.fromJson(json['createdBy'] as Map<String, dynamic>),
+      createdBy: json['createdBy'] as String?,
       verified: json['verified'] as bool?,
       comments: (json['comments'] as List<dynamic>?)
           ?.map((e) => Comment.fromJson(e as Map<String, dynamic>))
@@ -49,7 +31,7 @@ Map<String, dynamic> _$$PostImplToJson(_$PostImpl instance) =>
       'content': instance.content,
       'createdAt': instance.createdAt,
       'property': instance.property?.toJson(),
-      'createdBy': instance.createdBy?.toJson(),
+      'createdBy': instance.createdBy,
       'verified': instance.verified,
       'comments': instance.comments?.map((e) => e.toJson()).toList(),
       'status': instance.status,
@@ -64,17 +46,17 @@ _$PropertyImpl _$$PropertyImplFromJson(Map<String, dynamic> json) =>
       district: json['district'] == null
           ? null
           : District.fromJson(json['district'] as Map<String, dynamic>),
-      price: (json['price'] as num).toDouble(),
-      area: (json['area'] as num).toDouble(),
-      bedRoom: (json['bedRoom'] as num).toInt(),
-      bathRoom: (json['bathRoom'] as num).toInt(),
-      floor: (json['floor'] as num).toInt(),
-      description: json['description'] as String,
+      price: (json['price'] as num?)?.toDouble(),
+      area: (json['area'] as num?)?.toDouble(),
+      bedRoom: (json['bedRoom'] as num?)?.toInt(),
+      bathRoom: (json['bathRoom'] as num?)?.toInt(),
+      floor: (json['floor'] as num?)?.toInt(),
+      description: json['description'] as String?,
       images:
-          (json['images'] as List<dynamic>).map((e) => e as String).toList(),
-      hasFurniture: json['hasFurniture'] as bool,
-      propertyType: json['propertyType'] as String,
-      direction: json['direction'] as String,
+          (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      hasFurniture: json['hasFurniture'] as bool?,
+      propertyType: json['propertyType'] as String?,
+      direction: json['direction'] as String?,
     );
 
 Map<String, dynamic> _$$PropertyImplToJson(_$PropertyImpl instance) =>
@@ -123,7 +105,7 @@ _$CommentImpl _$$CommentImplFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       content: json['content'] as String,
       createdAt: (json['createdAt'] as num).toInt(),
-      createdBy: AppUser.fromJson(json['createdBy'] as Map<String, dynamic>),
+      createdBy: json['createdBy'] as String,
     );
 
 Map<String, dynamic> _$$CommentImplToJson(_$CommentImpl instance) =>
@@ -131,5 +113,5 @@ Map<String, dynamic> _$$CommentImplToJson(_$CommentImpl instance) =>
       'id': instance.id,
       'content': instance.content,
       'createdAt': instance.createdAt,
-      'createdBy': instance.createdBy.toJson(),
+      'createdBy': instance.createdBy,
     };

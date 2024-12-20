@@ -14,205 +14,6 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-AppUser _$AppUserFromJson(Map<String, dynamic> json) {
-  return _AppUser.fromJson(json);
-}
-
-/// @nodoc
-mixin _$AppUser {
-  String get id => throw _privateConstructorUsedError;
-  String? get email => throw _privateConstructorUsedError;
-  String? get name => throw _privateConstructorUsedError;
-  String? get phoneNumber => throw _privateConstructorUsedError;
-
-  /// Serializes this AppUser to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of AppUser
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $AppUserCopyWith<AppUser> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $AppUserCopyWith<$Res> {
-  factory $AppUserCopyWith(AppUser value, $Res Function(AppUser) then) =
-      _$AppUserCopyWithImpl<$Res, AppUser>;
-  @useResult
-  $Res call({String id, String? email, String? name, String? phoneNumber});
-}
-
-/// @nodoc
-class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
-    implements $AppUserCopyWith<$Res> {
-  _$AppUserCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of AppUser
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? email = freezed,
-    Object? name = freezed,
-    Object? phoneNumber = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      phoneNumber: freezed == phoneNumber
-          ? _value.phoneNumber
-          : phoneNumber // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$AppUserImplCopyWith<$Res> implements $AppUserCopyWith<$Res> {
-  factory _$$AppUserImplCopyWith(
-          _$AppUserImpl value, $Res Function(_$AppUserImpl) then) =
-      __$$AppUserImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String id, String? email, String? name, String? phoneNumber});
-}
-
-/// @nodoc
-class __$$AppUserImplCopyWithImpl<$Res>
-    extends _$AppUserCopyWithImpl<$Res, _$AppUserImpl>
-    implements _$$AppUserImplCopyWith<$Res> {
-  __$$AppUserImplCopyWithImpl(
-      _$AppUserImpl _value, $Res Function(_$AppUserImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of AppUser
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? email = freezed,
-    Object? name = freezed,
-    Object? phoneNumber = freezed,
-  }) {
-    return _then(_$AppUserImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      phoneNumber: freezed == phoneNumber
-          ? _value.phoneNumber
-          : phoneNumber // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$AppUserImpl implements _AppUser {
-  const _$AppUserImpl(
-      {required this.id, this.email, this.name, this.phoneNumber});
-
-  factory _$AppUserImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AppUserImplFromJson(json);
-
-  @override
-  final String id;
-  @override
-  final String? email;
-  @override
-  final String? name;
-  @override
-  final String? phoneNumber;
-
-  @override
-  String toString() {
-    return 'AppUser(id: $id, email: $email, name: $name, phoneNumber: $phoneNumber)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AppUserImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.phoneNumber, phoneNumber) ||
-                other.phoneNumber == phoneNumber));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, email, name, phoneNumber);
-
-  /// Create a copy of AppUser
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$AppUserImplCopyWith<_$AppUserImpl> get copyWith =>
-      __$$AppUserImplCopyWithImpl<_$AppUserImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$AppUserImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _AppUser implements AppUser {
-  const factory _AppUser(
-      {required final String id,
-      final String? email,
-      final String? name,
-      final String? phoneNumber}) = _$AppUserImpl;
-
-  factory _AppUser.fromJson(Map<String, dynamic> json) = _$AppUserImpl.fromJson;
-
-  @override
-  String get id;
-  @override
-  String? get email;
-  @override
-  String? get name;
-  @override
-  String? get phoneNumber;
-
-  /// Create a copy of AppUser
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AppUserImplCopyWith<_$AppUserImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 Post _$PostFromJson(Map<String, dynamic> json) {
   return _Post.fromJson(json);
 }
@@ -225,7 +26,7 @@ mixin _$Post {
   String? get content => throw _privateConstructorUsedError;
   int get createdAt => throw _privateConstructorUsedError;
   Property? get property => throw _privateConstructorUsedError;
-  AppUser? get createdBy => throw _privateConstructorUsedError;
+  String? get createdBy => throw _privateConstructorUsedError;
   bool? get verified => throw _privateConstructorUsedError;
   List<Comment>? get comments => throw _privateConstructorUsedError;
   String? get status => throw _privateConstructorUsedError;
@@ -251,13 +52,12 @@ abstract class $PostCopyWith<$Res> {
       String? content,
       int createdAt,
       Property? property,
-      AppUser? createdBy,
+      String? createdBy,
       bool? verified,
       List<Comment>? comments,
       String? status});
 
   $PropertyCopyWith<$Res>? get property;
-  $AppUserCopyWith<$Res>? get createdBy;
 }
 
 /// @nodoc
@@ -314,7 +114,7 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
       createdBy: freezed == createdBy
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
-              as AppUser?,
+              as String?,
       verified: freezed == verified
           ? _value.verified
           : verified // ignore: cast_nullable_to_non_nullable
@@ -343,20 +143,6 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
       return _then(_value.copyWith(property: value) as $Val);
     });
   }
-
-  /// Create a copy of Post
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $AppUserCopyWith<$Res>? get createdBy {
-    if (_value.createdBy == null) {
-      return null;
-    }
-
-    return $AppUserCopyWith<$Res>(_value.createdBy!, (value) {
-      return _then(_value.copyWith(createdBy: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
@@ -373,15 +159,13 @@ abstract class _$$PostImplCopyWith<$Res> implements $PostCopyWith<$Res> {
       String? content,
       int createdAt,
       Property? property,
-      AppUser? createdBy,
+      String? createdBy,
       bool? verified,
       List<Comment>? comments,
       String? status});
 
   @override
   $PropertyCopyWith<$Res>? get property;
-  @override
-  $AppUserCopyWith<$Res>? get createdBy;
 }
 
 /// @nodoc
@@ -435,7 +219,7 @@ class __$$PostImplCopyWithImpl<$Res>
       createdBy: freezed == createdBy
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
-              as AppUser?,
+              as String?,
       verified: freezed == verified
           ? _value.verified
           : verified // ignore: cast_nullable_to_non_nullable
@@ -485,7 +269,7 @@ class _$PostImpl implements _Post {
   @override
   final Property? property;
   @override
-  final AppUser? createdBy;
+  final String? createdBy;
   @override
   final bool? verified;
   final List<Comment>? _comments;
@@ -566,7 +350,7 @@ abstract class _Post implements Post {
       final String? content,
       required final int createdAt,
       final Property? property,
-      final AppUser? createdBy,
+      final String? createdBy,
       final bool? verified,
       final List<Comment>? comments,
       final String? status}) = _$PostImpl;
@@ -586,7 +370,7 @@ abstract class _Post implements Post {
   @override
   Property? get property;
   @override
-  AppUser? get createdBy;
+  String? get createdBy;
   @override
   bool? get verified;
   @override
@@ -611,16 +395,16 @@ mixin _$Property {
   String get address => throw _privateConstructorUsedError;
   Province? get province => throw _privateConstructorUsedError;
   District? get district => throw _privateConstructorUsedError;
-  double get price => throw _privateConstructorUsedError;
-  double get area => throw _privateConstructorUsedError;
-  int get bedRoom => throw _privateConstructorUsedError;
-  int get bathRoom => throw _privateConstructorUsedError;
-  int get floor => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
-  List<String> get images => throw _privateConstructorUsedError;
-  bool get hasFurniture => throw _privateConstructorUsedError;
-  String get propertyType => throw _privateConstructorUsedError;
-  String get direction => throw _privateConstructorUsedError;
+  double? get price => throw _privateConstructorUsedError;
+  double? get area => throw _privateConstructorUsedError;
+  int? get bedRoom => throw _privateConstructorUsedError;
+  int? get bathRoom => throw _privateConstructorUsedError;
+  int? get floor => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  List<String>? get images => throw _privateConstructorUsedError;
+  bool? get hasFurniture => throw _privateConstructorUsedError;
+  String? get propertyType => throw _privateConstructorUsedError;
+  String? get direction => throw _privateConstructorUsedError;
 
   /// Serializes this Property to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -641,16 +425,16 @@ abstract class $PropertyCopyWith<$Res> {
       {String address,
       Province? province,
       District? district,
-      double price,
-      double area,
-      int bedRoom,
-      int bathRoom,
-      int floor,
-      String description,
-      List<String> images,
-      bool hasFurniture,
-      String propertyType,
-      String direction});
+      double? price,
+      double? area,
+      int? bedRoom,
+      int? bathRoom,
+      int? floor,
+      String? description,
+      List<String>? images,
+      bool? hasFurniture,
+      String? propertyType,
+      String? direction});
 
   $ProvinceCopyWith<$Res>? get province;
   $DistrictCopyWith<$Res>? get district;
@@ -674,16 +458,16 @@ class _$PropertyCopyWithImpl<$Res, $Val extends Property>
     Object? address = null,
     Object? province = freezed,
     Object? district = freezed,
-    Object? price = null,
-    Object? area = null,
-    Object? bedRoom = null,
-    Object? bathRoom = null,
-    Object? floor = null,
-    Object? description = null,
-    Object? images = null,
-    Object? hasFurniture = null,
-    Object? propertyType = null,
-    Object? direction = null,
+    Object? price = freezed,
+    Object? area = freezed,
+    Object? bedRoom = freezed,
+    Object? bathRoom = freezed,
+    Object? floor = freezed,
+    Object? description = freezed,
+    Object? images = freezed,
+    Object? hasFurniture = freezed,
+    Object? propertyType = freezed,
+    Object? direction = freezed,
   }) {
     return _then(_value.copyWith(
       address: null == address
@@ -698,46 +482,46 @@ class _$PropertyCopyWithImpl<$Res, $Val extends Property>
           ? _value.district
           : district // ignore: cast_nullable_to_non_nullable
               as District?,
-      price: null == price
+      price: freezed == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as double,
-      area: null == area
+              as double?,
+      area: freezed == area
           ? _value.area
           : area // ignore: cast_nullable_to_non_nullable
-              as double,
-      bedRoom: null == bedRoom
+              as double?,
+      bedRoom: freezed == bedRoom
           ? _value.bedRoom
           : bedRoom // ignore: cast_nullable_to_non_nullable
-              as int,
-      bathRoom: null == bathRoom
+              as int?,
+      bathRoom: freezed == bathRoom
           ? _value.bathRoom
           : bathRoom // ignore: cast_nullable_to_non_nullable
-              as int,
-      floor: null == floor
+              as int?,
+      floor: freezed == floor
           ? _value.floor
           : floor // ignore: cast_nullable_to_non_nullable
-              as int,
-      description: null == description
+              as int?,
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      images: null == images
+              as String?,
+      images: freezed == images
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      hasFurniture: null == hasFurniture
+              as List<String>?,
+      hasFurniture: freezed == hasFurniture
           ? _value.hasFurniture
           : hasFurniture // ignore: cast_nullable_to_non_nullable
-              as bool,
-      propertyType: null == propertyType
+              as bool?,
+      propertyType: freezed == propertyType
           ? _value.propertyType
           : propertyType // ignore: cast_nullable_to_non_nullable
-              as String,
-      direction: null == direction
+              as String?,
+      direction: freezed == direction
           ? _value.direction
           : direction // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 
@@ -782,16 +566,16 @@ abstract class _$$PropertyImplCopyWith<$Res>
       {String address,
       Province? province,
       District? district,
-      double price,
-      double area,
-      int bedRoom,
-      int bathRoom,
-      int floor,
-      String description,
-      List<String> images,
-      bool hasFurniture,
-      String propertyType,
-      String direction});
+      double? price,
+      double? area,
+      int? bedRoom,
+      int? bathRoom,
+      int? floor,
+      String? description,
+      List<String>? images,
+      bool? hasFurniture,
+      String? propertyType,
+      String? direction});
 
   @override
   $ProvinceCopyWith<$Res>? get province;
@@ -815,16 +599,16 @@ class __$$PropertyImplCopyWithImpl<$Res>
     Object? address = null,
     Object? province = freezed,
     Object? district = freezed,
-    Object? price = null,
-    Object? area = null,
-    Object? bedRoom = null,
-    Object? bathRoom = null,
-    Object? floor = null,
-    Object? description = null,
-    Object? images = null,
-    Object? hasFurniture = null,
-    Object? propertyType = null,
-    Object? direction = null,
+    Object? price = freezed,
+    Object? area = freezed,
+    Object? bedRoom = freezed,
+    Object? bathRoom = freezed,
+    Object? floor = freezed,
+    Object? description = freezed,
+    Object? images = freezed,
+    Object? hasFurniture = freezed,
+    Object? propertyType = freezed,
+    Object? direction = freezed,
   }) {
     return _then(_$PropertyImpl(
       address: null == address
@@ -839,46 +623,46 @@ class __$$PropertyImplCopyWithImpl<$Res>
           ? _value.district
           : district // ignore: cast_nullable_to_non_nullable
               as District?,
-      price: null == price
+      price: freezed == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as double,
-      area: null == area
+              as double?,
+      area: freezed == area
           ? _value.area
           : area // ignore: cast_nullable_to_non_nullable
-              as double,
-      bedRoom: null == bedRoom
+              as double?,
+      bedRoom: freezed == bedRoom
           ? _value.bedRoom
           : bedRoom // ignore: cast_nullable_to_non_nullable
-              as int,
-      bathRoom: null == bathRoom
+              as int?,
+      bathRoom: freezed == bathRoom
           ? _value.bathRoom
           : bathRoom // ignore: cast_nullable_to_non_nullable
-              as int,
-      floor: null == floor
+              as int?,
+      floor: freezed == floor
           ? _value.floor
           : floor // ignore: cast_nullable_to_non_nullable
-              as int,
-      description: null == description
+              as int?,
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      images: null == images
+              as String?,
+      images: freezed == images
           ? _value._images
           : images // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      hasFurniture: null == hasFurniture
+              as List<String>?,
+      hasFurniture: freezed == hasFurniture
           ? _value.hasFurniture
           : hasFurniture // ignore: cast_nullable_to_non_nullable
-              as bool,
-      propertyType: null == propertyType
+              as bool?,
+      propertyType: freezed == propertyType
           ? _value.propertyType
           : propertyType // ignore: cast_nullable_to_non_nullable
-              as String,
-      direction: null == direction
+              as String?,
+      direction: freezed == direction
           ? _value.direction
           : direction // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -891,16 +675,16 @@ class _$PropertyImpl implements _Property {
       {required this.address,
       this.province,
       this.district,
-      required this.price,
-      required this.area,
-      required this.bedRoom,
-      required this.bathRoom,
-      required this.floor,
-      required this.description,
-      required final List<String> images,
-      required this.hasFurniture,
-      required this.propertyType,
-      required this.direction})
+      this.price,
+      this.area,
+      this.bedRoom,
+      this.bathRoom,
+      this.floor,
+      this.description,
+      final List<String>? images,
+      this.hasFurniture,
+      this.propertyType,
+      this.direction})
       : _images = images;
 
   factory _$PropertyImpl.fromJson(Map<String, dynamic> json) =>
@@ -913,31 +697,33 @@ class _$PropertyImpl implements _Property {
   @override
   final District? district;
   @override
-  final double price;
+  final double? price;
   @override
-  final double area;
+  final double? area;
   @override
-  final int bedRoom;
+  final int? bedRoom;
   @override
-  final int bathRoom;
+  final int? bathRoom;
   @override
-  final int floor;
+  final int? floor;
   @override
-  final String description;
-  final List<String> _images;
+  final String? description;
+  final List<String>? _images;
   @override
-  List<String> get images {
+  List<String>? get images {
+    final value = _images;
+    if (value == null) return null;
     if (_images is EqualUnmodifiableListView) return _images;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_images);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
-  final bool hasFurniture;
+  final bool? hasFurniture;
   @override
-  final String propertyType;
+  final String? propertyType;
   @override
-  final String direction;
+  final String? direction;
 
   @override
   String toString() {
@@ -1010,16 +796,16 @@ abstract class _Property implements Property {
       {required final String address,
       final Province? province,
       final District? district,
-      required final double price,
-      required final double area,
-      required final int bedRoom,
-      required final int bathRoom,
-      required final int floor,
-      required final String description,
-      required final List<String> images,
-      required final bool hasFurniture,
-      required final String propertyType,
-      required final String direction}) = _$PropertyImpl;
+      final double? price,
+      final double? area,
+      final int? bedRoom,
+      final int? bathRoom,
+      final int? floor,
+      final String? description,
+      final List<String>? images,
+      final bool? hasFurniture,
+      final String? propertyType,
+      final String? direction}) = _$PropertyImpl;
 
   factory _Property.fromJson(Map<String, dynamic> json) =
       _$PropertyImpl.fromJson;
@@ -1031,25 +817,25 @@ abstract class _Property implements Property {
   @override
   District? get district;
   @override
-  double get price;
+  double? get price;
   @override
-  double get area;
+  double? get area;
   @override
-  int get bedRoom;
+  int? get bedRoom;
   @override
-  int get bathRoom;
+  int? get bathRoom;
   @override
-  int get floor;
+  int? get floor;
   @override
-  String get description;
+  String? get description;
   @override
-  List<String> get images;
+  List<String>? get images;
   @override
-  bool get hasFurniture;
+  bool? get hasFurniture;
   @override
-  String get propertyType;
+  String? get propertyType;
   @override
-  String get direction;
+  String? get direction;
 
   /// Create a copy of Property
   /// with the given fields replaced by the non-null parameter values.
@@ -1392,7 +1178,7 @@ mixin _$Comment {
   String get id => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
   int get createdAt => throw _privateConstructorUsedError;
-  AppUser get createdBy => throw _privateConstructorUsedError;
+  String get createdBy => throw _privateConstructorUsedError;
 
   /// Serializes this Comment to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1408,9 +1194,7 @@ abstract class $CommentCopyWith<$Res> {
   factory $CommentCopyWith(Comment value, $Res Function(Comment) then) =
       _$CommentCopyWithImpl<$Res, Comment>;
   @useResult
-  $Res call({String id, String content, int createdAt, AppUser createdBy});
-
-  $AppUserCopyWith<$Res> get createdBy;
+  $Res call({String id, String content, int createdAt, String createdBy});
 }
 
 /// @nodoc
@@ -1449,18 +1233,8 @@ class _$CommentCopyWithImpl<$Res, $Val extends Comment>
       createdBy: null == createdBy
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
-              as AppUser,
+              as String,
     ) as $Val);
-  }
-
-  /// Create a copy of Comment
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $AppUserCopyWith<$Res> get createdBy {
-    return $AppUserCopyWith<$Res>(_value.createdBy, (value) {
-      return _then(_value.copyWith(createdBy: value) as $Val);
-    });
   }
 }
 
@@ -1471,10 +1245,7 @@ abstract class _$$CommentImplCopyWith<$Res> implements $CommentCopyWith<$Res> {
       __$$CommentImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String content, int createdAt, AppUser createdBy});
-
-  @override
-  $AppUserCopyWith<$Res> get createdBy;
+  $Res call({String id, String content, int createdAt, String createdBy});
 }
 
 /// @nodoc
@@ -1511,7 +1282,7 @@ class __$$CommentImplCopyWithImpl<$Res>
       createdBy: null == createdBy
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
-              as AppUser,
+              as String,
     ));
   }
 }
@@ -1536,7 +1307,7 @@ class _$CommentImpl implements _Comment {
   @override
   final int createdAt;
   @override
-  final AppUser createdBy;
+  final String createdBy;
 
   @override
   String toString() {
@@ -1582,7 +1353,7 @@ abstract class _Comment implements Comment {
       {required final String id,
       required final String content,
       required final int createdAt,
-      required final AppUser createdBy}) = _$CommentImpl;
+      required final String createdBy}) = _$CommentImpl;
 
   factory _Comment.fromJson(Map<String, dynamic> json) = _$CommentImpl.fromJson;
 
@@ -1593,7 +1364,7 @@ abstract class _Comment implements Comment {
   @override
   int get createdAt;
   @override
-  AppUser get createdBy;
+  String get createdBy;
 
   /// Create a copy of Comment
   /// with the given fields replaced by the non-null parameter values.

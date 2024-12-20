@@ -18,7 +18,7 @@ final userProvider = Provider<User>((ref) {
 
 class FireAuthService {
   final FirebaseAuth _firebaseAuth;
-  final Ref _ref; 
+  final Ref _ref;
 
   FireAuthService(this._firebaseAuth, this._ref);
 
@@ -83,6 +83,14 @@ class FireAuthService {
       return right(null);
     } on FirebaseAuthException catch (e) {
       return left(e.message ?? 'Failed to Logout');
+    }
+  }
+
+  Future<Either<String, void>> fetchUserById({required String userId}) async {
+    try {
+      return right(null);
+    } on FirebaseAuthException catch (e) {
+      return left(e.message ?? 'Failed to Reset Password');
     }
   }
 }

@@ -4,19 +4,6 @@ part 'model.freezed.dart';
 part 'model.g.dart';
 
 @freezed
-class AppUser with _$AppUser {
-  const factory AppUser({
-    required String id,
-    String? email,
-    String? name,
-    String? phoneNumber,
-  }) = _AppUser;
-
-  factory AppUser.fromJson(Map<String, dynamic> json) =>
-      _$AppUserFromJson(json);
-}
-
-@freezed
 class Post with _$Post {
   @JsonSerializable(explicitToJson: true)
   const factory Post({
@@ -26,7 +13,7 @@ class Post with _$Post {
     String? content,
     required int createdAt,
     Property? property,
-    AppUser? createdBy,
+    String? createdBy,
     bool? verified,
     List<Comment>? comments,
     String? status,
@@ -42,16 +29,16 @@ class Property with _$Property {
     required String address,
     Province? province,
     District? district,
-    required double price,
-    required double area,
-    required int bedRoom,
-    required int bathRoom,
-    required int floor,
-    required String description,
-    required List<String> images,
-    required bool hasFurniture,
-    required String propertyType,
-    required String direction,
+    double? price,
+    double? area,
+    int? bedRoom,
+    int? bathRoom,
+    int? floor,
+    String? description,
+    List<String>? images,
+    bool? hasFurniture,
+    String? propertyType,
+    String? direction,
   }) = _Property;
 
   factory Property.fromJson(Map<String, dynamic> json) =>
@@ -87,7 +74,7 @@ class Comment with _$Comment {
     required String id,
     required String content,
     required int createdAt,
-    required AppUser createdBy,
+    required String createdBy,
   }) = _Comment;
 
   factory Comment.fromJson(Map<String, dynamic> json) =>
