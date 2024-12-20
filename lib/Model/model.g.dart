@@ -39,13 +39,8 @@ Map<String, dynamic> _$$PostImplToJson(_$PostImpl instance) =>
 
 _$PropertyImpl _$$PropertyImplFromJson(Map<String, dynamic> json) =>
     _$PropertyImpl(
-      address: json['address'] as String,
-      province: json['province'] == null
-          ? null
-          : Province.fromJson(json['province'] as Map<String, dynamic>),
-      district: json['district'] == null
-          ? null
-          : District.fromJson(json['district'] as Map<String, dynamic>),
+      province: json['province'] as String?,
+      district: json['district'] as String?,
       price: (json['price'] as num?)?.toDouble(),
       area: (json['area'] as num?)?.toDouble(),
       bedRoom: (json['bedRoom'] as num?)?.toInt(),
@@ -61,9 +56,8 @@ _$PropertyImpl _$$PropertyImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$PropertyImplToJson(_$PropertyImpl instance) =>
     <String, dynamic>{
-      'address': instance.address,
-      'province': instance.province?.toJson(),
-      'district': instance.district?.toJson(),
+      'province': instance.province,
+      'district': instance.district,
       'price': instance.price,
       'area': instance.area,
       'bedRoom': instance.bedRoom,

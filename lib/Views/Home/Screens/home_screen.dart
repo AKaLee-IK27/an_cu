@@ -1,3 +1,5 @@
+import 'package:an_cu/Controllers/post_controller.dart';
+import 'package:an_cu/Model/model.dart';
 import 'package:an_cu/Router/app_router.dart';
 import 'package:an_cu/Utils/CommonWidget/asset_check_widget_cloudinary.dart';
 import 'package:an_cu/Utils/Helpers/screen_size.dart';
@@ -21,6 +23,7 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(goRouterProvider);
     final User? user = FirebaseAuth.instance.currentUser;
+    final List<Post> posts = ref.watch(postController);
 
     return SafeArea(
       child: Scaffold(
@@ -45,7 +48,9 @@ class HomeScreen extends ConsumerWidget {
                   dimension: kToolbarHeight,
                   child: IconButton(
                     icon: ClipOval(
-                      child: SizedBox.expand(child: AssetCheckWidget(publicId: 'ancuconnect/${user?.email}')),
+                      child: SizedBox.expand(
+                          child: AssetCheckWidget(
+                              publicId: 'ancuconnect/${user?.email}')),
                     ),
                     onPressed: () => Scaffold.of(context).openEndDrawer(),
                   ),
@@ -85,14 +90,11 @@ class HomeScreen extends ConsumerWidget {
                       ),
                       SizedBox(
                         width: ScreenSize.width(context),
-                        child: const SingleChildScrollView(
+                        child: SingleChildScrollView(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              PostCard(),
-                              PostCard(),
-                              PostCard(),
-                              PostCard(),
+                              for (var post in posts) PostCard(post: post),
                             ],
                           ),
                         ),

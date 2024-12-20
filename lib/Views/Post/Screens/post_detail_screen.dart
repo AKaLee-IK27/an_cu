@@ -1,3 +1,4 @@
+import 'package:an_cu/Model/model.dart';
 import 'package:an_cu/Utils/CommonWidget/app_back_button.dart';
 import 'package:an_cu/Utils/Helpers/screen_size.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
@@ -7,7 +8,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class PostDetailScreen extends ConsumerWidget {
-  PostDetailScreen({super.key});
+  final Post post;
+
+  PostDetailScreen({
+    super.key,
+    required this.post,
+  });
 
   final controller = PicturePostItems();
   final pageController = PageController();
@@ -15,68 +21,71 @@ class PostDetailScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.grey[100],
-        body: Stack(
-          children: [
-            Container(
-              transformAlignment: Alignment.topCenter,
-              width: double.infinity,
-              height: ScreenSize.height(context) * 0.4,
-              child: Stack(
-                children: [
-                  Scaffold(
-                    backgroundColor: Colors.transparent,
-                    body: PageView.builder(
-                      itemCount: controller.items.length,
-                      controller: pageController,
-                      itemBuilder: (context, index) {
-                        return ClipRRect(
-                          borderRadius: BorderRadius.circular(15),
-                          child: Image.asset(controller.items[index].image, fit: BoxFit.fill,)
-                          );
-                      },
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 15.0,
-                    left: 0,
-                    right: 0,
-                    child: Center(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.8),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        padding: const EdgeInsets.all(2),
-                        child: SmoothPageIndicator(
-                          controller: pageController,
-                          count: controller.items.length,
-                          onDotClicked: (index) => pageController.animateToPage(index,
-                              duration: const Duration(microseconds: 300),
-                              curve: Curves.easeInOut),
-                          effect: const WormEffect(
-                              dotHeight: 10,
-                              dotWidth: 10,
-                              activeDotColor: AppColors.primary),
-                        ),
-                      ),
-                    ),
-                  ),
-                ]
+        child: Scaffold(
+      backgroundColor: Colors.grey[100],
+      body: Stack(
+        children: [
+          Container(
+            transformAlignment: Alignment.topCenter,
+            width: double.infinity,
+            height: ScreenSize.height(context) * 0.4,
+            child: Stack(children: [
+              Scaffold(
+                backgroundColor: Colors.transparent,
+                body: PageView.builder(
+                  itemCount: controller.items.length,
+                  controller: pageController,
+                  itemBuilder: (context, index) {
+                    return ClipRRect(
+                        child: Image.asset(
+                      controller.items[index].image,
+                      fit: BoxFit.fill,
+                    ));
+                  },
+                ),
               ),
-            ),
-            const MyBackButton(),
-            const PostContent(),
-          ],
-        ),
-      )
-    );
+              Positioned(
+                bottom: 15.0,
+                left: 0,
+                right: 0,
+                child: Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.8),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    padding: const EdgeInsets.all(2),
+                    child: SmoothPageIndicator(
+                      controller: pageController,
+                      count: controller.items.length,
+                      onDotClicked: (index) => pageController.animateToPage(
+                          index,
+                          duration: const Duration(microseconds: 300),
+                          curve: Curves.easeInOut),
+                      effect: const WormEffect(
+                          dotHeight: 10,
+                          dotWidth: 10,
+                          activeDotColor: AppColors.primary),
+                    ),
+                  ),
+                ),
+              ),
+            ]),
+          ),
+          const MyBackButton(),
+          PostContent(post: post),
+        ],
+      ),
+    ));
   }
 }
 
 class PostContent extends ConsumerWidget {
-  const PostContent({super.key});
+  final Post post;
+  const PostContent({
+    super.key,
+    required this.post,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -112,26 +121,26 @@ class PostContent extends ConsumerWidget {
                   ),
                 ),
                 //Title
-                const Text(
-                  "CĂN HỘ URBAN GREEN RỔ HÀNG CĐT CĂN 2PN-3PN GIÁ TỐT NHẤT HIỆN NAY",
-                  style: TextStyle(
+                Text(
+                  post.title,
+                  style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                       color: Colors.black),
                 ),
                 //Address
-                const Text(
-                  "Urban Green, Số 6, Hiệp Bình Phước, Thủ Đức, Hồ Chí Minh",
-                  style: TextStyle(
+                Text(
+                  "Địa chỉ: ${post.property?.district}, ${post.property?.province}",
+                  style: const TextStyle(
                       fontWeight: FontWeight.normal,
                       fontSize: 15,
                       color: Colors.black),
                 ),
-                const Row(
+                Row(
                   children: [
                     Column(
                       children: [
-                        Text(
+                        const Text(
                           "Mức Giá",
                           style: TextStyle(
                               fontWeight: FontWeight.normal,
@@ -139,18 +148,18 @@ class PostContent extends ConsumerWidget {
                               color: AppColors.primary),
                         ),
                         Text(
-                          "4,45 tỷ",
-                          style: TextStyle(
+                          post.property?.price.toString() ?? "",
+                          style: const TextStyle(
                               fontWeight: FontWeight.normal,
                               fontSize: 20,
                               color: Colors.black),
                         ),
                       ],
                     ),
-                    SizedBox(width: 20),
+                    const SizedBox(width: 20),
                     Column(
                       children: [
-                        Text(
+                        const Text(
                           "Diện tích",
                           style: TextStyle(
                               fontWeight: FontWeight.normal,
@@ -158,8 +167,8 @@ class PostContent extends ConsumerWidget {
                               color: AppColors.primary),
                         ),
                         Text(
-                          "83 m2",
-                          style: TextStyle(
+                          "${post.property?.area} m2",
+                          style: const TextStyle(
                               fontWeight: FontWeight.normal,
                               fontSize: 20,
                               color: Colors.black),
@@ -169,12 +178,17 @@ class PostContent extends ConsumerWidget {
                   ],
                 ),
                 MyButton(
-                  icon: const Icon(Icons.phone_in_talk_rounded, color: Colors.white,),
-                  text: const Text("Liên Hệ: 0123456789", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18)),
-                  color: AppColors.primary,
-                  onPressed: () {
-                  }
-                ),
+                    icon: const Icon(
+                      Icons.phone_in_talk_rounded,
+                      color: Colors.white,
+                    ),
+                    text: const Text("Liên Hệ: 0123456789",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18)),
+                    color: AppColors.primary,
+                    onPressed: () {}),
                 //Title Description
                 const Text(
                   "Thông tin mô tả",
@@ -212,17 +226,13 @@ class PicturePostItems {
   //Constructor
   PicturePostItems() {
     items = [
-      PicturePostInfo(
-          image: "assets/images/post_detail.jpg"),
-      PicturePostInfo(
-          image: "assets/images/post_detail.jpg"),
-      PicturePostInfo(
-          image: "assets/images/post_detail.jpg"),
-      PicturePostInfo(
-          image: "assets/images/post_detail.jpg"),
+      PicturePostInfo(image: "assets/images/post_detail.jpg"),
+      PicturePostInfo(image: "assets/images/post_detail.jpg"),
+      PicturePostInfo(image: "assets/images/post_detail.jpg"),
+      PicturePostInfo(image: "assets/images/post_detail.jpg"),
     ];
   }
-  
+
   PicturePostItems.fromString(List<String> listImage) {
     items.clear();
     for (String image in listImage) {

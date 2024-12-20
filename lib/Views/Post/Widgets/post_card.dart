@@ -1,3 +1,4 @@
+import 'package:an_cu/Model/model.dart';
 import 'package:an_cu/Router/app_router.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
 import 'package:an_cu/Utils/Styles/app_sizes.dart';
@@ -6,15 +7,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class PostCard extends ConsumerWidget {
-  const PostCard({super.key});
+  final Post post;
+
+  const PostCard({super.key, required this.post});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final Property? property = post.property;
     final router = ref.watch(goRouterProvider);
 
     return InkWell(
       onTap: () {
-        router.goPostDetail(id: "1");
+        router.goPostDetail();
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 8),
@@ -69,7 +73,7 @@ class PostCard extends ConsumerWidget {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
-                          "Căn hộ",
+                          property?.propertyType ?? "",
                           style: AppTextStyles.body
                               .copyWith(color: AppColors.white),
                         ),
@@ -89,10 +93,9 @@ class PostCard extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Sky Dandelions Apartment",
-                      style: AppTextStyles.title.copyWith(
-                        color: AppColors.secondary,
-                      ),
+                      post.title,
+                      style: AppTextStyles.title
+                          .copyWith(color: AppColors.secondary),
                     ),
                     gapH8,
                     Row(
@@ -104,7 +107,7 @@ class PostCard extends ConsumerWidget {
                         gapW4,
                         Expanded(
                           child: Text(
-                            "Quận 2, TP.Hồ Chí Minh",
+                            "${property?.district}, ${property?.province}",
                             style: AppTextStyles.body,
                           ),
                         ),
@@ -119,7 +122,7 @@ class PostCard extends ConsumerWidget {
                         ),
                         gapW4,
                         Text(
-                          "4.5",
+                          post.avgStar.toString(),
                           style: AppTextStyles.body,
                         ),
                       ],
@@ -132,7 +135,7 @@ class PostCard extends ConsumerWidget {
                     TextSpan(
                       children: [
                         TextSpan(
-                          text: "\$ 290",
+                          text: "\$ ${property?.price}",
                           style: AppTextStyles.title.copyWith(
                             color: AppColors.secondary,
                           ),

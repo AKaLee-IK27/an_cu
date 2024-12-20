@@ -26,9 +26,8 @@ class Post with _$Post {
 class Property with _$Property {
   @JsonSerializable(explicitToJson: true)
   const factory Property({
-    required String address,
-    Province? province,
-    District? district,
+    String? province,
+    String? district,
     double? price,
     double? area,
     int? bedRoom,

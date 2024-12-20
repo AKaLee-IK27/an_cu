@@ -1,3 +1,4 @@
+import 'package:an_cu/Controllers/post_controller.dart';
 import 'package:an_cu/Utils/SharedReferences/local_store.provider.dart';
 import 'package:an_cu/Views/Account/Screens/account_screen.dart';
 import 'package:an_cu/Views/Authentication/Screens/sign_in_screen.dart';
@@ -82,7 +83,13 @@ GoRouter goRouter(Ref ref) {
             if (id == null) {
               return const MaterialPage(child: HomeScreen());
             }
-            return MaterialPage(child: PostDetailScreen());
+
+            final post =
+                ref.read(postController).firstWhere((post) => post.id == id);
+            return MaterialPage(
+                child: PostDetailScreen(
+              post: post,
+            ));
           }),
       GoRoute(
           path: '/${AppRoute.signIn.name}',
@@ -119,8 +126,7 @@ GoRouter goRouter(Ref ref) {
       GoRoute(
         path: '/${AppRoute.addPost.name}',
         name: AppRoute.addPost.name,
-        pageBuilder: (context, state) =>
-            MaterialPage(child: AddPostScreen()),
+        pageBuilder: (context, state) => MaterialPage(child: AddPostScreen()),
       ),
       GoRoute(
         path: '/${AppRoute.chatBot.name}',
@@ -128,16 +134,15 @@ GoRouter goRouter(Ref ref) {
         pageBuilder: (context, state) => MaterialPage(child: ChatBotScreen()),
       ),
       GoRoute(
-        path: '/${AppRoute.account.name}',
-        name: AppRoute.account.name,
-        pageBuilder: (context, state) => MaterialPage(child: AccountScreen()),
-        redirect: (context, state) async {
-          if (await localStore.getBool('isLoggedIn') != true) {
-            return '/${AppRoute.signIn.name}';
-          }
-          return '/${AppRoute.account.name}';
-        }
-      ),
+          path: '/${AppRoute.account.name}',
+          name: AppRoute.account.name,
+          pageBuilder: (context, state) => MaterialPage(child: AccountScreen()),
+          redirect: (context, state) async {
+            if (await localStore.getBool('isLoggedIn') != true) {
+              return '/${AppRoute.signIn.name}';
+            }
+            return '/${AppRoute.account.name}';
+          }),
       // Add more routes here
     ],
   );
@@ -162,8 +167,8 @@ extension GoRouterX on GoRouter {
     go('/${AppRoute.onboarding.name}');
   }
 
-  Future<void> goPostDetail({required String id}) async {
-    go('/${AppRoute.postDetail.name}/$id');
+  Future<void> goPostDetail() async {
+    go('/${AppRoute.postDetail.name}');
   }
 
   Future<void> goSplash() async {

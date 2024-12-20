@@ -33,7 +33,7 @@ dependencies:
   ikchatbot: ^1.0.5
   cloudinary_flutter: ^1.0.0
   cloudinary_url_gen: ^1.0.0
-  input_quantity: ^2.5.0
+  input_quantity: ^2.5.1
 
 dev_dependencies:
   flutter_test:

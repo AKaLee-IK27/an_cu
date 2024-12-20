@@ -392,9 +392,8 @@ Property _$PropertyFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Property {
-  String get address => throw _privateConstructorUsedError;
-  Province? get province => throw _privateConstructorUsedError;
-  District? get district => throw _privateConstructorUsedError;
+  String? get province => throw _privateConstructorUsedError;
+  String? get district => throw _privateConstructorUsedError;
   double? get price => throw _privateConstructorUsedError;
   double? get area => throw _privateConstructorUsedError;
   int? get bedRoom => throw _privateConstructorUsedError;
@@ -422,9 +421,8 @@ abstract class $PropertyCopyWith<$Res> {
       _$PropertyCopyWithImpl<$Res, Property>;
   @useResult
   $Res call(
-      {String address,
-      Province? province,
-      District? district,
+      {String? province,
+      String? district,
       double? price,
       double? area,
       int? bedRoom,
@@ -435,9 +433,6 @@ abstract class $PropertyCopyWith<$Res> {
       bool? hasFurniture,
       String? propertyType,
       String? direction});
-
-  $ProvinceCopyWith<$Res>? get province;
-  $DistrictCopyWith<$Res>? get district;
 }
 
 /// @nodoc
@@ -455,7 +450,6 @@ class _$PropertyCopyWithImpl<$Res, $Val extends Property>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? address = null,
     Object? province = freezed,
     Object? district = freezed,
     Object? price = freezed,
@@ -470,18 +464,14 @@ class _$PropertyCopyWithImpl<$Res, $Val extends Property>
     Object? direction = freezed,
   }) {
     return _then(_value.copyWith(
-      address: null == address
-          ? _value.address
-          : address // ignore: cast_nullable_to_non_nullable
-              as String,
       province: freezed == province
           ? _value.province
           : province // ignore: cast_nullable_to_non_nullable
-              as Province?,
+              as String?,
       district: freezed == district
           ? _value.district
           : district // ignore: cast_nullable_to_non_nullable
-              as District?,
+              as String?,
       price: freezed == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
@@ -524,34 +514,6 @@ class _$PropertyCopyWithImpl<$Res, $Val extends Property>
               as String?,
     ) as $Val);
   }
-
-  /// Create a copy of Property
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $ProvinceCopyWith<$Res>? get province {
-    if (_value.province == null) {
-      return null;
-    }
-
-    return $ProvinceCopyWith<$Res>(_value.province!, (value) {
-      return _then(_value.copyWith(province: value) as $Val);
-    });
-  }
-
-  /// Create a copy of Property
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $DistrictCopyWith<$Res>? get district {
-    if (_value.district == null) {
-      return null;
-    }
-
-    return $DistrictCopyWith<$Res>(_value.district!, (value) {
-      return _then(_value.copyWith(district: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
@@ -563,9 +525,8 @@ abstract class _$$PropertyImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String address,
-      Province? province,
-      District? district,
+      {String? province,
+      String? district,
       double? price,
       double? area,
       int? bedRoom,
@@ -576,11 +537,6 @@ abstract class _$$PropertyImplCopyWith<$Res>
       bool? hasFurniture,
       String? propertyType,
       String? direction});
-
-  @override
-  $ProvinceCopyWith<$Res>? get province;
-  @override
-  $DistrictCopyWith<$Res>? get district;
 }
 
 /// @nodoc
@@ -596,7 +552,6 @@ class __$$PropertyImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? address = null,
     Object? province = freezed,
     Object? district = freezed,
     Object? price = freezed,
@@ -611,18 +566,14 @@ class __$$PropertyImplCopyWithImpl<$Res>
     Object? direction = freezed,
   }) {
     return _then(_$PropertyImpl(
-      address: null == address
-          ? _value.address
-          : address // ignore: cast_nullable_to_non_nullable
-              as String,
       province: freezed == province
           ? _value.province
           : province // ignore: cast_nullable_to_non_nullable
-              as Province?,
+              as String?,
       district: freezed == district
           ? _value.district
           : district // ignore: cast_nullable_to_non_nullable
-              as District?,
+              as String?,
       price: freezed == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
@@ -672,8 +623,7 @@ class __$$PropertyImplCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 class _$PropertyImpl implements _Property {
   const _$PropertyImpl(
-      {required this.address,
-      this.province,
+      {this.province,
       this.district,
       this.price,
       this.area,
@@ -691,11 +641,9 @@ class _$PropertyImpl implements _Property {
       _$$PropertyImplFromJson(json);
 
   @override
-  final String address;
+  final String? province;
   @override
-  final Province? province;
-  @override
-  final District? district;
+  final String? district;
   @override
   final double? price;
   @override
@@ -727,7 +675,7 @@ class _$PropertyImpl implements _Property {
 
   @override
   String toString() {
-    return 'Property(address: $address, province: $province, district: $district, price: $price, area: $area, bedRoom: $bedRoom, bathRoom: $bathRoom, floor: $floor, description: $description, images: $images, hasFurniture: $hasFurniture, propertyType: $propertyType, direction: $direction)';
+    return 'Property(province: $province, district: $district, price: $price, area: $area, bedRoom: $bedRoom, bathRoom: $bathRoom, floor: $floor, description: $description, images: $images, hasFurniture: $hasFurniture, propertyType: $propertyType, direction: $direction)';
   }
 
   @override
@@ -735,7 +683,6 @@ class _$PropertyImpl implements _Property {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PropertyImpl &&
-            (identical(other.address, address) || other.address == address) &&
             (identical(other.province, province) ||
                 other.province == province) &&
             (identical(other.district, district) ||
@@ -761,7 +708,6 @@ class _$PropertyImpl implements _Property {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      address,
       province,
       district,
       price,
@@ -793,9 +739,8 @@ class _$PropertyImpl implements _Property {
 
 abstract class _Property implements Property {
   const factory _Property(
-      {required final String address,
-      final Province? province,
-      final District? district,
+      {final String? province,
+      final String? district,
       final double? price,
       final double? area,
       final int? bedRoom,
@@ -811,11 +756,9 @@ abstract class _Property implements Property {
       _$PropertyImpl.fromJson;
 
   @override
-  String get address;
+  String? get province;
   @override
-  Province? get province;
-  @override
-  District? get district;
+  String? get district;
   @override
   double? get price;
   @override

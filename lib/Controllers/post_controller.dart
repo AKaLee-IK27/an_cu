@@ -6,16 +6,19 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class PostNotifier extends StateNotifier<List<Post>> {
-  PostNotifier(this._fireStoreService, this.user) : super([]);
+  PostNotifier(this._fireStoreService, this.user) : super([]) {
+    getPosts();
+  }
 
   final FirebaseFirestore _fireStoreService;
   final User user;
 
   Future<void> addPost(Post post) async {
     try {
+      print(post.toJson());
       await _fireStoreService
           .collection('Posts')
-          .doc(user.uid)
+          .doc(user.email)
           .set(post.toJson())
           .onError((e, _) => print(e));
 
