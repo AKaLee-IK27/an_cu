@@ -14,15 +14,41 @@ class SignUpScreen extends ConsumerWidget {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final passwordCheckController = TextEditingController();
   bool isPressButtonSignUp = false;
 
-  void signUp(WidgetRef ref) {
-    isPressButtonSignUp = true;
-    ref.read(authController.notifier).signup(
-          email: emailController.text,
-          password: passwordController.text,
-          displayName: nameController.text,
-        );
+  final RegExp emailRegex = RegExp( r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', );
+
+  void signUp(WidgetRef ref, BuildContext context) {
+    if (nameController.text.isEmpty || emailController.text.isEmpty || passwordController.text.isEmpty || passwordCheckController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Hãy nhập đầy đủ thông tin!'),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    } else if (!emailRegex.hasMatch(emailController.text)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Email không hợp lệ!'),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    } else if (passwordController.text != passwordCheckController.text) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Mật khẩu nhập lại không trùng khớp!'),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    } else {
+      isPressButtonSignUp = true;
+      ref.read(authController.notifier).signup(
+        email: emailController.text,
+        password: passwordController.text,
+        displayName: nameController.text,
+      );
+    }
   }
 
   void signInWithGoogle(WidgetRef ref) {
@@ -152,6 +178,21 @@ class SignUpScreen extends ConsumerWidget {
 
                   const CustomSizedBox(),
 
+                  MyTextfield(
+                      controller: passwordCheckController,
+                      labelText: "Nhập lại mật khẩu",
+                      textStyle: TextStyle(
+                      color: Colors.black,
+                      fontSize: screenWidth * 0.04,
+                      fontWeight: FontWeight.normal,
+                      ),
+                      prefixIcon: const Icon(Icons.key),
+                      obscureText: true),
+              
+                  //sign in button
+              
+                  const CustomSizedBox(),
+              
                   MyButton(
                     text: Text(
                       "Đăng Ký",
@@ -163,9 +204,11 @@ class SignUpScreen extends ConsumerWidget {
                     color: AppColors.primary,
                     padding: EdgeInsets.all(screenWidth * 0.035),
                     loading: ref
-                        .watch(authController)
-                        .maybeWhen(orElse: () => false, loading: () => true),
-                    onPressed: () => {signUp(ref)},
+                      .watch(authController)
+                      .maybeWhen(orElse: () => false, loading:() => true),
+                    onPressed: () => {
+                      signUp(ref, context)
+                    },
                   ),
 
                   // Not a member? Register now
@@ -283,6 +326,6 @@ class CustomSizedBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(height: MediaQuery.of(context).size.height * 0.015);
+    return SizedBox(height: MediaQuery.of(context).size.height * 0.01);
   }
 }

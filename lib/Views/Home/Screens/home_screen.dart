@@ -1,4 +1,5 @@
 import 'package:an_cu/Router/app_router.dart';
+import 'package:an_cu/Utils/CommonWidget/asset_check_widget_cloudinary.dart';
 import 'package:an_cu/Utils/Helpers/screen_size.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
 import 'package:an_cu/Utils/Styles/app_text_styles.dart';
@@ -6,6 +7,7 @@ import 'package:an_cu/Views/Home/Widgets/appbar_content.dart';
 import 'package:an_cu/Views/Home/Widgets/main_drawer.dart';
 import 'package:an_cu/Views/Home/Widgets/main_search_bar.dart';
 import 'package:an_cu/Views/Post/Widgets/post_card.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -18,6 +20,7 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(goRouterProvider);
+    final User? user = FirebaseAuth.instance.currentUser;
 
     return SafeArea(
       child: Scaffold(
@@ -38,12 +41,14 @@ class HomeScreen extends ConsumerWidget {
           appBar: AppBar(
             actions: [
               Builder(
-                builder: (context) => IconButton(
-                  icon: const CircleAvatar(
-                    foregroundImage:
-                        AssetImage('assets/images/demo_avatar.png'),
+                builder: (context) => SizedBox.square(
+                  dimension: kToolbarHeight,
+                  child: IconButton(
+                    icon: ClipOval(
+                      child: SizedBox.expand(child: AssetCheckWidget(publicId: 'ancuconnect/${user?.email}')),
+                    ),
+                    onPressed: () => Scaffold.of(context).openEndDrawer(),
                   ),
-                  onPressed: () => Scaffold.of(context).openEndDrawer(),
                 ),
               )
             ],

@@ -1,8 +1,10 @@
 import 'package:an_cu/Controllers/auth_controller.dart';
 import 'package:an_cu/Router/app_router.dart';
+import 'package:an_cu/Utils/CommonWidget/asset_check_widget_cloudinary.dart';
 import 'package:an_cu/Utils/SharedReferences/local_store.provider.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
 import 'package:an_cu/Utils/Styles/app_text_styles.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,6 +15,7 @@ class MainDrawer extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(goRouterProvider);
     final localStore = ref.read(localStoreProvider);
+    final User? user = FirebaseAuth.instance.currentUser;
 
     return Drawer(
       child: ListView(
@@ -33,17 +36,17 @@ class MainDrawer extends ConsumerWidget {
                   )
                 ],
               ),
-              child: const CircleAvatar(
-                foregroundImage: AssetImage('assets/images/demo_avatar.png'),
+              child: ClipOval(
+                child: AssetCheckWidget(publicId: 'ancuconnect/${user?.email}')
               ),
             ),
             accountName: Text(
-              'Anh Khôi',
+              '${user?.displayName}',
               style: AppTextStyles.title.copyWith(
                 color: AppColors.white,
               ),
             ),
-            accountEmail: const Text('khoile0908540@gmail.com'),
+            accountEmail: Text('${user?.email}'),
             decoration: const BoxDecoration(color: AppColors.primary),
           ),
           // ListTile(
@@ -71,7 +74,9 @@ class MainDrawer extends ConsumerWidget {
           MainDrawerItem(
             title: 'Tài khoản',
             icon: Icons.account_circle,
-            onTap: () {},
+            onTap: () {
+              router.goAccount();
+            },
           ),
           MainDrawerItem(
             title: 'Cài đặt',
