@@ -6,10 +6,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MyBackButton extends ConsumerWidget {
   final Color color;
+  final Function()? onTap; 
 
   const MyBackButton({
     super.key,
     this.color = Colors.white,
+    this.onTap,
   });
 
   @override
@@ -19,7 +21,7 @@ class MyBackButton extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: InkWell(
-        onTap: () {
+        onTap: onTap ?? () {
           router.goHome();
         },
         child: Container(

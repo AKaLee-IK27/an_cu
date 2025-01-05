@@ -394,6 +394,7 @@ Property _$PropertyFromJson(Map<String, dynamic> json) {
 mixin _$Property {
   String? get province => throw _privateConstructorUsedError;
   String? get district => throw _privateConstructorUsedError;
+  String? get address => throw _privateConstructorUsedError;
   double? get price => throw _privateConstructorUsedError;
   double? get area => throw _privateConstructorUsedError;
   int? get bedRoom => throw _privateConstructorUsedError;
@@ -423,6 +424,7 @@ abstract class $PropertyCopyWith<$Res> {
   $Res call(
       {String? province,
       String? district,
+      String? address,
       double? price,
       double? area,
       int? bedRoom,
@@ -452,6 +454,7 @@ class _$PropertyCopyWithImpl<$Res, $Val extends Property>
   $Res call({
     Object? province = freezed,
     Object? district = freezed,
+    Object? address = freezed,
     Object? price = freezed,
     Object? area = freezed,
     Object? bedRoom = freezed,
@@ -471,6 +474,10 @@ class _$PropertyCopyWithImpl<$Res, $Val extends Property>
       district: freezed == district
           ? _value.district
           : district // ignore: cast_nullable_to_non_nullable
+              as String?,
+      address: freezed == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
               as String?,
       price: freezed == price
           ? _value.price
@@ -527,6 +534,7 @@ abstract class _$$PropertyImplCopyWith<$Res>
   $Res call(
       {String? province,
       String? district,
+      String? address,
       double? price,
       double? area,
       int? bedRoom,
@@ -554,6 +562,7 @@ class __$$PropertyImplCopyWithImpl<$Res>
   $Res call({
     Object? province = freezed,
     Object? district = freezed,
+    Object? address = freezed,
     Object? price = freezed,
     Object? area = freezed,
     Object? bedRoom = freezed,
@@ -573,6 +582,10 @@ class __$$PropertyImplCopyWithImpl<$Res>
       district: freezed == district
           ? _value.district
           : district // ignore: cast_nullable_to_non_nullable
+              as String?,
+      address: freezed == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
               as String?,
       price: freezed == price
           ? _value.price
@@ -625,6 +638,7 @@ class _$PropertyImpl implements _Property {
   const _$PropertyImpl(
       {this.province,
       this.district,
+      this.address,
       this.price,
       this.area,
       this.bedRoom,
@@ -644,6 +658,8 @@ class _$PropertyImpl implements _Property {
   final String? province;
   @override
   final String? district;
+  @override
+  final String? address;
   @override
   final double? price;
   @override
@@ -675,7 +691,7 @@ class _$PropertyImpl implements _Property {
 
   @override
   String toString() {
-    return 'Property(province: $province, district: $district, price: $price, area: $area, bedRoom: $bedRoom, bathRoom: $bathRoom, floor: $floor, description: $description, images: $images, hasFurniture: $hasFurniture, propertyType: $propertyType, direction: $direction)';
+    return 'Property(province: $province, district: $district, address: $address, price: $price, area: $area, bedRoom: $bedRoom, bathRoom: $bathRoom, floor: $floor, description: $description, images: $images, hasFurniture: $hasFurniture, propertyType: $propertyType, direction: $direction)';
   }
 
   @override
@@ -687,6 +703,7 @@ class _$PropertyImpl implements _Property {
                 other.province == province) &&
             (identical(other.district, district) ||
                 other.district == district) &&
+            (identical(other.address, address) || other.address == address) &&
             (identical(other.price, price) || other.price == price) &&
             (identical(other.area, area) || other.area == area) &&
             (identical(other.bedRoom, bedRoom) || other.bedRoom == bedRoom) &&
@@ -710,6 +727,7 @@ class _$PropertyImpl implements _Property {
       runtimeType,
       province,
       district,
+      address,
       price,
       area,
       bedRoom,
@@ -741,6 +759,7 @@ abstract class _Property implements Property {
   const factory _Property(
       {final String? province,
       final String? district,
+      final String? address,
       final double? price,
       final double? area,
       final int? bedRoom,
@@ -759,6 +778,8 @@ abstract class _Property implements Property {
   String? get province;
   @override
   String? get district;
+  @override
+  String? get address;
   @override
   double? get price;
   @override

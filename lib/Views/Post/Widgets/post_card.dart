@@ -18,7 +18,7 @@ class PostCard extends ConsumerWidget {
 
     return InkWell(
       onTap: () {
-        router.goPostDetail();
+        router.goPostDetail(post.id);
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 8),
@@ -84,73 +84,74 @@ class PostCard extends ConsumerWidget {
               ),
             ),
             gapW20,
-            Expanded(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      post.title,
-                      style: AppTextStyles.title
-                          .copyWith(color: AppColors.secondary),
-                    ),
-                    gapH8,
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.location_on,
-                          color: AppColors.primary,
-                        ),
-                        gapW4,
-                        Expanded(
-                          child: Text(
-                            "${property?.district}, ${property?.province}",
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        post.title,
+                        style: AppTextStyles.title
+                            .copyWith(color: AppColors.secondary, fontSize: 18, ),
+                        maxLines: 4,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.location_on,
+                            color: AppColors.primary,
+                          ),
+                          gapW4,
+                          Expanded(
+                            child: Text(
+                              "${property?.address}, ${property?.district}, ${property?.province}",
+                              style: AppTextStyles.body,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.star,
+                            color: AppColors.star,
+                          ),
+                          gapW4,
+                          Text(
+                            post.avgStar.toString(),
                             style: AppTextStyles.body,
                           ),
-                        ),
-                      ],
-                    ),
-                    gapH8,
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.star,
-                          color: AppColors.star,
-                        ),
-                        gapW4,
-                        Text(
-                          post.avgStar.toString(),
-                          style: AppTextStyles.body,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Text.rich(
-                    TextSpan(
-                      children: [
-                        TextSpan(
-                          text: "\$ ${property?.price}",
-                          style: AppTextStyles.title.copyWith(
-                            color: AppColors.secondary,
+                        ],
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 3),
+                    child: Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "\$ ${property?.price}",
+                            style: AppTextStyles.title.copyWith(
+                              color: AppColors.secondary,
+                            ),
                           ),
-                        ),
-                        TextSpan(
-                          text: "/month",
-                          style: AppTextStyles.body
-                              .copyWith(color: AppColors.secondary),
-                        ),
-                      ],
+                          TextSpan(
+                            text: "/month",
+                            style: AppTextStyles.body
+                                .copyWith(color: AppColors.secondary),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
-            )),
+                ],
+              )
+            ),
           ],
         ),
       ),

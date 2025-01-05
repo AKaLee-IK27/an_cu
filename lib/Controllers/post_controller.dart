@@ -34,7 +34,7 @@ class PostNotifier extends StateNotifier<List<Post>> {
         print("Successfully fetched posts");
         for (var doc in querySnapshot.docs) {
           print(doc.data());
-          final post = Post.fromJson(doc.data());
+          final post = Post.fromJson(doc.data()).copyWith(id: doc.id);
 
           state = [...state, post];
         }
@@ -69,6 +69,24 @@ class PostNotifier extends StateNotifier<List<Post>> {
       state = state.map((p) => p.id == post.id ? post : p).toList();
     } catch (e) {
       print(e);
+    }
+  }
+
+  Future<List<Post>> getDocumentsByCreateBy(String createdBy) async {
+    try {
+      QuerySnapshot querySnapshot = await _fireStoreService
+          .collection('Posts')
+          .where('createdBy', isEqualTo: createdBy)
+          .get();
+
+      List<Post> listPost = querySnapshot.docs.map((doc) {
+        return Post.fromJson(doc.data() as Map<String, dynamic>).copyWith(id: doc.id);
+      }).toList();
+
+      return listPost;
+    } catch (e) {
+      print('Error: $e');
+      return [];
     }
   }
 }

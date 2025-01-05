@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:an_cu/Controllers/post_controller.dart';
 import 'package:an_cu/Model/model.dart';
 import 'package:an_cu/Services/fire_auth_service.dart';
@@ -10,6 +12,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:input_quantity/input_quantity.dart';
 
+typedef DirectionEntry = DropdownMenuEntry<Direction>;
+  
+enum Direction {
+  East,
+  West,
+  South,
+  North;
+  
+  static final List<DirectionEntry> entries = UnmodifiableListView<DirectionEntry>(
+    values.map<DirectionEntry>(
+      (Direction direct) => DirectionEntry(
+        value: direct,
+        label: direct.name,
+      ),
+    ),
+  );
+}
+
 class AddPostScreen extends ConsumerWidget {
   AddPostScreen({super.key});
 
@@ -19,14 +39,16 @@ class AddPostScreen extends ConsumerWidget {
   final addressController = TextEditingController();
   final areaController = TextEditingController();
   final floorsController = TextEditingController();
+  final priceController = TextEditingController();
   final directionController = TextEditingController();
+  final isFurnitureController = TextEditingController();
   final numOfBathroomController = TextEditingController();
   final numOfBedroomController = TextEditingController();
   final descriptionController = TextEditingController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final user = ref.watch(userProvider);
+    final user = ref.watch(userProvider);
 
     return SafeArea(
       child: Scaffold(
@@ -37,7 +59,7 @@ class AddPostScreen extends ConsumerWidget {
           title: Text('Tạo bài viết', style: AppTextStyles.title),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.symmetric( horizontal: 10.0),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -45,7 +67,7 @@ class AddPostScreen extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Chào Khôi,",
+                      "Chào ${user.displayName ?? ""},",
                       style: AppTextStyles.title
                           .merge(const TextStyle(color: AppColors.primary)),
                     ),
@@ -55,7 +77,7 @@ class AddPostScreen extends ConsumerWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 25), //Title
+                const SizedBox(height: 10), //Title
                 PostTextField(
                   maxLines: 1,
                   controller: titleController,
@@ -89,6 +111,13 @@ class AddPostScreen extends ConsumerWidget {
                   controller: areaController,
                   labelText: 'Diện tích',
                   hintText: 'Nhập diện tích',
+                ),
+                const SizedBox(height: 10),
+                PostTextField(
+                  maxLines: 1,
+                  controller: priceController,
+                  labelText: 'Mức giá',
+                  hintText: 'Nhập mức giá',
                 ),
                 const SizedBox(height: 10), //Num Of Bathroom
                 Row(
@@ -200,6 +229,37 @@ class AddPostScreen extends ConsumerWidget {
                             }
                             return null;
                           },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    DropdownMenu<Direction>(
+                      width: 150,
+                      initialSelection: Direction.East,
+                      controller: directionController,
+                      requestFocusOnTap: true,
+                      label: const Text('Hướng nhà'),
+                      dropdownMenuEntries: Direction.entries,
+                    ),
+                    DropdownMenu<bool>(
+                      width: 150,
+                      initialSelection: false,
+                      controller: isFurnitureController,
+                      requestFocusOnTap: true,
+                      label: const Text('Nội thất'),
+                      dropdownMenuEntries: const [
+                        DropdownMenuEntry<bool>(
+                          value: true,
+                          label: 'Đã có',
+                        ),
+                        DropdownMenuEntry<bool>(
+                          value: false,
+                          label: 'Chưa có',
                         ),
                       ],
                     ),

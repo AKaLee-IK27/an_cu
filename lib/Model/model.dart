@@ -28,6 +28,7 @@ class Property with _$Property {
   const factory Property({
     String? province,
     String? district,
+    String? address,
     double? price,
     double? area,
     int? bedRoom,

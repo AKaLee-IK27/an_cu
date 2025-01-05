@@ -1,3 +1,4 @@
+import 'package:an_cu/Router/app_router.dart';
 import 'package:an_cu/Utils/CommonWidget/app_back_button.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
 import 'package:cloudinary_flutter/image/cld_image.dart';
@@ -44,6 +45,7 @@ class AccountScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(goRouterProvider);
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     String isVerified = (!currentUser!.emailVerified) ? "Chưa được xác minh" : "Đã xác minh";
@@ -56,7 +58,9 @@ class AccountScreen extends ConsumerWidget {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
-          leading: const MyBackButton(color: AppColors.secondary),
+          leading: MyBackButton(color: AppColors.secondary, onTap:() {
+            router.goSetting();
+          },),
           title: const Text('Tài khoản'),
         ),
         body: Padding(

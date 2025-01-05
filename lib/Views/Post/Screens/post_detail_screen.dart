@@ -130,7 +130,7 @@ class PostContent extends ConsumerWidget {
                 ),
                 //Address
                 Text(
-                  "Địa chỉ: ${post.property?.district}, ${post.property?.province}",
+                  "${post.property?.address}, ${post.property?.district}, ${post.property?.province}",
                   style: const TextStyle(
                       fontWeight: FontWeight.normal,
                       fontSize: 15,
@@ -198,9 +198,11 @@ class PostContent extends ConsumerWidget {
                       color: Colors.black),
                 ),
                 //Description
-                const Text(
+                Text(
+                  post.content?.isNotEmpty == true ?
+                  '${post.property?.description?.replaceAll(r'\n', '\n')}' :
                   "CẬP NHẬT THÔNG TIN CĂN HỘ URBAN GREEN - ĐỐI DIỆN VẠN PHÚC CITY - GIÁ TỪ 65TR/M2 CÒN 1 THÁNG NỮA LÀ NHẬN NHÀ\nGIỎ HÀNG HIỆN TẠI:\n1. Căn 1PN SOLD OUT. ( Còn hàng bán lại)\n2. Căn 2PN - 76 - 79m2\nGiá từ 5.2 - 5.3 tỷ (Chưa vat và ưu đãi)\nThanh.toán trước ~1.5 tỷ nhận nhà (ở hoặc khai thác cho thuê)\n3. Căn 2PN - 83m² như nhà mẫu\nGiá từ 4.9 - 5.6 tỷ (Chưa vat và ưu đãi)\nThanh.toán trước ~1.5 -1.8 tỷ nhận nhà (ở hoặc khai thác cho thuê)\n4. Căn 3PN - 98 - 106 m2\nGiá từ 6.3 - 6.7 tỷ (Chưa vat và ưu đãi)\nThanh.toán trước ~2.4 tỷ nhận nhà (ở hoặc khai thác cho thuê).\nTÓM TẮT CHÍNH SÁCH BÁN HÀNG:\nĐối với CĂN HỘ:\nMiễn phí 2 năm Phí quản lý\nGói hỗ trợ Tiền thuê (được trừ trực tiếp vào giá bán )\n+ Căn 2PN: 150 TRIỆU\n+ Căn 4PN: 500 TRIỆU\n+ Căn 3PN: 250 TRIỆU hoặc chính sách HTLS vay trong 36 tháng (nếu KH vay)\nTặng 30.000.000 VNĐ dành cho 20 KH đầu tiên đặt cọc trong Tháng 11\nChiết khấu thanh toán nhanh:\n+ Thanh toán nhanh 20%: CK 1.5%\n+ Thanh toán nhanh 30%: CK 3%\n+ Thanh toán nhanh 50%: CK 5%\n+ Thanh toán nhanh 70%: CK 7%\n+ Thanh toán nhanh 95%: CK 9%\nKH vay vốn Ngân hàng:\n+ Hỗ trợ vay vốn đến 70%\n+ Ân hạn gốc + lãi trong 24 tháng\n+ Miễn phí tất toán trong thời gian ân hạn\n(Chi tiết cụ thể vui lòng xem Chính sách đính kèm)",
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontWeight: FontWeight.normal,
                       fontSize: 15,
                       color: Colors.black),

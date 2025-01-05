@@ -41,6 +41,7 @@ _$PropertyImpl _$$PropertyImplFromJson(Map<String, dynamic> json) =>
     _$PropertyImpl(
       province: json['province'] as String?,
       district: json['district'] as String?,
+      address: json['address'] as String?,
       price: (json['price'] as num?)?.toDouble(),
       area: (json['area'] as num?)?.toDouble(),
       bedRoom: (json['bedRoom'] as num?)?.toInt(),
@@ -58,6 +59,7 @@ Map<String, dynamic> _$$PropertyImplToJson(_$PropertyImpl instance) =>
     <String, dynamic>{
       'province': instance.province,
       'district': instance.district,
+      'address': instance.address,
       'price': instance.price,
       'area': instance.area,
       'bedRoom': instance.bedRoom,

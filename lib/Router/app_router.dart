@@ -6,7 +6,9 @@ import 'package:an_cu/Views/Authentication/Screens/sign_up_screen.dart';
 import 'package:an_cu/Views/Authentication/Screens/verification_screen.dart';
 import 'package:an_cu/Views/ChatBot/chat_bot_screen.dart';
 import 'package:an_cu/Views/Post/Screens/add_post_screen.dart';
+import 'package:an_cu/Views/Post/Screens/manage_post_screen.dart';
 import 'package:an_cu/Views/Post/Screens/post_detail_screen.dart';
+import 'package:an_cu/Views/Setting/setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -30,6 +32,8 @@ enum AppRoute {
   verification,
   chatBot,
   account,
+  setting,
+  managePost,
 }
 
 @Riverpod(keepAlive: true)
@@ -134,15 +138,26 @@ GoRouter goRouter(Ref ref) {
         pageBuilder: (context, state) => MaterialPage(child: ChatBotScreen()),
       ),
       GoRoute(
-          path: '/${AppRoute.account.name}',
-          name: AppRoute.account.name,
-          pageBuilder: (context, state) => MaterialPage(child: AccountScreen()),
-          redirect: (context, state) async {
-            if (await localStore.getBool('isLoggedIn') != true) {
-              return '/${AppRoute.signIn.name}';
-            }
-            return '/${AppRoute.account.name}';
-          }),
+        path: '/${AppRoute.account.name}',
+        name: AppRoute.account.name,
+        pageBuilder: (context, state) => MaterialPage(child: AccountScreen()),
+        redirect: (context, state) async {
+          if (await localStore.getBool('isLoggedIn') != true) {
+            return '/${AppRoute.signIn.name}';
+          }
+          return '/${AppRoute.account.name}';
+        }
+      ),
+      GoRoute(
+        path: '/${AppRoute.setting.name}',
+        name: AppRoute.setting.name,
+        pageBuilder: (context, state) => MaterialPage(child: SettingScreen()),
+      ),
+      GoRoute(
+        path: '/${AppRoute.managePost.name}',
+        name: AppRoute.managePost.name,
+        pageBuilder: (context, state) => MaterialPage(child: ManagePostScreen()),
+      ),
       // Add more routes here
     ],
   );
@@ -167,8 +182,8 @@ extension GoRouterX on GoRouter {
     go('/${AppRoute.onboarding.name}');
   }
 
-  Future<void> goPostDetail() async {
-    go('/${AppRoute.postDetail.name}');
+  Future<void> goPostDetail(id) async {
+    go('/${AppRoute.postDetail.name}/$id');
   }
 
   Future<void> goSplash() async {
@@ -197,5 +212,13 @@ extension GoRouterX on GoRouter {
 
   Future<void> goAccount() async {
     go('/${AppRoute.account.name}');
+  }
+
+  Future<void> goSetting() async {
+    go('/${AppRoute.setting.name}');
+  }
+
+  Future<void> goManagePost() async {
+    go('/${AppRoute.managePost.name}');
   }
 }

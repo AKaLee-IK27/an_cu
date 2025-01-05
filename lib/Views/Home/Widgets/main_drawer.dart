@@ -72,16 +72,18 @@ class MainDrawer extends ConsumerWidget {
             },
           ),
           MainDrawerItem(
-            title: 'Tài khoản',
-            icon: Icons.account_circle,
+            title: 'Quản lý bài đăng',
+            icon: Icons.newspaper_rounded,
             onTap: () {
-              router.goAccount();
+              router.goManagePost();
             },
           ),
           MainDrawerItem(
             title: 'Cài đặt',
             icon: Icons.settings,
-            onTap: () {},
+            onTap: () {
+              router.goSetting();
+            },
           ),
           MainDrawerItem(
             title: 'Đăng xuất',
