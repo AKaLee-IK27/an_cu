@@ -1,4 +1,3 @@
-import 'package:an_cu/Controllers/post_controller.dart';
 import 'package:an_cu/Controllers/wishlist_controller.dart';
 import 'package:an_cu/Model/model.dart';
 import 'package:an_cu/Services/fire_auth_service.dart';

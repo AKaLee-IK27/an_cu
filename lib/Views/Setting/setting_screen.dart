@@ -97,7 +97,7 @@ class SettingScreen extends ConsumerWidget {
                   padding: const EdgeInsets.all(10),
                   icon: const Icon(Icons.info_outline_rounded, color: Colors.black, size: 30,),
                   onPressed: () {
-                    
+                    router.goSupport();
                   }
                 ),
               ]
