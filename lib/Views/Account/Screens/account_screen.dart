@@ -2,13 +2,15 @@ import 'package:an_cu/Router/app_router.dart';
 import 'package:an_cu/Utils/CommonWidget/app_back_button.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
 import 'package:cloudinary_flutter/image/cld_image.dart';
-import 'package:cloudinary_url_gen/transformation/resize/resize.dart';
-import 'package:cloudinary_url_gen/transformation/transformation.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:an_cu/Utils/CommonWidget/custom_sized_box.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
+import 'package:crypto/crypto.dart';
+import 'dart:convert';
 
 final isDisplayNameEnableProvider =
     StateNotifierProvider<IsDisplayNameEnableNotifier, bool>((ref) {
@@ -33,6 +35,44 @@ Future<bool> doesImageExist(String publicId) async {
   }
 }
 
+Future<void> deleteImageFromCloudinary(String publicId) async {
+  const cloudName = 'db7lwrzjz';
+  const apiKey = '658649824642936';
+  const apiSecret = 'O8YSsm_joeV7_LrxwgToX6ePW4I';
+
+  final timestamp = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+  final signature = generateSignature(publicId, timestamp, apiSecret);
+
+  const url = 'https://api.cloudinary.com/v1_1/$cloudName/image/destroy';
+
+  try {
+    final response = await Dio().post(
+      url,
+      data: {
+        'public_id': publicId,
+        'api_key': apiKey,
+        'timestamp': timestamp,
+        'signature': signature,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      print('Image delete response: ${response.data}');
+    } else {
+      print('Failed to delete image: ${response.data}');
+    }
+  } catch (e) {
+    print('Error deleting image: $e');
+  }
+}
+
+String generateSignature(String publicId, int timestamp, String apiSecret) {
+  final data = 'public_id=$publicId&timestamp=$timestamp$apiSecret';
+  return sha1.convert(utf8.encode(data)).toString();
+}
+
+final imageProvider = StateProvider<String?>((ref) => null);
+
 class AccountScreen extends ConsumerWidget {
   AccountScreen({super.key});
 
@@ -43,8 +83,38 @@ class AccountScreen extends ConsumerWidget {
 
   late String displayName = currentUser?.displayName ?? '';
 
+  Future<void> _pickAndUploadImage(WidgetRef ref) async {
+    const cloudName = 'db7lwrzjz';
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    final timestamp = DateTime.now().millisecondsSinceEpoch;
+
+    await deleteImageFromCloudinary('ancuconnect/${currentUser?.email}');
+
+    if (pickedFile != null) {
+      try {
+        FormData formData = FormData.fromMap({
+          'file': await MultipartFile.fromFile(pickedFile.path),
+          'upload_preset': 'o8fpswtc',
+          'public_id': '${currentUser?.email}',
+        });
+
+        await Dio().post(
+          'https://api.cloudinary.com/v1_1/$cloudName/image/upload',
+          data: formData,
+        );
+
+        ref.read(imageProvider.notifier).state =
+          'https://res.cloudinary.com/$cloudName/image/upload/ancuconnect/${currentUser?.email}?ts=$timestamp';
+      } catch (e) {
+        print('Failed to upload image: $e');
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final imageUrl = ref.watch(imageProvider);
     final router = ref.watch(goRouterProvider);
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
@@ -80,7 +150,9 @@ class AccountScreen extends ConsumerWidget {
                     children: [
                       ClipOval(
                         child: SizedBox.expand(
-                          child: AssetCheckWidget(publicId: 'ancuconnect/${currentUser?.email}')
+                          child: imageUrl != null
+                            ? AssetCheckWidget(publicId: 'ancuconnect/${currentUser?.email}')
+                            : AssetCheckWidget(publicId: 'ancuconnect/${currentUser?.email}'),
                         )
                       ),
                       Positioned( 
@@ -96,7 +168,7 @@ class AccountScreen extends ConsumerWidget {
                             )
                           ),
                           onPressed: () {
-                            print('click edit');
+                            _pickAndUploadImage(ref);
                           }, 
                           label: const Icon(Icons.edit, color: Colors.white,),
                         ),

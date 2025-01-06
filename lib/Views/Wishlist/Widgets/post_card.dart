@@ -57,9 +57,9 @@ class PostCard extends ConsumerWidget {
                           shape: BoxShape.circle,
                         ),
                         child: IconButton(
-                          onPressed: () {ref.read(wishlistController.notifier).addPostToWishList(post);},
+                          onPressed: () {ref.read(wishlistController.notifier).removePostFromWishlist(post);},
                           icon: const Icon(
-                            Icons.favorite_border,
+                            Icons.close_rounded,
                             color: AppColors.white,
                           ),
                         ),

@@ -1337,3 +1337,178 @@ abstract class _Comment implements Comment {
   _$$CommentImplCopyWith<_$CommentImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+Wishlist _$WishlistFromJson(Map<String, dynamic> json) {
+  return _Wishlist.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Wishlist {
+  String get idUser => throw _privateConstructorUsedError;
+  List<String> get idPosts => throw _privateConstructorUsedError;
+
+  /// Serializes this Wishlist to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of Wishlist
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $WishlistCopyWith<Wishlist> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $WishlistCopyWith<$Res> {
+  factory $WishlistCopyWith(Wishlist value, $Res Function(Wishlist) then) =
+      _$WishlistCopyWithImpl<$Res, Wishlist>;
+  @useResult
+  $Res call({String idUser, List<String> idPosts});
+}
+
+/// @nodoc
+class _$WishlistCopyWithImpl<$Res, $Val extends Wishlist>
+    implements $WishlistCopyWith<$Res> {
+  _$WishlistCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of Wishlist
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? idUser = null,
+    Object? idPosts = null,
+  }) {
+    return _then(_value.copyWith(
+      idUser: null == idUser
+          ? _value.idUser
+          : idUser // ignore: cast_nullable_to_non_nullable
+              as String,
+      idPosts: null == idPosts
+          ? _value.idPosts
+          : idPosts // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$WishlistImplCopyWith<$Res>
+    implements $WishlistCopyWith<$Res> {
+  factory _$$WishlistImplCopyWith(
+          _$WishlistImpl value, $Res Function(_$WishlistImpl) then) =
+      __$$WishlistImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String idUser, List<String> idPosts});
+}
+
+/// @nodoc
+class __$$WishlistImplCopyWithImpl<$Res>
+    extends _$WishlistCopyWithImpl<$Res, _$WishlistImpl>
+    implements _$$WishlistImplCopyWith<$Res> {
+  __$$WishlistImplCopyWithImpl(
+      _$WishlistImpl _value, $Res Function(_$WishlistImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of Wishlist
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? idUser = null,
+    Object? idPosts = null,
+  }) {
+    return _then(_$WishlistImpl(
+      idUser: null == idUser
+          ? _value.idUser
+          : idUser // ignore: cast_nullable_to_non_nullable
+              as String,
+      idPosts: null == idPosts
+          ? _value._idPosts
+          : idPosts // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+    ));
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable(explicitToJson: true)
+class _$WishlistImpl implements _Wishlist {
+  const _$WishlistImpl(
+      {required this.idUser, required final List<String> idPosts})
+      : _idPosts = idPosts;
+
+  factory _$WishlistImpl.fromJson(Map<String, dynamic> json) =>
+      _$$WishlistImplFromJson(json);
+
+  @override
+  final String idUser;
+  final List<String> _idPosts;
+  @override
+  List<String> get idPosts {
+    if (_idPosts is EqualUnmodifiableListView) return _idPosts;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_idPosts);
+  }
+
+  @override
+  String toString() {
+    return 'Wishlist(idUser: $idUser, idPosts: $idPosts)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$WishlistImpl &&
+            (identical(other.idUser, idUser) || other.idUser == idUser) &&
+            const DeepCollectionEquality().equals(other._idPosts, _idPosts));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, idUser, const DeepCollectionEquality().hash(_idPosts));
+
+  /// Create a copy of Wishlist
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$WishlistImplCopyWith<_$WishlistImpl> get copyWith =>
+      __$$WishlistImplCopyWithImpl<_$WishlistImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$WishlistImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Wishlist implements Wishlist {
+  const factory _Wishlist(
+      {required final String idUser,
+      required final List<String> idPosts}) = _$WishlistImpl;
+
+  factory _Wishlist.fromJson(Map<String, dynamic> json) =
+      _$WishlistImpl.fromJson;
+
+  @override
+  String get idUser;
+  @override
+  List<String> get idPosts;
+
+  /// Create a copy of Wishlist
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$WishlistImplCopyWith<_$WishlistImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

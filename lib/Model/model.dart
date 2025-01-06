@@ -80,3 +80,15 @@ class Comment with _$Comment {
   factory Comment.fromJson(Map<String, dynamic> json) =>
       _$CommentFromJson(json);
 }
+
+@freezed
+class Wishlist with _$Wishlist {
+  @JsonSerializable(explicitToJson: true)
+  const factory Wishlist({
+    required String idUser,
+    required List<String> idPosts,
+  }) = _Wishlist;
+
+  factory Wishlist.fromJson(Map<String, dynamic> json) =>
+      _$WishlistFromJson(json);
+}

@@ -89,6 +89,19 @@ class PostNotifier extends StateNotifier<List<Post>> {
       return [];
     }
   }
+
+  Future<Post?> getPostById(String id) async {
+    try {
+      DocumentSnapshot snapshot = await _fireStoreService
+        .collection('Posts')
+        .doc(id)
+        .get();
+      
+      return Post.fromJson(snapshot.data() as Map<String, dynamic>).copyWith(id: id);
+    } catch(e) {
+      return null;
+    }
+  }
 }
 
 final postController = StateNotifierProvider<PostNotifier, List<Post>>(

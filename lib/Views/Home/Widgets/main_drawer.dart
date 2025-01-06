@@ -79,6 +79,13 @@ class MainDrawer extends ConsumerWidget {
             },
           ),
           MainDrawerItem(
+            title: 'Bài đăng yêu thích',
+            icon: Icons.favorite_rounded,
+            onTap: () {
+              router.goWishlist();
+            },
+          ),
+          MainDrawerItem(
             title: 'Cài đặt',
             icon: Icons.settings,
             onTap: () {

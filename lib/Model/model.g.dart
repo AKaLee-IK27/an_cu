@@ -111,3 +111,16 @@ Map<String, dynamic> _$$CommentImplToJson(_$CommentImpl instance) =>
       'createdAt': instance.createdAt,
       'createdBy': instance.createdBy,
     };
+
+_$WishlistImpl _$$WishlistImplFromJson(Map<String, dynamic> json) =>
+    _$WishlistImpl(
+      idUser: json['idUser'] as String,
+      idPosts:
+          (json['idPosts'] as List<dynamic>).map((e) => e as String).toList(),
+    );
+
+Map<String, dynamic> _$$WishlistImplToJson(_$WishlistImpl instance) =>
+    <String, dynamic>{
+      'idUser': instance.idUser,
+      'idPosts': instance.idPosts,
+    };

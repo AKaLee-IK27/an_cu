@@ -9,6 +9,7 @@ import 'package:an_cu/Views/Post/Screens/add_post_screen.dart';
 import 'package:an_cu/Views/Post/Screens/manage_post_screen.dart';
 import 'package:an_cu/Views/Post/Screens/post_detail_screen.dart';
 import 'package:an_cu/Views/Setting/setting_screen.dart';
+import 'package:an_cu/Views/Wishlist/Screens/wishlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -34,6 +35,7 @@ enum AppRoute {
   account,
   setting,
   managePost,
+  wishlist,
 }
 
 @Riverpod(keepAlive: true)
@@ -158,6 +160,11 @@ GoRouter goRouter(Ref ref) {
         name: AppRoute.managePost.name,
         pageBuilder: (context, state) => MaterialPage(child: ManagePostScreen()),
       ),
+      GoRoute(
+        path: '/${AppRoute.wishlist.name}',
+        name: AppRoute.wishlist.name,
+        pageBuilder: (context, state) => MaterialPage(child: WishlistScreen()),
+      ),
       // Add more routes here
     ],
   );
@@ -220,5 +227,9 @@ extension GoRouterX on GoRouter {
 
   Future<void> goManagePost() async {
     go('/${AppRoute.managePost.name}');
+  }
+
+  Future<void> goWishlist() async {
+    go('/${AppRoute.wishlist.name}');
   }
 }
