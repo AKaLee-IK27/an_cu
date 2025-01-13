@@ -16,12 +16,12 @@ class PostNotifier extends StateNotifier<List<Post>> {
   Future<void> addPost(Post post) async {
     try {
       print(post.toJson());
-      await _fireStoreService
-          .collection('Posts')
-          .doc()
-          .set(post.toJson())
+
+      final docRef = _fireStoreService.collection('Posts').doc();
+      docRef.set(post.toJson())
           .onError((e, _) => print(e));
 
+      post = post.copyWith(id: docRef.id);
       state = [...state, post];
     } catch (e) {
       print(e);

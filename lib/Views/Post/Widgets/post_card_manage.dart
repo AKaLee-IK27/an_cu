@@ -232,7 +232,36 @@ class PostCardManage extends ConsumerWidget {
                 color: AppColors.primary,
                 padding: const EdgeInsets.all(10),
                 onPressed: () {
-                  ref.read(postController.notifier).deletePost(post);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Xác nhận xóa'),
+                        content: const Text('Bạn có chắc chắn muốn xóa bài viết này không?'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop(); // Đóng hộp thoại
+                            },
+                            child: const Text(
+                              'Hủy',
+                              style: TextStyle(color: AppColors.secondary),
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              ref.read(postController.notifier).deletePost(post);
+                              Navigator.of(context).pop(); // Đóng hộp thoại sau khi xóa
+                            },
+                            child: const Text(
+                              'Xóa',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 },
               ),
             ],

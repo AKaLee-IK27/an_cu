@@ -7,6 +7,7 @@ import 'package:an_cu/Views/Authentication/Widgets/my_button.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class PostDetailScreen extends ConsumerWidget {
@@ -98,6 +99,29 @@ class PostContent extends ConsumerWidget {
     required this.post,
   });
 
+  
+  String formatPrice(double price) {
+    if (price == 0) {
+      return "Liên hệ";
+    }
+
+    if (price < 1000) {
+      return price.toStringAsFixed(0);
+    }
+
+    if (price >= 1e6 && price < 1e9) {
+      final millions = price / 1e6;
+      return "${NumberFormat('#,##0.##').format(millions)} triệu Đồng";
+    }
+
+    if (price >= 1e9) {
+      final billions = price / 1e9;
+      return "${NumberFormat('#,##0.##').format(billions)} tỷ Đồng";
+    }
+    final formatter = NumberFormat.currency(locale: 'vi_VN', symbol: '₫');
+    return formatter.format(price);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return DraggableScrollableSheet(
@@ -161,7 +185,7 @@ class PostContent extends ConsumerWidget {
                               color: AppColors.primary),
                         ),
                         Text(
-                          "\$ ${post.property?.price.toString() ?? ""}",
+                          formatPrice(post.property?.price ?? 0),
                           style: const TextStyle(
                               fontWeight: FontWeight.normal,
                               fontSize: 20,
@@ -201,7 +225,7 @@ class PostContent extends ConsumerWidget {
                                 text: "2", // Superscript "²"
                                 style: TextStyle(
                                   fontWeight: FontWeight.normal,
-                                  fontSize: 12, // Smaller font size
+                                  fontSize: 20, // Smaller font size
                                   color: Colors.black,
                                   fontFeatures: [FontFeature.superscripts()], // Superscript styling
                                 ),
