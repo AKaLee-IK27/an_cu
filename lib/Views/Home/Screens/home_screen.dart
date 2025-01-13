@@ -25,7 +25,6 @@ class HomeScreen extends ConsumerWidget {
     final router = ref.watch(goRouterProvider);
     final User? user = FirebaseAuth.instance.currentUser;
     final List<Post> posts = ref.watch(postController);
-    final searchProvince = ref.watch(searchingProvider);
 
     return SafeArea(
       child: Scaffold(
@@ -65,7 +64,7 @@ class HomeScreen extends ConsumerWidget {
           body: SingleChildScrollView(
             child: Column(
               children: [
-                const MainSearchBar(),
+                MainSearchBar(),
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 8,
@@ -82,7 +81,11 @@ class HomeScreen extends ConsumerWidget {
                             style: AppTextStyles.title,
                           ),
                           TextButton(
-                            onPressed: () {
+                            onPressed: () async {
+                              await ref
+                                  .read(postController.notifier)
+                                  .searchPostByProvince("");
+
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -103,8 +106,13 @@ class HomeScreen extends ConsumerWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              for (var post in posts.take(3).toList())
-                                PostCard(post: post),
+                              if (posts.isEmpty)
+                                const Center(
+                                  child: Text('Không có bài đăng nào.'),
+                                )
+                              else
+                                for (var post in posts.take(3).toList())
+                                  PostCard(post: post),
                             ],
                           ),
                         ),

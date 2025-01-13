@@ -10,7 +10,9 @@ import 'package:searchfield/searchfield.dart';
 final searchingProvider = StateProvider<String>((ref) => '');
 
 class MainSearchBar extends ConsumerWidget {
-  const MainSearchBar({super.key});
+  MainSearchBar({super.key});
+
+  final TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -70,7 +72,22 @@ class MainSearchBar extends ConsumerWidget {
               ],
             ),
             SearchField(
+              onTapOutside: (p0) async {
+                FocusScope.of(context).unfocus();
+                // Cập nhật trạng thái của ứng dụng khi người dùng chọn một gợi ý
+                await ref
+                    .read(postController.notifier)
+                    .searchPostByProvince("");
+              },
+              onSuggestionTap: (item) async {
+                FocusScope.of(context).unfocus();
+                // Cập nhật trạng thái của ứng dụng khi người dùng chọn một gợi ý
+                await ref
+                    .read(postController.notifier)
+                    .searchPostByProvince(item.searchKey);
+              },
               hint: 'Địa điểm tìm kiếm',
+              inputType: TextInputType.text,
               searchInputDecoration: SearchInputDecoration(
                 cursorColor: AppColors.primary,
                 fillColor: AppColors.white,
@@ -97,12 +114,6 @@ class MainSearchBar extends ConsumerWidget {
               suggestions: provinces
                   .map((province) => SearchFieldListItem(province.name))
                   .toList(),
-              onSubmit: (province) {
-                print("province: $province");
-                ref
-                    .read(postController.notifier)
-                    .searchPostByProvince(province);
-              },
             ),
           ],
         ),

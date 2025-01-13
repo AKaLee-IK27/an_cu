@@ -12,6 +12,7 @@ class PostNotifier extends StateNotifier<List<Post>> {
 
   final FirebaseFirestore _fireStoreService;
   final User user;
+  final List<Post> originalPost = [];
 
   Future<void> addPost(Post post) async {
     try {
@@ -29,22 +30,16 @@ class PostNotifier extends StateNotifier<List<Post>> {
   }
 
   Future<void> searchPostByProvince(String province) async {
-    try {
-      await _fireStoreService
-          .collection('Posts')
-          .where('property.province', arrayContainsAny: [province])
-          .get()
-          .then((querySnapshot) {
-            print("Successfully fetched posts");
-            for (var doc in querySnapshot.docs) {
-              final post = Post.fromJson(doc.data()).copyWith(id: doc.id);
-
-              state = [...state, post];
-            }
-          }, onError: (e) => print(e));
-    } catch (e) {
-      print(e);
+    print("Search by province: $province");
+    print(originalPost.length);
+    if (province == "") {
+      state = originalPost;
+      return;
     }
+
+    state = originalPost
+        .where((post) => post.property?.province == province)
+        .toList();
   }
 
   Future<void> getPosts() async {
@@ -57,6 +52,7 @@ class PostNotifier extends StateNotifier<List<Post>> {
 
           state = [...state, post];
         }
+        originalPost.addAll(state);
       }, onError: (e) => print(e));
     } catch (e) {
       print(e);
