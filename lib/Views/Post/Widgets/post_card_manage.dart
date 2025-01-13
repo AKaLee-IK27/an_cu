@@ -11,11 +11,34 @@ import 'package:cloudinary_flutter/image/cld_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class PostCardManage extends ConsumerWidget {
   final Post post;
 
   const PostCardManage({super.key, required this.post});
+
+  String formatPrice(double price) {
+    if (price == 0) {
+      return "Liên hệ";
+    }
+
+    if (price < 1000) {
+      return price.toStringAsFixed(0);
+    }
+
+    if (price >= 1e6 && price < 1e9) {
+      final millions = price / 1e6;
+      return "${NumberFormat('#,##0.##').format(millions)} triệu Đồng";
+    }
+
+    if (price >= 1e9) {
+      final billions = price / 1e9;
+      return "${NumberFormat('#,##0.##').format(billions)} tỷ Đồng";
+    }
+    final formatter = NumberFormat.currency(locale: 'vi_VN', symbol: '₫');
+    return formatter.format(price);
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -160,7 +183,7 @@ class PostCardManage extends ConsumerWidget {
                           TextSpan(
                             children: [
                               TextSpan(
-                                text: "\$ ${property?.price}",
+                                text: formatPrice(property?.price ?? 0),
                                 style: AppTextStyles.title.copyWith(
                                   color: AppColors.secondary,
                                 ),

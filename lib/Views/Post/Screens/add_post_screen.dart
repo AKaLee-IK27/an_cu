@@ -11,6 +11,7 @@ import 'package:an_cu/Utils/Styles/app_colors.dart';
 import 'package:an_cu/Utils/Styles/app_text_styles.dart';
 import 'package:an_cu/Views/Post/Controller/image_add_post_controller.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -94,7 +95,7 @@ class AddPostScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(userProvider);
+    final user = FirebaseAuth.instance.currentUser;
     final selectedImages = ref.watch(selectedImagesProvider);
 
     return SafeArea(
@@ -114,7 +115,7 @@ class AddPostScreen extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Chào ${user.displayName ?? ""},",
+                      "Chào ${user?.displayName ?? ""},",
                       style: AppTextStyles.title
                           .merge(const TextStyle(color: AppColors.primary)),
                     ),
@@ -444,7 +445,7 @@ class AddPostScreen extends ConsumerWidget {
                       final post = Post(
                         createdAt: DateTime.now().millisecondsSinceEpoch,
                         property: property,
-                        createdBy: ref.read(userProvider).uid,
+                        createdBy: user?.uid,
                         verified: false,
                         comments: [],
                         status: 'pending',
