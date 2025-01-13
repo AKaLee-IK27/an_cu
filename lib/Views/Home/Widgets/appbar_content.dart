@@ -13,19 +13,14 @@ class AppBarContent extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              SvgPicture.asset(
-                'assets/logo/main.svg',
-                height: 42,
-                width: 42,
-              ),
-              gapW8,
-              Text('An Cư Connect', style: AppTextStyles.title),
-            ],
+          SvgPicture.asset(
+            'assets/logo/main.svg',
+            height: 42,
+            width: 42,
           ),
+          gapW8,
+          Text('An Cư Connect', style: AppTextStyles.title),
         ],
       ),
     );

@@ -49,9 +49,8 @@ class HomeScreen extends ConsumerWidget {
                   child: IconButton(
                     icon: ClipOval(
                       child: SizedBox.expand(
-                        child: AssetCheckWidget(
-                            publicId: 'ancuconnect/${user?.email}')
-                      ),
+                          child: AssetCheckWidget(
+                              publicId: 'ancuconnect/${user?.email}')),
                     ),
                     onPressed: () => Scaffold.of(context).openEndDrawer(),
                   ),

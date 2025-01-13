@@ -4,7 +4,8 @@ import 'package:an_cu/Views/Account/Screens/account_screen.dart';
 import 'package:an_cu/Views/Authentication/Screens/sign_in_screen.dart';
 import 'package:an_cu/Views/Authentication/Screens/sign_up_screen.dart';
 import 'package:an_cu/Views/Authentication/Screens/verification_screen.dart';
-import 'package:an_cu/Views/ChatBot/chat_bot_screen.dart';
+import 'package:an_cu/Views/ChatBot/chat_history_screen.dart';
+import 'package:an_cu/Views/ChatBot/chat_screen.dart';
 import 'package:an_cu/Views/Post/Screens/add_post_screen.dart';
 import 'package:an_cu/Views/Post/Screens/manage_post_screen.dart';
 import 'package:an_cu/Views/Post/Screens/post_detail_screen.dart';
@@ -38,6 +39,7 @@ enum AppRoute {
   managePost,
   wishlist,
   support,
+  historyChat,
 }
 
 @Riverpod(keepAlive: true)
@@ -139,19 +141,19 @@ GoRouter goRouter(Ref ref) {
       GoRoute(
         path: '/${AppRoute.chatBot.name}',
         name: AppRoute.chatBot.name,
-        pageBuilder: (context, state) => MaterialPage(child: ChatBotScreen()),
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: ChatScreen()),
       ),
       GoRoute(
-        path: '/${AppRoute.account.name}',
-        name: AppRoute.account.name,
-        pageBuilder: (context, state) => MaterialPage(child: AccountScreen()),
-        redirect: (context, state) async {
-          if (await localStore.getBool('isLoggedIn') != true) {
-            return '/${AppRoute.signIn.name}';
-          }
-          return '/${AppRoute.account.name}';
-        }
-      ),
+          path: '/${AppRoute.account.name}',
+          name: AppRoute.account.name,
+          pageBuilder: (context, state) => MaterialPage(child: AccountScreen()),
+          redirect: (context, state) async {
+            if (await localStore.getBool('isLoggedIn') != true) {
+              return '/${AppRoute.signIn.name}';
+            }
+            return '/${AppRoute.account.name}';
+          }),
       GoRoute(
         path: '/${AppRoute.setting.name}',
         name: AppRoute.setting.name,
@@ -160,18 +162,28 @@ GoRouter goRouter(Ref ref) {
       GoRoute(
         path: '/${AppRoute.managePost.name}',
         name: AppRoute.managePost.name,
-        pageBuilder: (context, state) => MaterialPage(child: ManagePostScreen()),
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: ManagePostScreen()),
       ),
       GoRoute(
         path: '/${AppRoute.wishlist.name}',
         name: AppRoute.wishlist.name,
-        pageBuilder: (context, state) => MaterialPage(child: WishlistScreen()),
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: WishlistScreen()),
       ),
       GoRoute(
         path: '/${AppRoute.support.name}',
         name: AppRoute.support.name,
-        pageBuilder: (context, state) => MaterialPage(child: SupportScreen()),
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: SupportScreen()),
       ),
+      GoRoute(
+        path: '/${AppRoute.historyChat.name}',
+        name: AppRoute.historyChat.name,
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: ChatHistoryScreen()),
+      ),
+
       // Add more routes here
     ],
   );
@@ -239,7 +251,7 @@ extension GoRouterX on GoRouter {
   Future<void> goWishlist() async {
     go('/${AppRoute.wishlist.name}');
   }
-  
+
   Future<void> goSupport() async {
     go('/${AppRoute.support.name}');
   }
