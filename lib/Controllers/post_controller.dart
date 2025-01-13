@@ -28,6 +28,25 @@ class PostNotifier extends StateNotifier<List<Post>> {
     }
   }
 
+  Future<void> searchPostByProvince(String province) async {
+    try {
+      await _fireStoreService
+          .collection('Posts')
+          .where('property.province', arrayContainsAny: [province])
+          .get()
+          .then((querySnapshot) {
+            print("Successfully fetched posts");
+            for (var doc in querySnapshot.docs) {
+              final post = Post.fromJson(doc.data()).copyWith(id: doc.id);
+
+              state = [...state, post];
+            }
+          }, onError: (e) => print(e));
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Future<void> getPosts() async {
     try {
       await _fireStoreService.collection('Posts').get().then((querySnapshot) {
@@ -80,7 +99,8 @@ class PostNotifier extends StateNotifier<List<Post>> {
           .get();
 
       List<Post> listPost = querySnapshot.docs.map((doc) {
-        return Post.fromJson(doc.data() as Map<String, dynamic>).copyWith(id: doc.id);
+        return Post.fromJson(doc.data() as Map<String, dynamic>)
+            .copyWith(id: doc.id);
       }).toList();
 
       return listPost;
@@ -92,13 +112,12 @@ class PostNotifier extends StateNotifier<List<Post>> {
 
   Future<Post?> getPostById(String id) async {
     try {
-      DocumentSnapshot snapshot = await _fireStoreService
-        .collection('Posts')
-        .doc(id)
-        .get();
-      
-      return Post.fromJson(snapshot.data() as Map<String, dynamic>).copyWith(id: id);
-    } catch(e) {
+      DocumentSnapshot snapshot =
+          await _fireStoreService.collection('Posts').doc(id).get();
+
+      return Post.fromJson(snapshot.data() as Map<String, dynamic>)
+          .copyWith(id: id);
+    } catch (e) {
       return null;
     }
   }

@@ -5,6 +5,7 @@ import 'package:an_cu/Utils/CommonWidget/asset_check_widget_cloudinary.dart';
 import 'package:an_cu/Utils/Helpers/screen_size.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
 import 'package:an_cu/Utils/Styles/app_text_styles.dart';
+import 'package:an_cu/Views/Home/Screens/all_post_screen.dart';
 import 'package:an_cu/Views/Home/Widgets/appbar_content.dart';
 import 'package:an_cu/Views/Home/Widgets/main_drawer.dart';
 import 'package:an_cu/Views/Home/Widgets/main_search_bar.dart';
@@ -24,6 +25,7 @@ class HomeScreen extends ConsumerWidget {
     final router = ref.watch(goRouterProvider);
     final User? user = FirebaseAuth.instance.currentUser;
     final List<Post> posts = ref.watch(postController);
+    final searchProvince = ref.watch(searchingProvider);
 
     return SafeArea(
       child: Scaffold(
@@ -80,7 +82,14 @@ class HomeScreen extends ConsumerWidget {
                             style: AppTextStyles.title,
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const AllPostsScreen(),
+                                ),
+                              );
+                            },
                             child: Text(
                               'Xem tất cả',
                               style: AppTextStyles.body,
@@ -94,7 +103,8 @@ class HomeScreen extends ConsumerWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              for (var post in posts) PostCard(post: post),
+                              for (var post in posts.take(3).toList())
+                                PostCard(post: post),
                             ],
                           ),
                         ),

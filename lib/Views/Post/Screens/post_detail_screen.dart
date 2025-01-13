@@ -7,7 +7,9 @@ import 'package:an_cu/Views/Authentication/Widgets/my_button.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PostDetailScreen extends ConsumerWidget {
   final Post post;
@@ -19,7 +21,9 @@ class PostDetailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = post.property!.images!.isEmpty ? PicturePostItems() :  PicturePostItems.fromString(post.property?.images as List<String>);
+    final controller = post.property!.images!.isEmpty
+        ? PicturePostItems()
+        : PicturePostItems.fromString(post.property?.images as List<String>);
     final pageController = PageController();
 
     return SafeArea(
@@ -46,7 +50,10 @@ class PostDetailScreen extends ConsumerWidget {
                           child: CircularProgressIndicator(),
                         ),
                         errorWidget: (context, url, error) => Center(
-                          child: Image.asset('assets/images/post_detail.jpg', fit: BoxFit.cover,),
+                          child: Image.asset(
+                            'assets/images/post_detail.jpg',
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     );
@@ -54,32 +61,35 @@ class PostDetailScreen extends ConsumerWidget {
                 ),
               ),
               Container(
-                child: controller.items.length > 1 ? Positioned(
-                  bottom: 15.0,
-                  left: 0,
-                  right: 0,
-                  child: Center(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.8),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      padding: const EdgeInsets.all(2),
-                      child: SmoothPageIndicator(
-                        controller: pageController,
-                        count: controller.items.length,
-                        onDotClicked: (index) => pageController.animateToPage(
-                            index,
-                            duration: const Duration(microseconds: 300),
-                            curve: Curves.easeInOut),
-                        effect: const WormEffect(
-                            dotHeight: 10,
-                            dotWidth: 10,
-                            activeDotColor: AppColors.primary),
-                      ),
-                    ),
-                  ),
-                ) : null,
+                child: controller.items.length > 1
+                    ? Positioned(
+                        bottom: 30.0,
+                        left: 0,
+                        right: 0,
+                        child: Center(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.8),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            padding: const EdgeInsets.all(2),
+                            child: SmoothPageIndicator(
+                              controller: pageController,
+                              count: controller.items.length,
+                              onDotClicked: (index) =>
+                                  pageController.animateToPage(index,
+                                      duration:
+                                          const Duration(microseconds: 300),
+                                      curve: Curves.easeInOut),
+                              effect: const WormEffect(
+                                  dotHeight: 10,
+                                  dotWidth: 10,
+                                  activeDotColor: AppColors.primary),
+                            ),
+                          ),
+                        ),
+                      )
+                    : null,
               ),
             ]),
           ),
@@ -97,6 +107,28 @@ class PostContent extends ConsumerWidget {
     super.key,
     required this.post,
   });
+
+  String formatPrice(double price) {
+    if (price == 0) {
+      return "Liên hệ";
+    }
+
+    if (price < 1000) {
+      return price.toStringAsFixed(0);
+    }
+
+    if (price >= 1e6 && price < 1e9) {
+      final millions = price / 1e6;
+      return "${NumberFormat('#,##0.##').format(millions)} triệu Đồng";
+    }
+
+    if (price >= 1e9) {
+      final billions = price / 1e9;
+      return "${NumberFormat('#,##0.##').format(billions)} tỷ Đồng";
+    }
+    final formatter = NumberFormat.currency(locale: 'vi_VN', symbol: '₫');
+    return formatter.format(price);
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -161,7 +193,7 @@ class PostContent extends ConsumerWidget {
                               color: AppColors.primary),
                         ),
                         Text(
-                          "\$ ${post.property?.price.toString() ?? ""}",
+                          formatPrice(post.property?.price ?? 0),
                           style: const TextStyle(
                               fontWeight: FontWeight.normal,
                               fontSize: 20,
@@ -182,7 +214,8 @@ class PostContent extends ConsumerWidget {
                           TextSpan(
                             children: [
                               TextSpan(
-                                text: "${post.property?.area} ", // Main text (e.g., 120)
+                                text:
+                                    "${post.property?.area} ", // Main text (e.g., 120)
                                 style: const TextStyle(
                                   fontWeight: FontWeight.normal,
                                   fontSize: 20,
@@ -203,7 +236,9 @@ class PostContent extends ConsumerWidget {
                                   fontWeight: FontWeight.normal,
                                   fontSize: 12, // Smaller font size
                                   color: Colors.black,
-                                  fontFeatures: [FontFeature.superscripts()], // Superscript styling
+                                  fontFeatures: [
+                                    FontFeature.superscripts()
+                                  ], // Superscript styling
                                 ),
                               ),
                             ],
@@ -225,7 +260,13 @@ class PostContent extends ConsumerWidget {
                             fontWeight: FontWeight.bold,
                             fontSize: 18)),
                     color: AppColors.primary,
-                    onPressed: () {}),
+                    onPressed: () async {
+                      final phoneUri = Uri(
+                        scheme: 'tel',
+                        path: '0123456789',
+                      );
+                      await launchUrl(phoneUri);
+                    }),
                 //Title Description
                 gapH4,
                 const Text(
@@ -237,9 +278,9 @@ class PostContent extends ConsumerWidget {
                 ),
                 //Description
                 Text(
-                  post.property?.description?.isNotEmpty == true ?
-                  '${post.property?.description?.replaceAll(r'\n', '\n')}' :
-                  "CẬP NHẬT THÔNG TIN CĂN HỘ URBAN GREEN - ĐỐI DIỆN VẠN PHÚC CITY - GIÁ TỪ 65TR/M2 CÒN 1 THÁNG NỮA LÀ NHẬN NHÀ\nGIỎ HÀNG HIỆN TẠI:\n1. Căn 1PN SOLD OUT. ( Còn hàng bán lại)\n2. Căn 2PN - 76 - 79m2\nGiá từ 5.2 - 5.3 tỷ (Chưa vat và ưu đãi)\nThanh.toán trước ~1.5 tỷ nhận nhà (ở hoặc khai thác cho thuê)\n3. Căn 2PN - 83m² như nhà mẫu\nGiá từ 4.9 - 5.6 tỷ (Chưa vat và ưu đãi)\nThanh.toán trước ~1.5 -1.8 tỷ nhận nhà (ở hoặc khai thác cho thuê)\n4. Căn 3PN - 98 - 106 m2\nGiá từ 6.3 - 6.7 tỷ (Chưa vat và ưu đãi)\nThanh.toán trước ~2.4 tỷ nhận nhà (ở hoặc khai thác cho thuê).\nTÓM TẮT CHÍNH SÁCH BÁN HÀNG:\nĐối với CĂN HỘ:\nMiễn phí 2 năm Phí quản lý\nGói hỗ trợ Tiền thuê (được trừ trực tiếp vào giá bán )\n+ Căn 2PN: 150 TRIỆU\n+ Căn 4PN: 500 TRIỆU\n+ Căn 3PN: 250 TRIỆU hoặc chính sách HTLS vay trong 36 tháng (nếu KH vay)\nTặng 30.000.000 VNĐ dành cho 20 KH đầu tiên đặt cọc trong Tháng 11\nChiết khấu thanh toán nhanh:\n+ Thanh toán nhanh 20%: CK 1.5%\n+ Thanh toán nhanh 30%: CK 3%\n+ Thanh toán nhanh 50%: CK 5%\n+ Thanh toán nhanh 70%: CK 7%\n+ Thanh toán nhanh 95%: CK 9%\nKH vay vốn Ngân hàng:\n+ Hỗ trợ vay vốn đến 70%\n+ Ân hạn gốc + lãi trong 24 tháng\n+ Miễn phí tất toán trong thời gian ân hạn\n(Chi tiết cụ thể vui lòng xem Chính sách đính kèm)",
+                  post.property?.description?.isNotEmpty == true
+                      ? '${post.property?.description?.replaceAll(r'\n', '\n')}'
+                      : "CẬP NHẬT THÔNG TIN CĂN HỘ URBAN GREEN - ĐỐI DIỆN VẠN PHÚC CITY - GIÁ TỪ 65TR/M2 CÒN 1 THÁNG NỮA LÀ NHẬN NHÀ\nGIỎ HÀNG HIỆN TẠI:\n1. Căn 1PN SOLD OUT. ( Còn hàng bán lại)\n2. Căn 2PN - 76 - 79m2\nGiá từ 5.2 - 5.3 tỷ (Chưa vat và ưu đãi)\nThanh.toán trước ~1.5 tỷ nhận nhà (ở hoặc khai thác cho thuê)\n3. Căn 2PN - 83m² như nhà mẫu\nGiá từ 4.9 - 5.6 tỷ (Chưa vat và ưu đãi)\nThanh.toán trước ~1.5 -1.8 tỷ nhận nhà (ở hoặc khai thác cho thuê)\n4. Căn 3PN - 98 - 106 m2\nGiá từ 6.3 - 6.7 tỷ (Chưa vat và ưu đãi)\nThanh.toán trước ~2.4 tỷ nhận nhà (ở hoặc khai thác cho thuê).\nTÓM TẮT CHÍNH SÁCH BÁN HÀNG:\nĐối với CĂN HỘ:\nMiễn phí 2 năm Phí quản lý\nGói hỗ trợ Tiền thuê (được trừ trực tiếp vào giá bán )\n+ Căn 2PN: 150 TRIỆU\n+ Căn 4PN: 500 TRIỆU\n+ Căn 3PN: 250 TRIỆU hoặc chính sách HTLS vay trong 36 tháng (nếu KH vay)\nTặng 30.000.000 VNĐ dành cho 20 KH đầu tiên đặt cọc trong Tháng 11\nChiết khấu thanh toán nhanh:\n+ Thanh toán nhanh 20%: CK 1.5%\n+ Thanh toán nhanh 30%: CK 3%\n+ Thanh toán nhanh 50%: CK 5%\n+ Thanh toán nhanh 70%: CK 7%\n+ Thanh toán nhanh 95%: CK 9%\nKH vay vốn Ngân hàng:\n+ Hỗ trợ vay vốn đến 70%\n+ Ân hạn gốc + lãi trong 24 tháng\n+ Miễn phí tất toán trong thời gian ân hạn\n(Chi tiết cụ thể vui lòng xem Chính sách đính kèm)",
                   style: const TextStyle(
                       fontWeight: FontWeight.normal,
                       fontSize: 15,

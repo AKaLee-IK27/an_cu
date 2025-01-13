@@ -1,10 +1,13 @@
 import 'package:an_cu/Controllers/location_provider.dart';
+import 'package:an_cu/Controllers/post_controller.dart';
 import 'package:an_cu/Controllers/searchbar_provider.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
 import 'package:an_cu/Utils/Styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:searchfield/searchfield.dart';
+
+final searchingProvider = StateProvider<String>((ref) => '');
 
 class MainSearchBar extends ConsumerWidget {
   const MainSearchBar({super.key});
@@ -94,7 +97,12 @@ class MainSearchBar extends ConsumerWidget {
               suggestions: provinces
                   .map((province) => SearchFieldListItem(province.name))
                   .toList(),
-              onTap: () {},
+              onSubmit: (province) {
+                print("province: $province");
+                ref
+                    .read(postController.notifier)
+                    .searchPostByProvince(province);
+              },
             ),
           ],
         ),

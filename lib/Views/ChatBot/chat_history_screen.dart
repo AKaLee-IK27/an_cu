@@ -1,4 +1,4 @@
-import 'package:an_cu/Utils/CommonWidget/app_back_button.dart';
+import 'package:an_cu/Utils/Styles/app_colors.dart';
 import 'package:an_cu/Views/ChatBot/hive/boxes.dart';
 import 'package:an_cu/Views/ChatBot/hive/chat_history.dart';
 import 'package:an_cu/Views/ChatBot/widgets/chat_history_widget.dart';
@@ -20,7 +20,14 @@ class _ChatHistoryScreenState extends State<ChatHistoryScreen> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         centerTitle: true,
-        leading: const MyBackButton(),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.secondary,
+            )),
         title: const Text('Lịch sử ChatBot'),
       ),
       body: ValueListenableBuilder<Box<ChatHistory>>(
