@@ -1,4 +1,5 @@
 import 'package:an_cu/Controllers/post_controller.dart';
+import 'package:an_cu/Controllers/wishlist_controller.dart';
 import 'package:an_cu/Model/model.dart';
 import 'package:an_cu/Router/app_router.dart';
 import 'package:an_cu/Utils/CommonWidget/asset_check_widget_cloudinary.dart';
@@ -24,6 +25,7 @@ class HomeScreen extends ConsumerWidget {
     final router = ref.watch(goRouterProvider);
     final User? user = FirebaseAuth.instance.currentUser;
     final List<Post> posts = ref.watch(postController);
+    ref.read(wishlistController.notifier).getPostsWishlistsByUID(user!.uid);
 
     return SafeArea(
       child: Scaffold(

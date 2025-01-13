@@ -2,6 +2,7 @@ import 'package:an_cu/Services/fire_auth_service.dart';
 import 'package:an_cu/State/auth_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthNotifier extends StateNotifier<AuthenticationState> {
   AuthNotifier(this._authService) : super(const AuthenticationState.initial());
@@ -45,13 +46,18 @@ class AuthNotifier extends StateNotifier<AuthenticationState> {
   }
 
   Future<void> logout() async {
+    final GoogleSignIn _googleSignIn = GoogleSignIn();
     state = const AuthenticationState.loading();
+    if (await _googleSignIn.isSignedIn()){
+      _googleSignIn.signOut();
+    }
     final response = await _authService.logout();
     state = response.fold(
       (error) => AuthenticationState.unauthenticated(message: error),
       (response) =>
           const AuthenticationState.unauthenticated(message: 'Logged Out'),
     );
+    
   }
 }
 

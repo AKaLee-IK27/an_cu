@@ -1,19 +1,35 @@
+import 'package:an_cu/Controllers/auth_controller.dart';
 import 'package:an_cu/Controllers/post_controller.dart';
 import 'package:an_cu/Model/model.dart';
 import 'package:an_cu/Services/fire_auth_service.dart';
 import 'package:an_cu/Services/fire_store_service.dart';
+import 'package:an_cu/State/auth_state.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class WishlistNotifier extends StateNotifier<List<Post>> {
-  WishlistNotifier(this._fireStoreService, this.user, this.postNotifier) : super([]) {
-    getPostsWishlistsByUID(user.uid);
-  }
+  WishlistNotifier(this._fireStoreService, this.user, this.postNotifier) : super([]);
   
   final FirebaseFirestore _fireStoreService;
   final User user;
   final PostNotifier postNotifier;
+
+  Future<void> newWishlist(String uid) async {
+    try {
+      final Wishlist newWishlist = Wishlist(idUser: uid, idPosts: []);
+      print(newWishlist.toJson());
+      await _fireStoreService
+          .collection('Wishlists')
+          .doc()
+          .set(newWishlist.toJson())
+          .onError((e, _) => print(e));
+
+      state = [];
+    } catch (e) {
+      print(e);
+    }
+  }
 
   Future<void> getWishlists() async {
     try {
@@ -92,7 +108,9 @@ class WishlistNotifier extends StateNotifier<List<Post>> {
       print("Successfully fetched wishlist");
 
       if (snapshot.docs.isNotEmpty) {
-        final wishlist = Wishlist.fromJson(snapshot.docs[0].data() as Map<String, dynamic>);
+        final wishlist = Wishlist.fromJson(snapshot.docs[0].data());
+
+        state = [];
         
         List<Post> posts = [];
         for (var idPost in wishlist.idPosts) {
@@ -100,6 +118,21 @@ class WishlistNotifier extends StateNotifier<List<Post>> {
           if (response != null) {
             posts.add(response);
             state = [...state, response];
+          } else {
+            try {
+              final idWishlist = await getWishlistsByUID(uid);
+              await _fireStoreService
+                  .collection('Wishlists')
+                  .doc(idWishlist)
+                  .update({
+                'idPosts': FieldValue.arrayRemove([idPost]),
+              });
+
+              state = state.where((postWishlist) => postWishlist.id != idPost).toList();
+              print("Successfully removed post ID: $idPost from wishlist: $idWishlist");
+            } catch (e) {
+              print("Error removing post from wishlist: $e");
+            }
           }
         }
 
@@ -108,6 +141,7 @@ class WishlistNotifier extends StateNotifier<List<Post>> {
         print("Posts fetched: $posts");
         return posts;
       } else {
+        newWishlist(uid);
         return [];
       }
     } catch (e) {
