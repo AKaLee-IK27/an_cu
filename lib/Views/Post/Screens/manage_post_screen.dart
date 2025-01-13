@@ -4,16 +4,18 @@ import 'package:an_cu/Services/fire_auth_service.dart';
 import 'package:an_cu/Utils/CommonWidget/app_back_button.dart';
 import 'package:an_cu/Utils/Helpers/screen_size.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
-import 'package:an_cu/Views/Post/Widgets/post_card.dart';
+import 'package:an_cu/Views/Post/Widgets/post_card_manage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ManagePostScreen extends ConsumerWidget {
-  ManagePostScreen({super.key});
+  const ManagePostScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userProvider);
+    final List<Post> allPosts = ref.watch(postController);
+    final posts = allPosts.where((post) => post.createdBy == user.uid).toList();
     print(user.uid);
 
     return SafeArea(
@@ -22,38 +24,25 @@ class ManagePostScreen extends ConsumerWidget {
           leading: const MyBackButton(color: AppColors.secondary),
           title: const Text('Quản lý bài đăng'),
         ),
-        body: FutureBuilder<List<Post>>(
-          future: ref.read(postController.notifier).getDocumentsByCreateBy(user.uid),
-          builder: (context, snapshot) {
-            print(snapshot);
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (snapshot.hasError) {
-              return Center(child: Text('Lỗi: ${snapshot.error}'));
-            }
-            if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const Center(child: Text('Không có bài đăng nào.'));
-            }
-
-            final posts = snapshot.data!;
-            return Padding(
-              padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-              ),
-              child: SizedBox(
-                width: ScreenSize.width(context),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: posts.map((post) => PostCard(post: post)).toList(),
-                  ),
+        body: posts.isEmpty
+          ? const Center(
+              child: Text('Không có bài đăng nào.'),
+          )
+          : Padding(
+            padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+            ),
+            child: SizedBox(
+              width: ScreenSize.width(context),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: posts.map((post) => PostCardManage(post: post)).toList(),
                 ),
               ),
-            );
-          },
-        ),
-      )
+            ),
+          ),
+      ),
     );
   }
 }

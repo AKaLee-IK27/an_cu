@@ -10,7 +10,6 @@ class Post with _$Post {
     String? id,
     required String title,
     int? avgStar,
-    String? content,
     required int createdAt,
     Property? property,
     String? createdBy,

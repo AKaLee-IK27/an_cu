@@ -13,7 +13,7 @@ class WishlistScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(userProvider);
+    final postsWishlist = ref.watch(wishlistController);
 
     return SafeArea(
       child: Scaffold(
@@ -21,37 +21,42 @@ class WishlistScreen extends ConsumerWidget {
           leading: const MyBackButton(color: AppColors.secondary),
           title: const Text('Bài đăng yêu thích'),
         ),
-        body: FutureBuilder<List<Post>>(
-          future: ref.read(wishlistController.notifier).getPostsWishlistsByUID(user.uid),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (snapshot.hasError) {
-              return Center(child: Text('Lỗi: ${snapshot.error}'));
-            }
-            if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const Center(child: Text('Không có bài đăng nào.'));
-            }
+        body: 
+          // FutureBuilder<List<Post>>(
+          // future: ref.read(wishlistController.notifier).getPostsWishlistsByUID(user.uid),
+          // builder: (context, snapshot) {
+          //   if (snapshot.connectionState == ConnectionState.waiting) {
+          //     return const Center(child: CircularProgressIndicator());
+          //   }
+          //   if (snapshot.hasError) {
+          //     return Center(child: Text('Lỗi: ${snapshot.error}'));
+          //   }
+          //   if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          //     return const Center(child: Text('Không có bài đăng nào.'));
+          //   }
 
-            final posts = snapshot.data!;
-            return Padding(
-              padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-              ),
+          //   final posts = snapshot.data!;
+
+          postsWishlist.isEmpty
+          ? const Center(
+              child: Text('Không có bài đăng nào.'),
+          )
+          : Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
               child: SizedBox(
                 width: ScreenSize.width(context),
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: posts.map((post) => PostCard(post: post)).toList(),
+                    children: postsWishlist
+                        .map((post) => PostCard(post: post))
+                        .toList(),
                   ),
                 ),
               ),
-            );
-          },
+          ),
         ),
-      )
-    );
+      );
+    // );
   }
 }

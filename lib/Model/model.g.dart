@@ -10,7 +10,6 @@ _$PostImpl _$$PostImplFromJson(Map<String, dynamic> json) => _$PostImpl(
       id: json['id'] as String?,
       title: json['title'] as String,
       avgStar: (json['avgStar'] as num?)?.toInt(),
-      content: json['content'] as String?,
       createdAt: (json['createdAt'] as num).toInt(),
       property: json['property'] == null
           ? null
@@ -28,7 +27,6 @@ Map<String, dynamic> _$$PostImplToJson(_$PostImpl instance) =>
       'id': instance.id,
       'title': instance.title,
       'avgStar': instance.avgStar,
-      'content': instance.content,
       'createdAt': instance.createdAt,
       'property': instance.property?.toJson(),
       'createdBy': instance.createdBy,

@@ -23,7 +23,6 @@ mixin _$Post {
   String? get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   int? get avgStar => throw _privateConstructorUsedError;
-  String? get content => throw _privateConstructorUsedError;
   int get createdAt => throw _privateConstructorUsedError;
   Property? get property => throw _privateConstructorUsedError;
   String? get createdBy => throw _privateConstructorUsedError;
@@ -49,7 +48,6 @@ abstract class $PostCopyWith<$Res> {
       {String? id,
       String title,
       int? avgStar,
-      String? content,
       int createdAt,
       Property? property,
       String? createdBy,
@@ -78,7 +76,6 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
     Object? id = freezed,
     Object? title = null,
     Object? avgStar = freezed,
-    Object? content = freezed,
     Object? createdAt = null,
     Object? property = freezed,
     Object? createdBy = freezed,
@@ -99,10 +96,6 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
           ? _value.avgStar
           : avgStar // ignore: cast_nullable_to_non_nullable
               as int?,
-      content: freezed == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
-              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -156,7 +149,6 @@ abstract class _$$PostImplCopyWith<$Res> implements $PostCopyWith<$Res> {
       {String? id,
       String title,
       int? avgStar,
-      String? content,
       int createdAt,
       Property? property,
       String? createdBy,
@@ -183,7 +175,6 @@ class __$$PostImplCopyWithImpl<$Res>
     Object? id = freezed,
     Object? title = null,
     Object? avgStar = freezed,
-    Object? content = freezed,
     Object? createdAt = null,
     Object? property = freezed,
     Object? createdBy = freezed,
@@ -204,10 +195,6 @@ class __$$PostImplCopyWithImpl<$Res>
           ? _value.avgStar
           : avgStar // ignore: cast_nullable_to_non_nullable
               as int?,
-      content: freezed == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
-              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -244,7 +231,6 @@ class _$PostImpl implements _Post {
       {this.id,
       required this.title,
       this.avgStar,
-      this.content,
       required this.createdAt,
       this.property,
       this.createdBy,
@@ -262,8 +248,6 @@ class _$PostImpl implements _Post {
   final String title;
   @override
   final int? avgStar;
-  @override
-  final String? content;
   @override
   final int createdAt;
   @override
@@ -287,7 +271,7 @@ class _$PostImpl implements _Post {
 
   @override
   String toString() {
-    return 'Post(id: $id, title: $title, avgStar: $avgStar, content: $content, createdAt: $createdAt, property: $property, createdBy: $createdBy, verified: $verified, comments: $comments, status: $status)';
+    return 'Post(id: $id, title: $title, avgStar: $avgStar, createdAt: $createdAt, property: $property, createdBy: $createdBy, verified: $verified, comments: $comments, status: $status)';
   }
 
   @override
@@ -298,7 +282,6 @@ class _$PostImpl implements _Post {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.avgStar, avgStar) || other.avgStar == avgStar) &&
-            (identical(other.content, content) || other.content == content) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.property, property) ||
@@ -318,7 +301,6 @@ class _$PostImpl implements _Post {
       id,
       title,
       avgStar,
-      content,
       createdAt,
       property,
       createdBy,
@@ -347,7 +329,6 @@ abstract class _Post implements Post {
       {final String? id,
       required final String title,
       final int? avgStar,
-      final String? content,
       required final int createdAt,
       final Property? property,
       final String? createdBy,
@@ -363,8 +344,6 @@ abstract class _Post implements Post {
   String get title;
   @override
   int? get avgStar;
-  @override
-  String? get content;
   @override
   int get createdAt;
   @override

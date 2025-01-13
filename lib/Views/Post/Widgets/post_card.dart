@@ -4,8 +4,11 @@ import 'package:an_cu/Router/app_router.dart';
 import 'package:an_cu/Utils/Styles/app_colors.dart';
 import 'package:an_cu/Utils/Styles/app_sizes.dart';
 import 'package:an_cu/Utils/Styles/app_text_styles.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloudinary_flutter/image/cld_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart' as http;
 
 class PostCard extends ConsumerWidget {
   final Post post;
@@ -37,69 +40,86 @@ class PostCard extends ConsumerWidget {
         child: Row(
           children: [
             Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  image: const DecorationImage(
-                    image: AssetImage('assets/images/demo_property.jpg'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        decoration: const BoxDecoration(
-                          color: AppColors.primary,
-                          shape: BoxShape.circle,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Container(
+                      child:  post.property!.images!.isNotEmpty ? CachedNetworkImage(
+                        imageUrl: post.property?.images?.first ?? "" ,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) => const Center(
+                          child: CircularProgressIndicator(),
                         ),
-                        child: IconButton(
-                          onPressed: () {ref.read(wishlistController.notifier).addPostToWishList(post);},
-                          icon: const Icon(
-                            Icons.favorite_border,
-                            color: AppColors.white,
+                        errorWidget: (context, url, error) => Center(
+                          child: Image.asset('assets/images/demo_property.jpg', fit: BoxFit.cover,),
+                        ),
+                      ) : Image.asset('assets/images/demo_property.jpg', fit: BoxFit.cover,),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            decoration: const BoxDecoration(
+                              color: AppColors.primary,
+                              shape: BoxShape.circle,
+                            ),
+                            child: IconButton(
+                              onPressed: () {
+                                ref
+                                    .read(wishlistController.notifier)
+                                    .addPostToWishList(post);
+                              },
+                              icon: const Icon(
+                                Icons.favorite_border,
+                                color: AppColors.white,
+                              ),
+                            ),
                           ),
-                        ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 8,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.secondary,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              property?.propertyType ?? "",
+                              style: AppTextStyles.body.copyWith(
+                                color: AppColors.white,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 8,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.secondary,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(
-                          property?.propertyType ?? "",
-                          style: AppTextStyles.body
-                              .copyWith(color: AppColors.white),
-                        ),
-                      )
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
             gapW20,
             Flexible(
+              fit: FlexFit.loose,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  Text(
+                    post.title,
+                    style: AppTextStyles.title
+                        .copyWith(color: AppColors.secondary, fontSize: 18, ),
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        post.title,
-                        style: AppTextStyles.title
-                            .copyWith(color: AppColors.secondary, fontSize: 18, ),
-                        maxLines: 4,
-                        overflow: TextOverflow.ellipsis,
-                      ),
                       Row(
                         children: [
                           const Icon(
@@ -109,7 +129,7 @@ class PostCard extends ConsumerWidget {
                           gapW4,
                           Expanded(
                             child: Text(
-                              "${property?.address}, ${property?.district}, ${property?.province}",
+                              "${property?.district}, ${property?.province}",
                               style: AppTextStyles.body,
                             ),
                           ),
@@ -141,11 +161,11 @@ class PostCard extends ConsumerWidget {
                               color: AppColors.secondary,
                             ),
                           ),
-                          TextSpan(
-                            text: "/month",
-                            style: AppTextStyles.body
-                                .copyWith(color: AppColors.secondary),
-                          ),
+                          // TextSpan(
+                          //   text: "/month",
+                          //   style: AppTextStyles.body
+                          //       .copyWith(color: AppColors.secondary),
+                          // ),
                         ],
                       ),
                     ),

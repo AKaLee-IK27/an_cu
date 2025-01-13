@@ -18,7 +18,7 @@ class PostNotifier extends StateNotifier<List<Post>> {
       print(post.toJson());
       await _fireStoreService
           .collection('Posts')
-          .doc(user.email)
+          .doc()
           .set(post.toJson())
           .onError((e, _) => print(e));
 
@@ -33,7 +33,7 @@ class PostNotifier extends StateNotifier<List<Post>> {
       await _fireStoreService.collection('Posts').get().then((querySnapshot) {
         print("Successfully fetched posts");
         for (var doc in querySnapshot.docs) {
-          print(doc.data());
+          // print(doc.data());
           final post = Post.fromJson(doc.data()).copyWith(id: doc.id);
 
           state = [...state, post];
@@ -44,15 +44,15 @@ class PostNotifier extends StateNotifier<List<Post>> {
     }
   }
 
-  Future<void> deletePost(String postId) async {
+  Future<void> deletePost(Post deletePost) async {
     try {
       await _fireStoreService
           .collection('Posts')
-          .doc(user.uid)
+          .doc(deletePost.id)
           .delete()
           .onError((e, _) => print(e));
 
-      state = state.where((post) => post.id != postId).toList();
+      state = state.where((post) => post.id != deletePost.id).toList();
     } catch (e) {
       print(e);
     }

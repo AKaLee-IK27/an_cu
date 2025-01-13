@@ -6,11 +6,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class WishlistNotifier extends StateNotifier<List<Wishlist>> {
+class WishlistNotifier extends StateNotifier<List<Post>> {
   WishlistNotifier(this._fireStoreService, this.user, this.postNotifier) : super([]) {
-    getWishlists();
+    getPostsWishlistsByUID(user.uid);
   }
-
+  
   final FirebaseFirestore _fireStoreService;
   final User user;
   final PostNotifier postNotifier;
@@ -21,9 +21,9 @@ class WishlistNotifier extends StateNotifier<List<Wishlist>> {
         print("Successfully fetched posts");
         for (var doc in querySnapshot.docs) {
           print(doc.data());
-          final wishlist = Wishlist.fromJson(doc.data());
+          // final wishlist = Wishlist.fromJson(doc.data());
 
-          state = [...state, wishlist];
+          // state = [...state, wishlist];
         }
       }, onError: (e) => print(e));
     } catch (e) {
@@ -40,7 +40,8 @@ class WishlistNotifier extends StateNotifier<List<Wishlist>> {
         .update({
           'idPosts': FieldValue.arrayUnion([post.id]),
         });
-      
+        
+      state = [...state, post];
     } catch (e) {
       print(e);
     }
@@ -55,6 +56,8 @@ class WishlistNotifier extends StateNotifier<List<Wishlist>> {
         .update({
       'idPosts': FieldValue.arrayRemove([post.id]),
     });
+
+    state = state.where((postWishlist) => postWishlist.id != post.id).toList();
     print("Successfully removed post ID: ${post.id} from wishlist: $idWishlist");
   } catch (e) {
     print("Error removing post from wishlist: $e");
@@ -96,8 +99,11 @@ class WishlistNotifier extends StateNotifier<List<Wishlist>> {
           final response = await postNotifier.getPostById(idPost);
           if (response != null) {
             posts.add(response);
+            state = [...state, response];
           }
         }
+
+        
 
         print("Posts fetched: $posts");
         return posts;
@@ -110,7 +116,7 @@ class WishlistNotifier extends StateNotifier<List<Wishlist>> {
   }
 }
 
-final wishlistController = StateNotifierProvider<WishlistNotifier, List<Wishlist>>(
+final wishlistController = StateNotifierProvider<WishlistNotifier, List<Post>>(
   (ref) => WishlistNotifier(
     ref.watch(firebaseFireStoreProvider),
     ref.watch(userProvider),
