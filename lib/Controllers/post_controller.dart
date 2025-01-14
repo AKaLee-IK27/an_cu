@@ -42,6 +42,10 @@ class PostNotifier extends StateNotifier<List<Post>> {
         .toList();
   }
 
+  Future<void> showSoldProperty() async {
+    state = originalPost.where((post) => post.status != "pending").toList();
+  }
+
   Future<void> getPosts() async {
     try {
       await _fireStoreService.collection('Posts').get().then((querySnapshot) {

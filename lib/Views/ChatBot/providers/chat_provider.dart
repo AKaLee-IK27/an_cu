@@ -342,6 +342,7 @@ class ChatProvider extends ChangeNotifier {
               element.role.name == Role.assistant.name)
           .message
           .write(event.text);
+
       log('event: ${event.text}');
       notifyListeners();
     }, onDone: () async {
@@ -425,7 +426,7 @@ class ChatProvider extends ChangeNotifier {
         "Bạn là chuyên gia về bất động sản của An Cư Connect được phát triển bởi Lê Anh Khôi và Đặng Đạt Phát. Chỉ hỗ trợ các thông tin liên quan tới bất động sản, nếu không liên quan trả lời là nội dung không được hỗ trợ. Hãy trả lời tất cả các câu hỏi của người dùng liên quan đến việc mua, bán, thuê nhà, căn hộ, đất đai. Nếu câu hỏi không liên quan đến bất động sản, hãy lịch sự chuyển hướng cuộc trò chuyện về chủ đề này. Trả lời bằng tiếng Việt: ";
     if (isTextOnly) {
       // generate text from text-only input
-    
+
       return Content.text("$defaultPrompt$message");
     } else {
       // generate image from text and image input

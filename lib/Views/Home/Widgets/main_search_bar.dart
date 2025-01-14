@@ -53,17 +53,21 @@ class MainSearchBar extends ConsumerWidget {
                 minWidth: 100.0,
               ),
               isSelected: ref.watch(searchBarModeProvider),
-              onPressed: (int index) {
+              onPressed: (int index) async {
                 if (index == 0) {
                   ref.read(searchBarModeProvider.notifier).state = [
                     true,
                     false
                   ];
+                  await ref
+                      .read(postController.notifier)
+                      .searchPostByProvince("");
                 } else {
                   ref.read(searchBarModeProvider.notifier).state = [
                     false,
                     true
                   ];
+                  await ref.read(postController.notifier).showSoldProperty();
                 }
               },
               children: const [
