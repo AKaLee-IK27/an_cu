@@ -28,6 +28,16 @@ class _ChatScreenState extends State<ChatScreen> {
     super.dispose();
   }
 
+  @override
+  void initState() {
+    super.initState();
+    // Set chatbot personality when the screen is initialized
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final chatProvider = context.read<ChatProvider>();
+      chatProvider.setChatBotPersonality();
+    });
+  }
+
   void _scrollToBottom() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_scrollController.hasClients &&
@@ -85,9 +95,9 @@ class _ChatScreenState extends State<ChatScreen> {
                         // show my animated dialog to start new chat
                         showMyAnimatedDialog(
                           context: context,
-                          title: 'Start New Chat',
-                          content: 'Are you sure you want to start a new chat?',
-                          actionText: 'Yes',
+                          title: 'Mở đoạn chat mới',
+                          content: 'Bạn có muốn mở đoạn chat mới không?',
+                          actionText: 'Có',
                           onActionPressed: (value) async {
                             if (value) {
                               // prepare chat room

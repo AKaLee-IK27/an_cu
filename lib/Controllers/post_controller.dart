@@ -12,6 +12,7 @@ class PostNotifier extends StateNotifier<List<Post>> {
 
   final FirebaseFirestore _fireStoreService;
   final User user;
+  final List<Post> originalPost = [];
 
   Future<void> addPost(Post post) async {
     try {
@@ -28,6 +29,23 @@ class PostNotifier extends StateNotifier<List<Post>> {
     }
   }
 
+  Future<void> searchPostByProvince(String province) async {
+    print("Search by province: $province");
+    print(originalPost.length);
+    if (province == "") {
+      state = originalPost;
+      return;
+    }
+
+    state = originalPost
+        .where((post) => post.property?.province == province)
+        .toList();
+  }
+
+  Future<void> showSoldProperty() async {
+    state = originalPost.where((post) => post.status != "pending").toList();
+  }
+
   Future<void> getPosts() async {
     try {
       await _fireStoreService.collection('Posts').get().then((querySnapshot) {
@@ -38,6 +56,7 @@ class PostNotifier extends StateNotifier<List<Post>> {
 
           state = [...state, post];
         }
+        originalPost.addAll(state);
       }, onError: (e) => print(e));
     } catch (e) {
       print(e);
@@ -80,7 +99,8 @@ class PostNotifier extends StateNotifier<List<Post>> {
           .get();
 
       List<Post> listPost = querySnapshot.docs.map((doc) {
-        return Post.fromJson(doc.data() as Map<String, dynamic>).copyWith(id: doc.id);
+        return Post.fromJson(doc.data() as Map<String, dynamic>)
+            .copyWith(id: doc.id);
       }).toList();
 
       return listPost;
@@ -92,13 +112,12 @@ class PostNotifier extends StateNotifier<List<Post>> {
 
   Future<Post?> getPostById(String id) async {
     try {
-      DocumentSnapshot snapshot = await _fireStoreService
-        .collection('Posts')
-        .doc(id)
-        .get();
-      
-      return Post.fromJson(snapshot.data() as Map<String, dynamic>).copyWith(id: id);
-    } catch(e) {
+      DocumentSnapshot snapshot =
+          await _fireStoreService.collection('Posts').doc(id).get();
+
+      return Post.fromJson(snapshot.data() as Map<String, dynamic>)
+          .copyWith(id: id);
+    } catch (e) {
       return null;
     }
   }

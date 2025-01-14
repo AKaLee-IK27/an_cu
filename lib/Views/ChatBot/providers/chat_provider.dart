@@ -71,6 +71,22 @@ class ChatProvider extends ChangeNotifier {
 
   // setters
 
+  Future<void> setChatBotPersonality() async {
+    // Set the initial personality message for the chatbot
+    final initialMessage = Message(
+      messageId: const Uuid().v4(),
+      chatId: getChatId(),
+      role: Role.assistant,
+      message: StringBuffer(
+          "Xin chào! Tôi là ChatBot của An Cư Connect. Tôi có thể giúp gì cho bạn?"),
+      timeSent: DateTime.now(),
+      imagesUrls: [],
+    );
+
+    _inChatMessages.add(initialMessage);
+    notifyListeners();
+  }
+
   // set inChatMessages
   Future<void> setInChatMessages({required String chatId}) async {
     // get messages from hive database
@@ -290,7 +306,7 @@ class ChatProvider extends ChangeNotifier {
     required bool isTextOnly,
     required List<Content> history,
     required Message userMessage,
-    required String modelMessageId, // ? Add this line
+    required String modelMessageId,
     required Box messagesBox,
   }) async {
     // start the chat session - only send history is its text-only
@@ -326,6 +342,7 @@ class ChatProvider extends ChangeNotifier {
               element.role.name == Role.assistant.name)
           .message
           .write(event.text);
+
       log('event: ${event.text}');
       notifyListeners();
     }, onDone: () async {
@@ -377,13 +394,40 @@ class ChatProvider extends ChangeNotifier {
     await messagesBox.close();
   }
 
+  bool isRealEstateRelated(String message) {
+    final realEstateKeywords = [
+      'bất động sản',
+      'nhà đất',
+      'mua nhà',
+      'bán nhà',
+      'thuê nhà',
+      'chung cư',
+      'căn hộ',
+      'đất nền',
+      'dự án',
+      'giá nhà',
+      'thủ tục mua nhà',
+      'đầu tư bất động sản'
+    ];
+
+    for (var keyword in realEstateKeywords) {
+      if (message.toLowerCase().contains(keyword)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   Future<Content> getContent({
     required String message,
     required bool isTextOnly,
   }) async {
+    const defaultPrompt =
+        "Bạn là chuyên gia về bất động sản của An Cư Connect được phát triển bởi Lê Anh Khôi và Đặng Đạt Phát. Chỉ hỗ trợ các thông tin liên quan tới bất động sản, nếu không liên quan trả lời là nội dung không được hỗ trợ. Hãy trả lời tất cả các câu hỏi của người dùng liên quan đến việc mua, bán, thuê nhà, căn hộ, đất đai. Nếu câu hỏi không liên quan đến bất động sản, hãy lịch sự chuyển hướng cuộc trò chuyện về chủ đề này. Trả lời bằng tiếng Việt: ";
     if (isTextOnly) {
       // generate text from text-only input
-      return Content.text(message);
+
+      return Content.text("$defaultPrompt$message");
     } else {
       // generate image from text and image input
       final imageFutures = _imagesFileList
